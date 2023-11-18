@@ -11,7 +11,7 @@
 
     <title>SSC YOLO</title>
 
-    <!-- Custom fonts for this template-->
+    <!-- Custom fonts for this template-- sasample data only daw  be>
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}">
@@ -201,78 +201,15 @@
         //Cebu Coordinates
         { lat: 10.315699, lng: 123.885437, info: "Seaweed" },
         { lat: 9.5167, lng: 123.4333, info: "Seagrass" },
-        { lat: 9.9556609, lng: 123.4007598, info: "Coral" },
-    
-        { lat: 10.52083, lng: 124.02722, info: "Seaweed" },
-        { lat: 10.389265, lng: 123.670719, info: "Seagrass" },
-        { lat: 10.763117, lng: 123.963853, info: "Coral" },
-    
-        { lat: 10.30446, lng: 123.89094, info: "Seaweed" },
-        { lat: 9.45625732741, lng: 123.377132134, info: "Seagrass" },
-        { lat: 9.86936, lng: 123.396, info: "Coral" },
-    
-        { lat: 10.2439, lng: 123.9416, info: "Seaweed" },
-        { lat: 10.3231, lng: 124.0349, info: "Seagrass" },
-        { lat: 10.2902, lng: 123.9984, info: "Coral" },
-
-        { lat: 10.1880, lng: 123.6017, info: "Seaweed" },
-        { lat: 9.5020, lng: 123.5333, info: "Seagrass" },
-        { lat: 9.8014, lng: 123.4873, info: "Coral" },
-
-        { lat: 10.2207, lng: 123.7409, info: "Seaweed" },
-        { lat: 10.1755, lng: 123.6979, info: "Seagrass" },
-        { lat: 10.2953, lng: 123.8417, info: "Coral" },
-
-        { lat: 10.1661, lng: 123.6334, info: "Seaweed" },
-        { lat: 9.4511, lng: 123.5156, info: "Seagrass" },
-        { lat: 9.7214, lng: 123.5086, info: "Coral" },
-
-        { lat: 10.1844, lng: 123.8185, info: "Seaweed" },
-        { lat: 10.2263, lng: 123.8792, info: "Seagrass" },
-        { lat: 10.2587, lng: 123.8261, info: "Coral" },
-
-        //Bohol Coordinates
-        { lat: 9.6442, lng: 123.8450, info: "Seaweed" },
-        { lat: 9.6467, lng: 123.8450, info: "Seagrass" },
-        { lat: 9.6480, lng: 123.8440, info: "Coral" },
-
-        { lat: 9.6522, lng: 123.8440, info: "Seaweed" },
-        { lat: 9.6560, lng: 123.8455, info: "Seagrass" },
-        { lat: 9.6602, lng: 123.8437, info: "Coral" },
-
-        { lat: 9.6640, lng: 123.8412, info: "Seaweed" },
-        { lat: 9.6675, lng: 123.8412, info: "Seagrass" },
-        { lat: 9.6710, lng: 123.8412, info: "Coral" },
-
-        { lat: 9.6750, lng: 123.8410, info: "Seaweed" },
-        { lat: 9.6788, lng: 123.8410, info: "Seagrass" },
-        { lat: 9.6820, lng: 123.8407, info: "Coral" },
-
-        //San Carlos City
-        { lat: 10.339527, lng: 123.977258, info: "Seaweed" },
-        { lat: 10.348685, lng: 123.993995, info: "Seagrass" },
-        { lat: 10.333141, lng: 123.985550, info: "Coral" },
-
-        { lat: 10.331689, lng: 123.977142, info: "Seaweed" },
-        { lat: 10.318110, lng: 123.966739, info: "Seagrass" },
-        { lat: 10.314305, lng: 123.953607, info: "Coral" },
-
-        { lat: 10.320946, lng: 123.991985, info: "Seaweed" },
-        { lat: 10.321607, lng: 123.977323, info: "Seagrass" },
-        { lat: 10.330951, lng: 123.986529, info: "Coral" },
-
-        { lat: 10.313603, lng: 123.982850, info: "Seaweed" },
-        { lat: 10.326648, lng: 123.989270, info: "Seagrass" },
-        { lat: 10.321136, lng: 123.979558, info: "Coral" }
-
+        { lat: 9.9556609, lng: 123.4007598, info: "Coral" }
 
       ];
     
       // Define custom icons for different marker types
       const iconMapping = {
-        "Seaweed": 'img/seaweed.png', // Replace with the URL of the Seaweed icon
-        "Seagrass": 'my-msit-thesis/thesisMapping/seagrass.png/seagrass.png', // Replace with the URL of the Seagrass icon
-        "Coral": 'img/coral.png', // Replace with the URL of the Coral icon
+        "Seaweed": 'static/icons/seaweed.png', // Replace with the URL of the Seaweed icon
+        "Seagrass": 'static/icons/seagrass.png', // Replace with the URL of the Seagrass icon
+        "Coral": 'static/icons/coral.png', // Replace with the URL of the Coral icon test
       };
     
       markers.forEach((m) => {
