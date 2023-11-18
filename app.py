@@ -24,7 +24,7 @@ def index():
     all_image_data = ImageData.query.all()
     
     # Pass the data to the template
-    return render_template('index.html', all_image_data=all_image_data)
+    return render_template('input-file.html', all_image_data=all_image_data)
 
 
 @app.route('/submit', methods=['POST'])
@@ -40,7 +40,7 @@ def submit():
 
         # Save the image to the 'static' folder (create 'static' folder in the same directory as 'app.py')
         # image.save(f'static/{image.filename}')
-        image.save(f'TrainYourOwnYOLO/Data/Source_Images/Test_Images/{image.filename}')
+        image.save(f'D:/TrainYourOwnYOLO/Data/Source_Images/Test_Images/{image.filename}')
 
         # Create a new ImageData instance
         new_image_data = ImageData(image=image.filename, date_imported=date_imported,
@@ -51,7 +51,7 @@ def submit():
         db.session.add(new_image_data)
         db.session.commit()
 
-        subprocess.run(['python', 'Detector.py'])
+        subprocess.run(['python', 'D:/TrainYourOwnYOLO/3_Inference/Detector.py'])
 
         # Pass the new data to the template for rendering
         return redirect(url_for('check_info', new_data=new_image_data.id))
