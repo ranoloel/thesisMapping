@@ -1,0 +1,54 @@
+node_modules
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Python virtual environment
+venv/
+env/
+*.pyc
+*.pyo
+*.pyd
+
+# Flask environment variables
+.env
+
+# SQLite database file
+*.sqlite
+
+# Logs
+*.log
+
+# Compiled Python files
+*.pyc
+
+# Coverage data
+.coverage
+
+# Local development settings
+instance/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Installed packages
+*.egg
+*.egg-info
+dist/
+build/
+eggs/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# System files
+.DS_Store
+Thumbs.db

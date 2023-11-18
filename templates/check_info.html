@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Info</title>
+</head>
+<body>
+    <h1>Check the info</h1>
+    {% if new_image_data %}
+        <p>ID: {{ new_image_data.id }}</p>
+        <p>Image: {{ new_image_data.image }}</p>
+        <p>Date Imported: {{ new_image_data.date_imported }}</p>
+        <p>Latitude: {{ new_image_data.latitude }}</p>
+        <p>Longitude: {{ new_image_data.longitude }}</p>
+        <p>Class Type: {{ new_image_data.class_type}}</p>
+        <p>Status: {{ new_image_data.status }}</p>
+        <!-- Add more fields as needed -->
+    {% else %}
+        <p>No data found for the provided ID.</p>
+    {% endif %}
+    <h1>Display inprogress bar here! Once Done Click submit</h1>
+    <h1>Check the info</h1>
+    <input type="submit" value="Submit">
+</body>
+</html>

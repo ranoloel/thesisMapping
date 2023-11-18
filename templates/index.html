@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SSC YOLO</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
+
+
+
+    <!-- Philippines Map with API key-->
+    <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o&callback=console.debug&libraries=maps,marker&v=beta"></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                </div>
+                <div class="sidebar-brand-text mx-3">SSC YOLO</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-camera"></i>
+                    <span>Camera</span></a>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Submit image:</h6>
+                        <a class="collapse-item" href="templates/camera.html">Camera</a>
+                        <a class="collapse-item" href="Coral.html">Gallery</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Pages</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Classes Pages:</h6>
+                        <a class="collapse-item" href="Seaweed.html">Seaweeds</a>
+                        <a class="collapse-item" href="Coral.html">Corals</a>
+                        <a class="collapse-item" href="Seagrass.html">Seagrass</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Charts</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Map Legend</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <!-- <gmp-map center="10.315699,123.885437" zoom="14" map-id="DEMO_MAP_ID">
+                                            <gmp-advanced-marker position="10.315699,123.885437" title="My location">
+                                            </gmp-advanced-marker>
+                                        </gmp-map> -->
+                                        <div id="map" style="height: 500px; width: 100%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Content Column -->
+                        <div class="col-lg-6 mb-4">
+
+
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; elmoranolo2023</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+<script>
+    let map;
+    
+    function initializeMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 10.315699, lng: 123.885437 },
+        zoom: 8,
+      });
+    
+      const markers = [
+        //Cebu Coordinates
+        { lat: 10.315699, lng: 123.885437, info: "Seaweed" },
+        { lat: 9.5167, lng: 123.4333, info: "Seagrass" },
+        { lat: 9.9556609, lng: 123.4007598, info: "Coral" },
+    
+        { lat: 10.52083, lng: 124.02722, info: "Seaweed" },
+        { lat: 10.389265, lng: 123.670719, info: "Seagrass" },
+        { lat: 10.763117, lng: 123.963853, info: "Coral" },
+    
+        { lat: 10.30446, lng: 123.89094, info: "Seaweed" },
+        { lat: 9.45625732741, lng: 123.377132134, info: "Seagrass" },
+        { lat: 9.86936, lng: 123.396, info: "Coral" },
+    
+        { lat: 10.2439, lng: 123.9416, info: "Seaweed" },
+        { lat: 10.3231, lng: 124.0349, info: "Seagrass" },
+        { lat: 10.2902, lng: 123.9984, info: "Coral" },
+
+        { lat: 10.1880, lng: 123.6017, info: "Seaweed" },
+        { lat: 9.5020, lng: 123.5333, info: "Seagrass" },
+        { lat: 9.8014, lng: 123.4873, info: "Coral" },
+
+        { lat: 10.2207, lng: 123.7409, info: "Seaweed" },
+        { lat: 10.1755, lng: 123.6979, info: "Seagrass" },
+        { lat: 10.2953, lng: 123.8417, info: "Coral" },
+
+        { lat: 10.1661, lng: 123.6334, info: "Seaweed" },
+        { lat: 9.4511, lng: 123.5156, info: "Seagrass" },
+        { lat: 9.7214, lng: 123.5086, info: "Coral" },
+
+        { lat: 10.1844, lng: 123.8185, info: "Seaweed" },
+        { lat: 10.2263, lng: 123.8792, info: "Seagrass" },
+        { lat: 10.2587, lng: 123.8261, info: "Coral" },
+
+        //Bohol Coordinates
+        { lat: 9.6442, lng: 123.8450, info: "Seaweed" },
+        { lat: 9.6467, lng: 123.8450, info: "Seagrass" },
+        { lat: 9.6480, lng: 123.8440, info: "Coral" },
+
+        { lat: 9.6522, lng: 123.8440, info: "Seaweed" },
+        { lat: 9.6560, lng: 123.8455, info: "Seagrass" },
+        { lat: 9.6602, lng: 123.8437, info: "Coral" },
+
+        { lat: 9.6640, lng: 123.8412, info: "Seaweed" },
+        { lat: 9.6675, lng: 123.8412, info: "Seagrass" },
+        { lat: 9.6710, lng: 123.8412, info: "Coral" },
+
+        { lat: 9.6750, lng: 123.8410, info: "Seaweed" },
+        { lat: 9.6788, lng: 123.8410, info: "Seagrass" },
+        { lat: 9.6820, lng: 123.8407, info: "Coral" },
+
+        //San Carlos City
+        { lat: 10.339527, lng: 123.977258, info: "Seaweed" },
+        { lat: 10.348685, lng: 123.993995, info: "Seagrass" },
+        { lat: 10.333141, lng: 123.985550, info: "Coral" },
+
+        { lat: 10.331689, lng: 123.977142, info: "Seaweed" },
+        { lat: 10.318110, lng: 123.966739, info: "Seagrass" },
+        { lat: 10.314305, lng: 123.953607, info: "Coral" },
+
+        { lat: 10.320946, lng: 123.991985, info: "Seaweed" },
+        { lat: 10.321607, lng: 123.977323, info: "Seagrass" },
+        { lat: 10.330951, lng: 123.986529, info: "Coral" },
+
+        { lat: 10.313603, lng: 123.982850, info: "Seaweed" },
+        { lat: 10.326648, lng: 123.989270, info: "Seagrass" },
+        { lat: 10.321136, lng: 123.979558, info: "Coral" }
+
+
+      ];
+    
+      // Define custom icons for different marker types
+      const iconMapping = {
+        "Seaweed": 'img/seaweed.png', // Replace with the URL of the Seaweed icon
+        "Seagrass": 'my-msit-thesis/thesisMapping/seagrass.png/seagrass.png', // Replace with the URL of the Seagrass icon
+        "Coral": 'img/coral.png', // Replace with the URL of the Coral icon
+      };
+    
+      markers.forEach((m) => {
+        const customMarkerIcon = {
+          url: iconMapping[m.info], // Select the appropriate icon based on m.info
+          scaledSize: new google.maps.Size(32, 32),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(16, 32),
+        };
+    
+        const marker = new google.maps.Marker({
+          position: { lat: m.lat, lng: m.lng },
+          map: map,
+          icon: customMarkerIcon,
+        });
+    
+        const popupContent = new google.maps.InfoWindow();
+    
+        google.maps.event.addListener(marker, "click", (function (marker) {
+          return function () {
+            popupContent.setContent(m.info);
+            popupContent.open(map, marker);
+          };
+        })(marker));
+      });
+    }
+    google.maps.event.addDomListener(window, "load", initializeMap);
+    </script>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- Core plugin JavaScript-->  
+    <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{{ url_for('static', filename='js/sb-admin-2.min.js') }}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js') }}"></script>
+
+
+    <!-- Page level custom scripts -->
+    <script src="{{ url_for('static', filename='js/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/demo/chart-pie-demo.js') }}"></script>
+
+</body>
+
+</html>
