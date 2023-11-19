@@ -35,6 +35,8 @@ def submit():
         date_imported = datetime.strptime(request.form['date_imported'], '%Y-%m-%dT%H:%M')
         latitude = request.form['latitude']
         longitude = request.form['longitude']
+        
+        # Will try to access results from subprocess
         class_type = request.form['class_type']
         status = request.form['status']
 
