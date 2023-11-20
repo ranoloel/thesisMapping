@@ -10,7 +10,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 class ImageData(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     image = db.Column(db.String(100), nullable=False)
     date_imported = db.Column(db.Date, nullable=False)
     latitude = db.Column(db.String(20), nullable=False)
@@ -24,8 +24,31 @@ def index():
     all_image_data = ImageData.query.all()
     
     # Pass the data to the template
-    return render_template('input-file.html', all_image_data=all_image_data)
+    return render_template('index.html', all_image_data=all_image_data)
 
+@app.route('/camera')
+def camera():
+    return render_template('camera.html')
+
+@app.route('/gallery')
+def gallery():
+    return render_template('gallery.html')
+
+@app.route('/chart')
+def chart():
+    return render_template('chart.html')
+
+@app.route('/seaweed')
+def seaweed():
+    return render_template('seaweed.html')
+
+@app.route('/seagrass')
+def seagrass():
+    return render_template('seagrass.html')
+
+@app.route('/coral')
+def coral():
+    return render_template('coral.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -42,7 +65,7 @@ def submit():
 
         # Save the image to the 'static' folder (create 'static' folder in the same directory as 'app.py')
         # image.save(f'static/{image.filename}')
-        image.save(f'D:/TrainYourOwnYOLO/Data/Source_Images/Test_Images/{image.filename}')
+        image.save(f'static/uploads/{image.filename}')
 
         # Create a new ImageData instance
         new_image_data = ImageData(image=image.filename, date_imported=date_imported,
@@ -53,7 +76,7 @@ def submit():
         db.session.add(new_image_data)
         db.session.commit()
 
-        subprocess.run(['python', 'D:/TrainYourOwnYOLO/3_Inference/Detector.py'])
+        subprocess.run(['python', 'NotThisDetector.py'])
 
         # Pass the new data to the template for rendering
         return redirect(url_for('check_info', new_data=new_image_data.id))

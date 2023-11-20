@@ -12,16 +12,13 @@
     <title>SSC YOLO</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
-
-    <!-- Uncomment to enable the map -->
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script> -->
 
 </head>
 
@@ -117,16 +114,60 @@
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Map Legend</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Gallery Details</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
-                                        <!-- <gmp-map center="10.315699,123.885437" zoom="14" map-id="DEMO_MAP_ID">
-                                            <gmp-advanced-marker position="10.315699,123.885437" title="My location">
-                                            </gmp-advanced-marker>
-                                        </gmp-map> -->
-                                        <div id="map" style="height: 500px; width: 100%;">This is for more Map Access</div>
+                                        <div id="map" style="height: 500px; width: 100%;">
+
+                                            <h1>Image Form</h1>
+                                            <form action="/submit" method="post" enctype="multipart/form-data">
+                                                <label for="image">Import Image:</label>
+                                                <input type="file" name="image" accept="image/*" required><br>
+                                        
+                                                <label for="date_imported">Date Imported:</label>
+                                                <input type="datetime-local" name="date_imported" id="date_imported" required><br>
+                                        
+                                                <label for="latitude">Latitude:</label>
+                                                <input type="text" name="latitude" id="latitude" required><br>
+                                        
+                                                <label for="longitude">Longitude:</label>
+                                                <input type="text" name="longitude" id="longitude" required><br>
+                                        
+                                                <label for="class_type">Class Type:</label>
+                                                <input type="text" name="class_type" required><br>
+                                        
+                                                <label for="status">Status:</label>
+                                                <input type="text" name="status" value="1"><br>
+                                        
+                                                <input type="button" value="Generate Coordinates" onclick="generateCoordinates()">
+                                                <input type="submit" value="Submit">
+                                        
+                                            <h1>All Image Data After submission</h1>
+                                            <table border="1">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Image</th>
+                                                    <th>Date Imported</th>
+                                                    <th>Latitude</th>
+                                                    <th>Longitude</th>
+                                                    <th>Class Type</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                                {% for data in all_image_data %}
+                                                    <tr>
+                                                        <td>{{ data.id }}</td>
+                                                        <td>{{ data.image }}</td>
+                                                        <td>{{ data.date_imported }}</td>
+                                                        <td>{{ data.latitude }}</td>
+                                                        <td>{{ data.longitude }}</td>
+                                                        <td>{{ data.class_type }}</td>
+                                                        <td>{{ data.status }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

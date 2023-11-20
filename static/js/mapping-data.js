@@ -12,14 +12,13 @@ function initializeMap() {
     { lat: 10.315699, lng: 123.885437, info: "Seaweed" },
     { lat: 9.5167, lng: 123.4333, info: "Seagrass" },
     { lat: 9.9556609, lng: 123.4007598, info: "Coral" }
-
   ];
 
   // Define custom icons for different marker types
   const iconMapping = {
-    "Seaweed": 'static/icons/seaweed.png', // Replace with the URL of the Seaweed icon
-    "Seagrass": 'static/icons/seagrass.png', // Replace with the URL of the Seagrass icon
-    "Coral": 'static/icons/coral.png', // Replace with the URL of the Coral icon test
+    "Seaweed": 'static/icon/seaweed.png', // Replace with the URL of the Seaweed icon
+    "Seagrass": 'static/icon/seagrass.png', // Replace with the URL of the Seagrass icon
+    "Coral": 'static/icon/coral.png', // Replace with the URL of the Coral icon test
   };
 
   markers.forEach((m) => {
