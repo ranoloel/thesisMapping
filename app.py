@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
@@ -21,10 +21,30 @@ class ImageData(db.Model):
 @app.route('/')
 def index():
     # Query all data from the ImageData table
-    all_image_data = ImageData.query.all()
+    #all_image_data = ImageData.query.all()
     
     # Pass the data to the template
-    return render_template('index.html', all_image_data=all_image_data)
+    return render_template('index.html')
+
+@app.route('/get_all_data')
+def get_all_data():
+    all_data = ImageData.query.all()
+    data_list = [{
+        "id": item.id,
+        "image": item.image,
+        "date_imported": item.date_imported,
+        "latitude": item.latitude,
+        "longitude": item.longitude,
+        "class_type": item.class_type,
+        "status": item.status
+
+        } for item in all_data]
+    
+    return jsonify(data_list)
+
+@app.route('/sample')
+def sample():
+    return render_template('sample.html')
 
 @app.route('/camera')
 def camera():
@@ -32,7 +52,9 @@ def camera():
 
 @app.route('/gallery')
 def gallery():
-    return render_template('gallery.html')
+    
+    all_image_data = ImageData.query.all()
+    return render_template('gallery.html', all_image_data=all_image_data)
 
 @app.route('/chart')
 def chart():

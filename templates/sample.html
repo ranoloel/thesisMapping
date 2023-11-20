@@ -1,51 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Browser</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Display</title>
 </head>
 <body>
 
-    <h1>Image Browser</h1>
+  <h1>Data Display</h1>
+  <ul id="dataContainer"></ul>
 
-    <!-- Input for selecting an image file -->
-    <input type="file" id="imageInput" accept="image/*">
-
-    <!-- Display selected image -->
-    <div id="imageContainer">
-        <img id="selectedImage" alt="Selected Image" style="max-width: 100%; max-height: 400px;">
-    </div>
-
-    <script>
-        // Function to handle file input change event
-        function handleImageInput() {
-            var input = document.getElementById('imageInput');
-            var container = document.getElementById('imageContainer');
-            var image = document.getElementById('selectedImage');
-
-            // Check if a file is selected
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                // Read the selected file as a data URL
-                reader.onload = function (e) {
-                    image.src = e.target.result;
-                };
-
-                reader.readAsDataURL(input.files[0]);
-                
-                // Show the image container
-                container.style.display = 'block';
-            } else {
-                // Hide the image container if no file is selected
-                container.style.display = 'none';
-            }
-        }
-
-        // Attach the handleImageInput function to the change event of the file input
-        document.getElementById('imageInput').addEventListener('change', handleImageInput);
-    </script>
+  <script>
+    // Include your modified JavaScript code here
+  </script>
 
 </body>
 </html>

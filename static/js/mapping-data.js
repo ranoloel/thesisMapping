@@ -46,3 +46,36 @@ function initializeMap() {
   });
 }
 google.maps.event.addDomListener(window, "load", initializeMap);
+
+//Get all the data using javascript - Not working atm
+async function displayAllData() {
+  try {
+    const response = await fetch('/get_all_data');
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // Assuming there is a div with id 'dataContainer' in your HTML to display the data
+    const dataContainer = document.getElementById('dataContainer');
+
+    // Clear existing content in the container
+    dataContainer.innerHTML = '';
+
+    // Loop through the data and create HTML elements for each item
+    data.forEach(item => {
+      const listItem = document.createElement('li');
+      listItem.textContent = `ID: ${item.id}, Image: ${item.image}, Date imported: ${item.date_imported}, Latitude: ${item.latitude}, Class Type: ${item.class_type}, status: ${item.status}`;
+      
+      // Append the list item to the container
+      dataContainer.appendChild(listItem);
+    });
+
+  } catch (error) {
+    console.error('Error fetching and displaying data:', error);
+  }
+}
+
+// Call the function when needed
+displayAllData();
