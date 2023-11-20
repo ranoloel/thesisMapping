@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SSC YOLO</title>
+    <title>SSCMapping</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -22,7 +22,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="setDefaultDateTime()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -120,8 +120,6 @@
                                 <div class="card-body">
                                     <div class="chart-area">
                                         <div id="map" style="height: 500px; width: 100%;">
-
-                                            <h1>Image Form</h1>
                                             <form action="/submit" method="post" enctype="multipart/form-data">
                                                 <label for="image">Import Image:</label>
                                                 <input type="file" name="image" accept="image/*" required><br>
@@ -235,6 +233,8 @@
     <script src="{{ url_for('static', filename='js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ url_for('static', filename='js/demo/chart-pie-demo.js') }}"></script>
 
+    <!-- Gallery scripts -->
+    <script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
 </body>
 
 </html>
