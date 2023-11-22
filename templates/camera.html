@@ -22,6 +22,7 @@
 
     <!-- Uncomment to enable the map -->
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 </head>
 
@@ -126,8 +127,55 @@
                                             <gmp-advanced-marker position="10.315699,123.885437" title="My location">
                                             </gmp-advanced-marker>
                                         </gmp-map> -->
-                                        <div id="map" style="height: 500px; width: 100%;">This is for Camera Details</div>
-                                    </div>
+                                        <div id="map" style="height: 500px; width: 100%;">
+                                            <button id="cameraButton">
+                                                <i class="fas fa-camera"></i> Camera
+                                              </button>
+                                              
+                                              <!-- Display video feed from the camera -->
+                                              <video id="cameraFeed" width="640" height="480" autoplay></video>
+                                              
+                                              <script>
+                                                // Function to handle camera access
+                                                async function startCamera() {
+                                                  try {
+                                                    // Get user media based on device type
+                                                    const stream = await navigator.mediaDevices.getUserMedia({
+                                                      video: true,
+                                                      audio: false
+                                                    });
+                                              
+                                                    // Display the video feed on the video element
+                                                    const videoElement = document.getElementById('cameraFeed');
+                                                    videoElement.srcObject = stream;
+                                              
+                                                  } catch (error) {
+                                                    console.error('Error accessing camera:', error);
+                                                  }
+                                                }
+                                              
+                                                // Check if the device is a mobile phone
+                                                function isMobile() {
+                                                  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                                                }
+                                              
+                                                // Add click event listener to the camera button
+                                                const cameraButton = document.getElementById('cameraButton');
+                                                cameraButton.addEventListener('click', () => {
+                                                  // Start the camera based on device type
+                                                  if (isMobile()) {
+                                                    // If using a mobile phone, start camera access on button click
+                                                    startCamera();
+                                                  } else {
+                                                    // If using a laptop/desktop, start camera access immediately
+                                                    startCamera();
+                                                  }
+                                                });
+                                              </script>
+                                        
+                                        </div>
+                                        <!-- Button to trigger camera access -->
+                                    
                                 </div>
                             </div>
                         </div>
