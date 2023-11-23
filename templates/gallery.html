@@ -139,52 +139,16 @@
                                                 <label for="status">Status:</label>
                                                 <input type="text" name="status" value="1"><br>
                                         
-                                                <input type="submit" value="Submit" id="coordinates">
+                                                <input type="submit" value="Submit">
                                                 <!-- <input type="submit" value="Submit"> -->
 
                                             </form>
 
-                                            <h1>All Image Data After submission</h1>
-                                            <table border="1">
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Image</th>
-                                                    <th>Date Imported</th>
-                                                    <th>Latitude</th>
-                                                    <th>Longitude</th>
-                                                    <th>Class Type</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                                {% for data in all_image_data %}
-                                                    <tr>
-                                                        <td>{{ data.id }}</td>
-                                                        <td>{{ data.image }}</td>
-                                                        <td>{{ data.date_imported }}</td>
-                                                        <td>{{ data.latitude }}</td>
-                                                        <td>{{ data.longitude }}</td>
-                                                        <td>{{ data.class_type }}</td>
-                                                        <td>{{ data.status }}</td>
-                                                    </tr>
-                                                {% endfor %}
-                                            </table>
+                
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-
-
-                        </div>
-
-                        <div class="col-lg-6 mb-4">
-
                         </div>
                     </div>
 

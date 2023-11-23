@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your head content here -->
+</head>
+<body>
+
+    <h1>Flask Image Gallery</h1>
+
+    <div id="imageGallery">
+        {% for image in uploads %}
+            <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="Gallery Image">
+        {% endfor %}
+    </div>
+
+</body>
+</html>

@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from datetime import datetime
 import subprocess
+import os
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -82,6 +83,18 @@ def seagrass():
 @app.route('/coral')
 def coral():
     return render_template('coral.html')
+
+#Not working atm
+# def get_image_list():
+#     uploads_folder = os.path.join(app.static_folder, 'uploads')
+#     images = [image for image in os.listdir(uploads_folder) if image.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+#     return images
+
+# @app.route('/display_img')
+# def display_img():
+#     images = get_image_list()
+#     return render_template('display_img.html', images=images)
+
 
 @app.route('/submit', methods=['POST'])
 def submit():
