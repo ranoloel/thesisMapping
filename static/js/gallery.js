@@ -7,6 +7,8 @@ function generateCoordinates() {
     }
 }
 
+document.getElementById("coordinates").addEventListener("click", generateCoordinates);
+
 function showPosition(position) {
     document.getElementById("latitude").value = position.coords.latitude.toFixed(6);
     document.getElementById("longitude").value = position.coords.longitude.toFixed(6);

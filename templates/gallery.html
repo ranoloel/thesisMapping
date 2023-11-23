@@ -22,7 +22,7 @@
 
 </head>
 
-<body id="page-top" onload="setDefaultDateTime()">
+<body id="page-top" onload="setDefaultDateTime(); generateCoordinates();">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -134,12 +134,12 @@
                                                 <input type="text" name="longitude" id="longitude" required><br>
                                         
                                                 <label for="class_type">Class Type:</label>
-                                                <input type="text" name="class_type" required><br>
+                                                <input type="text" name="class_type"><br>
                                         
                                                 <label for="status">Status:</label>
                                                 <input type="text" name="status" value="1"><br>
                                         
-                                                <input type="submit" value="Submit" onclick="generateCoordinates()">
+                                                <input type="submit" value="Submit" id="coordinates">
                                                 <!-- <input type="submit" value="Submit"> -->
 
                                             </form>

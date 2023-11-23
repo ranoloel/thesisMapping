@@ -42,9 +42,20 @@ def get_all_data():
     
     return jsonify(data_list)
 
-@app.route('/sample')
-def sample():
-    return render_template('sample.html')
+# Example route for fetching marker data
+@app.route('/fetch_markers')
+def fetch_markers():
+    markers = ImageData.query.all()
+
+    # Convert markers to a list of dictionaries
+    markers_data = [{'latitude': marker.latitude, 'longitude': marker.longitude, 'class_type': marker.class_type} for marker in markers]
+
+    # return jsonify({'markers': markers_data})
+    return jsonify({'markers': markers_data})
+
+# @app.route('/sample')
+# def sample():
+#     return render_template('sample.html')
 
 @app.route('/camera')
 def camera():
