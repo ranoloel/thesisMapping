@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from datetime import datetime
 import subprocess
 import os
+from api_detector import data
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -43,9 +44,10 @@ def get_all_data():
     
     return jsonify(data_list)
 
-# Example route for fetching marker data
+# Fetching data and convert to dictionaries
 @app.route('/fetch_markers')
 def fetch_markers():
+    #Query all data and asign to markers
     markers = ImageData.query.all()
 
     # Convert markers to a list of dictionaries
@@ -54,9 +56,10 @@ def fetch_markers():
     # return jsonify({'markers': markers_data})
     return jsonify({'markers': markers_data})
 
-# @app.route('/sample')
-# def sample():
-#     return render_template('sample.html')
+#Get data
+@app.route('/api/get_all_data_from_rest_api_detector')
+def get_all_data_from_rest_api_detector():
+    return jsonify({"Contents": data})
 
 @app.route('/camera')
 def camera():
@@ -95,7 +98,7 @@ def coral():
 #     images = get_image_list()
 #     return render_template('display_img.html', images=images)
 
-
+#Get data from the form and submit
 @app.route('/submit', methods=['POST'])
 def submit():
     if request.method == 'POST':
@@ -106,7 +109,8 @@ def submit():
         longitude = request.form['longitude']
         
         # Will try to access results from subprocess
-        class_type = request.form['class_type']
+        # class_type = request.form['class_type']
+        class_type = [entry.get("name") for entry in data]
         status = request.form['status']
 
         # Save the image to the 'static' folder (create 'static' folder in the same directory as 'app.py')
@@ -123,6 +127,7 @@ def submit():
         db.session.commit()
 
         subprocess.run(['python', 'NotThisDetector.py'])
+        # We can get the data here after running the detector.py
 
         # Pass the new data to the template for rendering
         return redirect(url_for('check_info', new_data=new_image_data.id))
