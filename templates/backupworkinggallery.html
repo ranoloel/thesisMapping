@@ -120,28 +120,71 @@
                                 <div class="card-body">
                                     <div class="chart-area">
                                         <div id="map" style="height: 500px; width: 100%;">
-                                    
-                                            <h1>Check the info</h1>
-                                                {% if new_image_data %}
-                                                    <p>ID: {{ new_image_data.id }}</p>
-                                                    <p>Image: {{ new_image_data.image }}</p>
-                                                    <p>Date Imported: {{ new_image_data.date_imported }}</p>
-                                                    <p>Latitude: {{ new_image_data.latitude }}</p>
-                                                    <p>Longitude: {{ new_image_data.longitude }}</p>
-                                                    <p>Class Type: {{ new_image_data.class_type}}</p>
-                                                    <p>Status: {{ new_image_data.status }}</p>
-                                                    <!-- Add more fields as needed -->
-                                                {% else %}
-                                                <p>No data found for the provided ID.</p>
-                                                {% endif %}
-                                                <h1>Display inprogress bar here! Once Done Click submit</h1>
-                                                <h1>Check the info</h1>
-                                                <input type="submit" value="Submit">
+                                            <form action="/submit" method="post" enctype="multipart/form-data">
+                                                <label for="image">Import Image:</label>
+                                                <input type="file" name="image" accept="image/*" required><br>
+                                        
+                                                <label for="date_imported">Date Imported:</label>
+                                                <input type="datetime-local" name="date_imported" id="date_imported" required><br>
+                                        
+                                                <label for="latitude">Latitude:</label>
+                                                <input type="text" name="latitude" id="latitude" required><br>
+                                        
+                                                <label for="longitude">Longitude:</label>
+                                                <input type="text" name="longitude" id="longitude" required><br>
+                                        
+                                                <label for="class_type">Class Type:</label>
+                                                <input type="text" name="class_type" required><br>
+                                        
+                                                <label for="status">Status:</label>
+                                                <input type="text" name="status" value="1"><br>
+                                        
+                                                <input type="submit" value="Submit" id="coordinates">
+                                                <!-- <input type="submit" value="Submit"> -->
 
+                                            </form>
+
+                                            <h1>All Image Data After submission</h1>
+                                            <table border="1">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Image</th>
+                                                    <th>Date Imported</th>
+                                                    <th>Latitude</th>
+                                                    <th>Longitude</th>
+                                                    <th>Class Type</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                                {% for data in all_image_data %}
+                                                    <tr>
+                                                        <td>{{ data.id }}</td>
+                                                        <td>{{ data.image }}</td>
+                                                        <td>{{ data.date_imported }}</td>
+                                                        <td>{{ data.latitude }}</td>
+                                                        <td>{{ data.longitude }}</td>
+                                                        <td>{{ data.class_type }}</td>
+                                                        <td>{{ data.status }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Content Column -->
+                        <div class="col-lg-6 mb-4">
+
+
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+
                         </div>
                     </div>
 

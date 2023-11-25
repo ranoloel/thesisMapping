@@ -21,6 +21,7 @@ def upgrade():
     with op.batch_alter_table('image_data', schema=None) as batch_op:
         batch_op.add_column(sa.Column('class_type', sa.String(length=50), nullable=False))
         batch_op.add_column(sa.Column('status', sa.String(length=50), nullable=False))
+    op.add_column('image_data', sa.Column('id', sa.Integer, primary_key=True))
 
     # ### end Alembic commands ###
 

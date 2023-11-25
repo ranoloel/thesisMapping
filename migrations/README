@@ -1,1 +1,5 @@
-Single-database configuration for Flask.
+- Databae
+Run the following commands: 
+flask shell
+>>> from app import db
+>>> db.create_all()

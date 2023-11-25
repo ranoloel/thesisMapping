@@ -9,10 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SSCMapping</title>
-
+    <title>SSC YOLO</title>
+    
     <!-- Custom fonts for this template-->
-    <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -20,9 +20,12 @@
     <!-- Custom styles for this template-->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
 
+    <!-- Uncomment to enable the map -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script> -->
+
 </head>
 
-<body id="page-top" onload="setDefaultDateTime(); generateCoordinates();">
+<body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -114,34 +117,33 @@
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Gallery Details</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Chart Details</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
-                                        <div id="map" style="height: 500px; width: 100%;">
-                                    
-                                            <h1>Check the info</h1>
-                                                {% if new_image_data %}
-                                                    <p>ID: {{ new_image_data.id }}</p>
-                                                    <p>Image: {{ new_image_data.image }}</p>
-                                                    <p>Date Imported: {{ new_image_data.date_imported }}</p>
-                                                    <p>Latitude: {{ new_image_data.latitude }}</p>
-                                                    <p>Longitude: {{ new_image_data.longitude }}</p>
-                                                    <p>Class Type: {{ new_image_data.class_type}}</p>
-                                                    <p>Status: {{ new_image_data.status }}</p>
-                                                    <!-- Add more fields as needed -->
-                                                {% else %}
-                                                <p>No data found for the provided ID.</p>
-                                                {% endif %}
-                                                <h1>Display inprogress bar here! Once Done Click submit</h1>
-                                                <h1>Check the info</h1>
-                                                <input type="submit" value="Submit">
-
-                                        </div>
+                                        <!-- <gmp-map center="10.315699,123.885437" zoom="14" map-id="DEMO_MAP_ID">
+                                            <gmp-advanced-marker position="10.315699,123.885437" title="My location">
+                                            </gmp-advanced-marker>
+                                        </gmp-map> -->
+                                        <div id="map" style="height: 500px; width: 100%;">This is for Chart Details</div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Content Column -->
+                        <div class="col-lg-6 mb-4">
+
+
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+
                         </div>
                     </div>
 
@@ -192,8 +194,6 @@
     <script src="{{ url_for('static', filename='js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ url_for('static', filename='js/demo/chart-pie-demo.js') }}"></script>
 
-    <!-- Gallery scripts -->
-    <script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
 </body>
 
 </html>

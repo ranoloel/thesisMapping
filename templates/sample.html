@@ -1,0 +1,45 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload Form</title>
+</head>
+<body>
+    <h1>Image Upload Form</h1>
+    <form id="uploadForm">
+        <label for="upload_image">Upload Image:</label>
+        <input type="file" name="upload_image" id="upload_image" required>
+        
+        <label for="date_uploaded">Date Uploaded:</label>
+        <input type="date" name="date_uploaded" id="date_uploaded" required>
+        
+        <label for="class_type">Class Type:</label>
+        <input type="text" name="class_type" id="class_type" required>
+        
+        <button type="button" onclick="uploadImage()">Upload Image</button>
+    </form>
+
+    <script>
+        function uploadImage() {
+            const form = document.getElementById('uploadForm');
+            const formData = new FormData(form);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
