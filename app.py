@@ -20,6 +20,12 @@ class ImageData(db.Model):
     class_type = db.Column(db.String(50), nullable=False)
     status = db.Column(db.String(50), nullable=False)
 
+# Allow all origins (CORS)
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
 @app.route('/')
 def index():
     # Query all data from the ImageData table
@@ -109,8 +115,8 @@ def submit():
         longitude = request.form['longitude']
         
         # Will try to access results from subprocess
-        # class_type = request.form['class_type']
-        class_type = [entry.get("name") for entry in data]
+        class_type = request.form['class_type']
+        #class_type = [entry.get("name") for entry in data]
         status = request.form['status']
 
         # Save the image to the 'static' folder (create 'static' folder in the same directory as 'app.py')
@@ -126,7 +132,7 @@ def submit():
         db.session.add(new_image_data)
         db.session.commit()
 
-        subprocess.run(['python', 'NotThisDetector.py'])
+        subprocess.run(['python', 'api_deetector.py'])
         # We can get the data here after running the detector.py
 
         # Pass the new data to the template for rendering
@@ -142,4 +148,4 @@ def check_info(new_data):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(host='0.0.0.0', debug=True, port=5001)

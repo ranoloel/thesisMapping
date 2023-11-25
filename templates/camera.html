@@ -23,7 +23,7 @@
     <!-- Uncomment to enable the map -->
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    <meta http-equiv="Content-Security-Policy" content="camera 'self'">
 </head>
 
 <body id="page-top">
@@ -127,13 +127,12 @@
                                             <gmp-advanced-marker position="10.315699,123.885437" title="My location">
                                             </gmp-advanced-marker>
                                         </gmp-map> -->
-                                        <div id="map" style="height: 500px; width: 100%;">
-                                            <button id="cameraButton">
-                                                <i class="fas fa-camera"></i> Camera
-                                            </button>
-                                              <!-- Display video feed from the camera -->
-                                              <video id="cameraFeed" width="640" height="480" autoplay></video>
-                                
+                                        <div id="camera">
+                                            <video id="videoElement" autoplay></video>
+                                            <button onclick="startCamera()">Start Camera</button>
+                                            <!-- Display video feed from the camera -->
+                                            <video id="cameraFeed" width="640" height="480" autoplay></video>
+                            
                                         </div>
                                         <!-- Button to trigger camera access -->
                                     </div>
