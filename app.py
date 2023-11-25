@@ -6,19 +6,34 @@ import subprocess
 import os
 from api_detector import data
 
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
+from sqlalchemy.orm import declarative_base, relationship
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-class ImageData(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    image = db.Column(db.String(100), nullable=False)
-    date_imported = db.Column(db.Date, nullable=False)
-    latitude = db.Column(db.String(20), nullable=False)
-    longitude = db.Column(db.String(20), nullable=False)
-    class_type = db.Column(db.String(50), nullable=False)
-    status = db.Column(db.String(50), nullable=False)
+Base = declarative_base()
+class ImageData(Base):
+    __tablename__ = 'image_data'
+
+    id = Column(Integer, primary_key=True)
+    image = Column(String)
+    date_imported = Column(String)
+    latitude = Column(String)
+    longitude = Column(String)
+    class_type_id = Column(Integer, ForeignKey('class_types.id'))
+    class_type = relationship('ClassType', back_populates='images')
+    status = Column(Integer)
+
+class ClassType(Base):
+    __tablename__ = 'class_types'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    images = relationship('ImageData', back_populates='class_type')
+    
 
 @app.route('/')
 def index():
@@ -68,8 +83,9 @@ def camera():
 @app.route('/gallery')
 def gallery():
     
-    all_image_data = ImageData.query.all()
-    return render_template('gallery.html', all_image_data=all_image_data)
+    #all_image_data = ImageData.query.all()
+    # return render_template('gallery.html', all_image_data=all_image_data)
+    return render_template('gallery.html')
 
 @app.route('/chart')
 def chart():
