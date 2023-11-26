@@ -127,12 +127,16 @@
                                             <gmp-advanced-marker position="10.315699,123.885437" title="My location">
                                             </gmp-advanced-marker>
                                         </gmp-map> -->
-                                        <div id="camera">
-                                            <video id="videoElement" autoplay></video>
-                                            <button onclick="startCamera()">Start Camera</button>
-                                            <!-- Display video feed from the camera -->
-                                            <video id="cameraFeed" width="640" height="480" autoplay></video>
-                            
+                                        <!-- Camera view container -->
+                                        <div id="camera-container">
+                                            <video id="camera-view" autoplay playsinline></video>
+                                            <button id="capture-btn">Capture</button>
+                                            <select id="camera-select">
+                                                <!-- Option for back camera -->
+                                                <option value="environment">Back Camera</option>
+                                                <!-- Option for front camera -->
+                                                <option value="user">Front Camera</option>
+                                            </select>
                                         </div>
                                         <!-- Button to trigger camera access -->
                                     </div>
