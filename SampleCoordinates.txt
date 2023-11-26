@@ -1,0 +1,43 @@
+
+Sample coordinates for ten cities in Cebu
+
+Cebu City:
+
+Latitude: 10.3157
+Longitude: 123.8854
+Mandaue City:
+
+Latitude: 10.3238
+Longitude: 123.9226
+Lapu-Lapu City:
+
+Latitude: 10.3157
+Longitude: 123.9784
+Danao City:
+
+Latitude: 10.5201
+Longitude: 124.0285
+Carcar City:
+
+Latitude: 10.1071
+Longitude: 123.6408
+Naga City:
+
+Latitude: 10.1343
+Longitude: 123.7586
+Talisay City:
+
+Latitude: 10.2445
+Longitude: 123.8490
+Toledo City:
+
+Latitude: 10.3817
+Longitude: 123.6417
+Bogo City:
+
+Latitude: 11.0581
+Longitude: 124.0044
+Balamban:
+
+Latitude: 10.4926
+Longitude: 123.7573
