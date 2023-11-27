@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+</head>
+<body>
+    <h1>Image Upload</h1>
+    <form id="uploadForm" action="/api/upload" method="post" enctype="multipart/form-data">
+        <label for="imageFile">Select Image:</label>
+        <input type="file" name="file" id="imageFile" accept="image/*" required>
+        <button type="button" id="removeButton" style="display:none;">Remove</button>
+        <br>
+        <label for="classType">Class Type:</label>
+        <input type="text" name="class_type" id="classType" required>
+        <br>
+        <label for="latitude">Latitude:</label>
+        <input type="text" name="latitude" id="latitude" required>
+        <br>
+        <label for="longitude">Longitude:</label>
+        <input type="text" name="longitude" id="longitude" required>
+        <br>
+        <button type="submit">Upload Image</button>
+    </form>
+
+    <div id="imagePreview">
+        <!-- Image preview will be displayed here -->
+    </div>
+
+    <script>
+        const imageFile = document.getElementById('imageFile');
+        const removeButton = document.getElementById('removeButton');
+        const imagePreview = document.getElementById('imagePreview');
+
+        // Display the selected image preview
+        imageFile.addEventListener('change', function() {
+            while (imagePreview.firstChild) {
+                imagePreview.removeChild(imagePreview.firstChild);
+            }
+
+            const files = this.files;
+            if (files.length > 0) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(files[0]);
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '300px';
+                imagePreview.appendChild(img);
+                removeButton.style.display = 'inline-block';
+            }
+        });
+
+        // Remove the selected image
+        removeButton.addEventListener('click', function() {
+            imageFile.value = '';
+            while (imagePreview.firstChild) {
+                imagePreview.removeChild(imagePreview.firstChild);
+            }
+            this.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
