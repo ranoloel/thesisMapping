@@ -14,10 +14,18 @@ function showPosition(position) {
     document.getElementById("longitude").value = position.coords.longitude.toFixed(6);
 }
 
+// function setDefaultDateTime() {
+//     var currentDateTime = new Date().toISOString();
+//     document.getElementById("date_imported").value = currentDateTime.slice(0, 19);
+// }
+
+
 function setDefaultDateTime() {
-    var currentDateTime = new Date().toISOString().slice(0, 16);
-    document.getElementById("date_imported").value = currentDateTime;
+    var currentDateTime = new Date().toISOString();
+    var formattedDateTime = currentDateTime.slice(0, 16);
+    document.getElementById("date_imported").value = formattedDateTime;
 }
+
 
 
 // document.addEventListener("DOMContentLoaded", function () {
