@@ -8,8 +8,6 @@ app = Flask(__name__)
 # Sample jason data
 class_type = {
     "contents": [
-        "Seagrass",
-        "Seaweed",
         "Coral"
     ]
 }

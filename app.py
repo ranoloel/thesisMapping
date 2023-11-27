@@ -37,22 +37,22 @@ def index():
     # Pass the data to the template
     return render_template('index.html')
 
-# #Get all data in database
-# @app.route('/get_all_data')
-# def get_all_data():
-#     all_data = ImageData.query.all()
-#     data_list = [{
-#         "id": item.id,
-#         "image": item.image,
-#         "date_imported": item.date_imported,
-#         "latitude": item.latitude,
-#         "longitude": item.longitude,
-#         "class_type": item.class_type,
-#         "status": item.status
+#Get all data in database
+@app.route('/get_all_data')
+def get_all_data():
+    all_data = ImageData.query.all()
+    data_list = [{
+        "id": item.id,
+        "image": item.image,
+        "date_imported": item.date_imported,
+        "latitude": item.latitude,
+        "longitude": item.longitude,
+        "class_type": item.class_type,
+        "status": item.status
 
-#         } for item in all_data]
+        } for item in all_data]
     
-#     return jsonify(data_list)
+    return jsonify(data_list)
 
 @app.route('/camera')
 def camera():
