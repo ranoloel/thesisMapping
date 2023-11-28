@@ -14,10 +14,10 @@ function initializeMap() {
 
       // Define custom icons for different marker types
       const iconMapping = {
-        "seaweed": 'static/icon/seaweed.png',
-        "seagrass": 'static/icon/seagrass.png',
-        "coral": 'static/icon/coral.png',
-        // Add more mappings as needed
+        "Seaweed": 'static/icon/seaweed.png',
+        "Seagrass": 'static/icon/seagrass.png',
+        "Coral": 'static/icon/coral.png',
+        // Note: Data are case sensitive
       };
 
       markers.forEach((m) => {
