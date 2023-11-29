@@ -33,9 +33,9 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
       <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
-      <!-- Uncomment to enable the map -->
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script>
-  
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
    </head>
    <body class="dashboard dashboard_1">
       <div class="full_container">
@@ -45,8 +45,7 @@
                <div class="sidebar_blog_1">
                   <div class="sidebar-header">
                      <div class="logo_section">
-                        <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
-                        <a href="{{ url_for('index') }}"><img class="logo_icon img-responsive" src="{{ url_for('static',filename='images/logo/logo_icon.png') }}" alt="#" /></a>
+                        <a href="index.html"><img class="logo_icon img-responsive" src="images/logo/logo_icon.png" alt="#" /></a>
                      </div>
                   </div>
                   <div class="sidebar_user_info">
@@ -111,96 +110,67 @@
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Dashboard</h2>
+                              <h2>Chart</h2>
                            </div>
                         </div>
                      </div>
+                     <!-- row -->
                      <div class="row column1">
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i class="fa fa-user yellow_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <p class="total_no">2500</p>
-                                    <p class="head_couter">Welcome</p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i class="fa fa-clock-o blue1_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <p class="total_no">123.50</p>
-                                    <p class="head_couter">Average Time</p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i class="fa fa-cloud-download green_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <p class="total_no">1,805</p>
-                                    <p class="head_couter">Collections</p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i class="fa fa-comments-o red_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <p class="total_no">54</p>
-                                    <p class="head_couter">Comments</p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- graph -->
-                     <div class="row column2 graph margin_bottom_30">
-                        <div class="col-md-12">
+                        <div class="col-lg-6">
                            <div class="white_shd full margin_bottom_30">
                               <div class="full graph_head">
                                  <div class="heading1 margin_0">
-                                    <h2>Map <small>(Default)</small></h2>
+                                    <h2>Line Chart</h2>
                                  </div>
                               </div>
                               <div class="map_section padding_infor_info">
-                                 <div class="map m_style1">
-                                    <div id="map"></div>
+                                 <canvas id="line_chart"></canvas>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>Line Chart</h2>
                                  </div>
+                              </div>
+                              <div class="map_section padding_infor_info">
+                                 <canvas id="bar_chart"></canvas>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>Radar Chart</h2>
+                                 </div>
+                              </div>
+                              <div class="map_section padding_infor_info">
+                                 <canvas id="radar_chart"></canvas>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>Pie Chart</h2>
+                                 </div>
+                              </div>
+                              <div class="map_section padding_infor_info">
+                                 <canvas id="pie_chart"></canvas>
                               </div>
                            </div>
                         </div>
                      </div>
-                     <!-- end graph -->
+                     <!-- end row -->
                   </div>
                   <!-- footer -->
                   <div class="container-fluid">
                      <div class="footer">
-                        <p>Copyright © 2023 Elmo Ranolo. All rights reserved.<br><br>
-                        </p>
+                        <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
                      </div>
                   </div>
                </div>
@@ -209,40 +179,27 @@
          </div>
       </div>
       <!-- jQuery -->
-      <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-      <!-- <script src="js/jquery.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-      <!-- <script src="js/popper.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-      <!-- <script src="js/bootstrap.min.js"></script> -->
-      <!-- wow animation -->
-      <script src="{{ url_for('static', filename='js/animate.js') }}"></script>
-      <!-- <script src="js/animate.js"></script> -->
-      <!-- select country -->
-      <script src="{{ url_for('static', filename='js/bootstrap-select.js') }}"></script>
-      <!-- <script src="js/bootstrap-select.js"></script> -->
-      <!-- owl carousel -->
-      <script src="{{ url_for('static', filename='js/owl.carousel.js') }}"></script>
-      <!-- <script src="js/owl.carousel.js"></script>  -->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
       <!-- chart js -->
-      <script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
-      <!-- <script src="js/Chart.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/Chart.bundle.min.js') }}"></script>
-      <!-- <script src="js/Chart.bundle.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
-      <!-- <script src="js/utils.js"></script> -->
-      <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
-      <!-- <script src="js/analyser.js"></script> -->
+      <script src="js/Chart.min.js"></script>
+      <script src="js/Chart.bundle.min.js"></script>
+      <script src="js/utils.js"></script>
+      <script src="js/analyser.js"></script>
+      <!-- wow animation -->
+      <script src="js/animate.js"></script>
+      <!-- select country -->
+      <script src="js/bootstrap-select.js"></script>
+      <!-- owl carousel -->
+      <script src="js/owl.carousel.js"></script> 
       <!-- nice scrollbar -->
-      <script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
-      <!-- <script src="js/perfect-scrollbar.min.js"></script> -->
+      <script src="js/perfect-scrollbar.min.js"></script>
+      <!-- sidebar -->
       <script>
          var ps = new PerfectScrollbar('#sidebar');
       </script>
       <!-- custom js -->
-      <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
-      <!-- <script src="js/custom.js"></script>
-      <script src="js/chart_custom_style1.js"></script> -->
-      <script src="{{ url_for('static', filename='js/chart_custom_style1.js') }}"></script>
+      <script src="js/custom.js"></script>
    </body>
 </html>

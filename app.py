@@ -63,9 +63,13 @@ def gallery():
     #all_image_data = ImageData.query.all()
     return render_template('gallery.html', all_image_data=ImageData)
 
-@app.route('/chart')
-def chart():
-    return render_template('chart.html')
+@app.route('/charts')
+def charts():
+    return render_template('charts.html')
+
+@app.route('/tables')
+def tables():
+    return render_template('tables.html')
 
 @app.route('/seaweed')
 def seaweed():
