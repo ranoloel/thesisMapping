@@ -69,7 +69,8 @@ def charts():
 
 @app.route('/tables')
 def tables():
-    return render_template('tables.html')
+    all_image_data = ImageData.query.all()
+    return render_template('tables.html', all_image_data=ImageData)
 
 @app.route('/seaweed')
 def seaweed():

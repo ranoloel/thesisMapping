@@ -8,7 +8,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
+      <title>ElmoThesis</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -46,13 +46,13 @@
                   <div class="sidebar-header">
                      <div class="logo_section">
                         <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
-                        <a href="{{ url_for('index') }}"><img class="logo_icon img-responsive" src="{{ url_for('static',filename='images/logo/logo_icon.png') }}" alt="#" /></a>
+                        <a href="{{ url_for('index') }}"><img class="logo_icon img-responsive" src="{{ url_for('static', filename='images/logo/logo_icon.png') }}" alt="#" /></a>
                      </div>
                   </div>
                   <div class="sidebar_user_info">
                      <div class="icon_setting"></div>
                      <div class="user_profle_side">
-                        <div class="user_img"><img class="img-responsive" src="images/layout_img/user_img.jpg" alt="#" /></div>
+                        <div class="user_img"><img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/user_img.jpg') }}" alt="#" /></div>
                         <div class="user_info">
                            <h6>Elmo Ranolo</h6>
                            <p><span class="online_animation"></span> Student</p>
