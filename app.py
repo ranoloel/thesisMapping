@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy import text
 from datetime import datetime
-from flask.json import JSONEncoder
+#from flask.json import JSONEncoder
 from datetime import timezone
 import subprocess
 import os
@@ -63,6 +63,11 @@ def gallery():
     #all_image_data = ImageData.query.all()
     return render_template('gallery.html', all_image_data=ImageData)
 
+@app.route('/media_gallery')
+def media_gallery():
+    #all_image_data = ImageData.query.all()
+    return render_template('media_gallery.html')
+
 @app.route('/charts')
 def charts():
     return render_template('charts.html')
@@ -70,7 +75,8 @@ def charts():
 @app.route('/tables')
 def tables():
     all_image_data = ImageData.query.all()
-    return render_template('tables.html', all_image_data=ImageData)
+    return render_template('tables.html', all_image_data=all_image_data)
+
 
 @app.route('/seaweed')
 def seaweed():
