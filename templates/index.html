@@ -1,199 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SSC YOLO</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
-
-    <!-- Uncomment to enable the map -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script>
-
-</head>
-
-<body id="page-top">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url_for('index') }}">
-                <div class="sidebar-brand-icon rotate-n-15">
-                </div>
-                <div class="sidebar-brand-text mx-3">SSC YOLO</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ url_for('index') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Camera -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('camera') }}">
-                    <i class="fas fa-fw fa-camera"></i>
-                    <span>Camera</span></a>
-            </li>
-            <!-- Nav Item - Gallery -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('gallery') }}">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Gallery</span></a>
-            </li>
-
-            <!-- Nav Item - Pages -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Classes Pages:</h6>
-                        <a class="collapse-item" href="{{ url_for('seaweed') }}">Seaweeds</a>
-                        <a class="collapse-item" href="{{ url_for('seagrass') }}">Seagrass</a>
-                        <a class="collapse-item" href="{{ url_for('coral') }}">Coral</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('chart') }}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-            <!-- Main Content -->
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>ElmoThesis</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- site icon -->
+      <link rel="stylesheet" href="{{url_for('static', filename='images/fevicon.png" type="image/png') }}" />
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css') }}" />
+      <!-- site css -->
+      <link rel="stylesheet" href="{{url_for('static', filename='style.css') }}" />
+      <!-- responsive css -->
+      <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css') }}" />
+      <!-- color css -->
+      <link rel="stylesheet" href="{{url_for('static', filename='css/colors.css') }}" />
+      <!-- select bootstrap -->
+      <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap-select.css') }}" />
+      <!-- scrollbar css -->
+      <link rel="stylesheet" href="{{url_for('static', filename='css/perfect-scrollbar.css') }}" />
+      <!-- custom css -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}" />
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
+      <!-- Uncomment to enable the map -->
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script>
+  
+   </head>
+   <body class="dashboard dashboard_1">
+      <div class="full_container">
+         <div class="inner_container">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+               <div class="sidebar_blog_1">
+                  <div class="sidebar-header">
+                     <div class="logo_section">
+                        <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
+                        <a href="{{ url_for('index') }}"><img class="logo_icon img-responsive" src="{{ url_for('static', filename='images/logo/logo_icon.png') }}" alt="#" /></a>
+                     </div>
+                  </div>
+                  <div class="sidebar_user_info">
+                     <div class="icon_setting"></div>
+                     <div class="user_profle_side">
+                        <div class="user_img"><img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/user_img.jpg') }}" alt="#" /></div>
+                        <div class="user_info">
+                           <h6>Elmo Ranolo</h6>
+                           <p><span class="online_animation"></span> Student</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="sidebar_blog_2">
+                  <h4>General</h4>
+                  <ul class="list-unstyled components">
+                     <li><a href="{{ url_for('index') }}"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
+                     <li>
+                        <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond purple_color"></i> <span>Elements</span></a>
+                        <ul class="collapse list-unstyled" id="element">
+                           <li><a href="{{ url_for('media_gallery') }}"><span>Seaweeds Gallery</span></a></li>
+                           <li><a href="{{ url_for('media_gallery') }}"><span>Seagrasses Gallery</span></a></li>
+                           <li><a href="{{ url_for('media_gallery') }}"><span>Corals Gallery</span></a></li>
+                        </ul>
+                     </li>
+                     <li><a href="{{ url_for('tables') }}"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
+                     <li>
+                     </li>
+                     <li><a href="{{ url_for('charts') }}"><i class="fa fa-bar-chart-o green_color"></i> <span>Charts</span></a></li>                  </ul>
+               </div>
+            </nav>
+            <!-- end sidebar -->
+            <!-- right content -->
             <div id="content">
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    <!-- Content Row -->
-                    <div class="row">
-                    </div>
-                    <!-- Content Row -->
-                    <div class="row">
-                        <!-- Area Chart -->
-                        <div class="col-xl-12 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Map Legend</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <!-- <gmp-map center="10.315699,123.885437" zoom="14" map-id="DEMO_MAP_ID">
-                                            <gmp-advanced-marker position="10.315699,123.885437" title="My location">
-                                            </gmp-advanced-marker>
-                                        </gmp-map> -->
-                                        <div id="map" style="height: 500px; width: 100%;">This is for more Map Access</div>
-                                    </div>
-                                </div>
-                            </div>
+               <!-- topbar -->
+               <div class="topbar">
+                  <nav class="navbar navbar-expand-lg navbar-light">
+                     <div class="full">
+                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                        <div class="logo_section">
+                           <a href="index.html"><img class="img-responsive" src="images/logo/logo.png" alt="#" /></a>
                         </div>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-
-
+                        <div class="right_topbar">
+                           <div class="icon_info">
+                              <ul>
+                                 <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
+                                 <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
+                                 <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
+                                 <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
+                              </ul>
+                              <ul class="user_profile_dd">
+                              </ul>
+                           </div>
                         </div>
-
-                        <div class="col-lg-6 mb-4">
-
+                     </div>
+                  </nav>
+               </div>
+               <!-- end topbar -->
+               <!-- dashboard inner -->
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                           <div class="page_title">
+                              <h2>Legend</h2>
+                           </div>
                         </div>
-                    </div>
-
-                </div>
-                <!-- /.container-fluid -->
-
+                     </div>
+                     <div class="row column1">
+                        <div class="col-md-6 col-lg-3">
+                           <div class="full counter_section margin_bottom_30">
+                              <div class="couter_icon">
+                                 <div> 
+                                    <i>
+                                      <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/coral.png') }}" alt="#" />
+                                    </i>
+                                 </div>
+                              </div>
+                              <div class="counter_no">
+                                 <div>
+                                    <p class="total_no">Coral</p>
+                                    <!-- <p class="head_couter">Welcome</p> -->
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                           <div class="full counter_section margin_bottom_30">
+                              <div class="couter_icon">
+                                 <div> 
+                                    <i>
+                                       <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/seaweed.png') }}" alt="#" />
+                                    </i>
+                                 </div>
+                              </div>
+                              <div class="counter_no">
+                                 <div>
+                                    <p class="total_no">Seaweed</p>
+                                    <!-- <p class="head_couter">Average Time</p> -->
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                           <div class="full counter_section margin_bottom_30">
+                              <div class="couter_icon">
+                                 <div> 
+                                    <i>
+                                       <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/seagrass.png') }}" alt="#" />
+                                    </i>
+                                 </div>
+                              </div>
+                              <div class="counter_no">
+                                 <div>
+                                    <p class="total_no">Seagrass</p>
+                                    <!-- <p class="head_couter">Collections</p> -->
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                           <div class="full counter_section margin_bottom_30">
+                              <div class="couter_icon">
+                                 <div> 
+                                    <i>
+                                       <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/group.png') }}" alt="#" />
+                                    </i>
+                                 </div>
+                              </div>
+                              <div class="counter_no">
+                                 <div>
+                                    <p class="total_no">Group</p>
+                                    <!-- <p class="head_couter">Comments</p> -->
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- graph -->
+                     <div class="row column2 graph margin_bottom_30">
+                        <div class="col-md-12">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>Map <small>(Default)</small></h2>
+                                 </div>
+                              </div>
+                              <div class="map_section padding_infor_info">
+                                 <div class="map m_style1">
+                                    <div id="map"></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- end graph -->
+                  </div>
+                  <!-- footer -->
+                  <div class="container-fluid">
+                     <div class="footer">
+                        <p>Copyright © 2023 Elmo Ranolo. All rights reserved.<br><br>
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               <!-- end dashboard inner -->
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; elmoranolo2023</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Mapping Details -->
-    <script src="{{ url_for('static', filename='js/mapping-data.js') }}"></script>
-
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-    <!-- Core plugin JavaScript-->  
-    <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{{ url_for('static', filename='js/sb-admin-2.min.js') }}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js') }}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{{ url_for('static', filename='js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/demo/chart-pie-demo.js') }}"></script>
-
-</body>
-
+         </div>
+      </div>
+      <!-- jQuery -->
+      <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+      <!-- <script src="js/jquery.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+      <!-- <script src="js/popper.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+      <!-- <script src="js/bootstrap.min.js"></script> -->
+      <!-- wow animation -->
+      <script src="{{ url_for('static', filename='js/animate.js') }}"></script>
+      <!-- <script src="js/animate.js"></script> -->
+      <!-- select country -->
+      <script src="{{ url_for('static', filename='js/bootstrap-select.js') }}"></script>
+      <!-- <script src="js/bootstrap-select.js"></script> -->
+      <!-- owl carousel -->
+      <script src="{{ url_for('static', filename='js/owl.carousel.js') }}"></script>
+      <!-- <script src="js/owl.carousel.js"></script>  -->
+      <!-- chart js -->
+      <script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
+      <!-- <script src="js/Chart.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/Chart.bundle.min.js') }}"></script>
+      <!-- <script src="js/Chart.bundle.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+      <!-- <script src="js/utils.js"></script> -->
+      <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
+      <!-- <script src="js/analyser.js"></script> -->
+      <!-- nice scrollbar -->
+      <script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
+      <!-- <script src="js/perfect-scrollbar.min.js"></script> -->
+      <script>
+         var ps = new PerfectScrollbar('#sidebar');
+      </script>
+      <!-- custom js -->
+      <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+      <!-- <script src="js/custom.js"></script>
+      <script src="js/chart_custom_style1.js"></script> -->
+      <script src="{{ url_for('static', filename='js/chart_custom_style1.js') }}"></script>
+       <!-- Map Data -->
+      <script src="{{ url_for('static', filename='js/mapping-data.js') }}"></script>
+   </body>
 </html>
