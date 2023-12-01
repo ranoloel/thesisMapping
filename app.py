@@ -54,6 +54,10 @@ def get_all_data():
     
     return jsonify(data_list)
 
+@app.route('/browse')
+def browse():
+    return render_template('browse.html')
+
 @app.route('/camera')
 def camera():
     return render_template('camera.html')
