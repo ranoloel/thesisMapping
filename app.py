@@ -1,5 +1,5 @@
 from api_detector import class_type
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy import text
@@ -16,6 +16,10 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+image_directory = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
+detector_script_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\3_Inference\Detector.py'
+
 
 class ImageData(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -34,8 +38,9 @@ def after_request(response):
 
 @app.route('/')
 def index():
-    # Pass the data to the template
-    return render_template('index.html')
+    # Get a list of all image filenames in the directory
+    images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+    return render_template('index.html', images=images)
 
 #Get all data in database
 @app.route('/get_all_data')
@@ -53,6 +58,31 @@ def get_all_data():
         } for item in all_data]
     
     return jsonify(data_list)
+
+# 1. Browse image
+@app.route('/browse')
+def browse():
+    return render_template('browse.html')
+
+def run_detector():
+    # Change to the directory where the detector script is located
+    os.chdir(os.path.dirname(detector_script_path))
+    # Run the detector script
+    subprocess.run(['python', 'Detector.py'])
+
+# 2. Image uploaded and start training. Start Detector
+@app.route('/train-img')
+def trainImg():
+    # I will start the Detector.py pointing to the new upload and delete once done.
+    run_detector()
+    images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+    return render_template('train-img.html', images=images)
+
+@app.route('/images/<filename>')
+def get_image(filename):
+    # Serve images from the specified directory
+    return send_from_directory(image_directory, filename)
+
 
 @app.route('/camera')
 def camera():
@@ -72,6 +102,10 @@ def media_gallery():
 def charts():
     return render_template('charts.html')
 
+@app.route('/browse-display')
+def browsedisplay():
+    return render_template('browse-display.html')
+
 @app.route('/tables')
 def tables():
     all_image_data = ImageData.query.all()
@@ -90,9 +124,30 @@ def seagrass():
 def coral():
     return render_template('coral.html')
 
-@app.route('/upload')
+# @app.route('/upload')
+# def upload():
+#     return render_template('upload-img.html')
+
+
+UPLOAD_FOLDER = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+@app.route('/upload', methods=['POST'])
 def upload():
-    return render_template('upload-img.html')
+    if 'images' not in request.files:
+        return jsonify({'message': 'No images provided'}), 400
+
+    images = request.files.getlist('images')
+    upload_folder = app.config['UPLOAD_FOLDER']
+
+    if not os.path.exists(upload_folder):
+        os.makedirs(upload_folder)
+
+    for image in images:
+        image.save(os.path.join(upload_folder, image.filename))
+
+    return jsonify({'message': 'Images uploaded successfully'}), 200
+
 
 @app.route('/submit', methods=['POST'])
 def submit():
