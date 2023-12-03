@@ -1,4 +1,4 @@
-from api_detector import class_type
+from api_detector import data
 from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -129,6 +129,7 @@ def coral():
 #     return render_template('upload-img.html')
 
 
+
 UPLOAD_FOLDER = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -181,7 +182,7 @@ def submit():
         # Instead of using the form data for class_type, use the one obtained from the API
         class_type = class_type_str
 
-        status = request.form['status']
+        status = request.form['status'] 
 
         # Save the image to the 'static' folder (create 'static' folder in the same directory as 'app.py')
         image.save(f'static/uploads/{image.filename}')
