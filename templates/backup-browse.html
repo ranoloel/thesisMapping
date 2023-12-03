@@ -124,14 +124,32 @@
                            <div class="white_shd full margin_bottom_30">
                               <div class="full graph_head">
                                  <div class="heading1 margin_0">
-                                    <h2>Browse Image</h2>
+                                    <h2>Form</h2>
                                  </div>
                               </div>
                               <div class="map_section padding_infor_info">
-                                 <input type="file" id="imageInput" onchange="displayImage()" multiple>
-                              </div>
-                              <div class="map_section padding_infor_info">
-                                 <button onclick="submitImages()">Submit and Detect</button>
+                                 <form action="/submit" method="post" enctype="multipart/form-data">
+                                    <label for="image">Import Image:</label>
+                                    <input type="file" name="image" accept="image/*" required><br>
+                            
+                                    <label for="date_imported">Date Imported:</label>
+                                    <input type="datetime-local" name="date_imported" id="date_imported" required><br>
+                                    
+                                    <label for="latitude">Latitude:</label>
+                                    <input type="text" name="latitude" id="latitude" required><br>
+                            
+                                    <label for="longitude">Longitude:</label>
+                                    <input type="text" name="longitude" id="longitude" required><br>
+                            
+                                    <label for="class_type">Class Type:</label>
+                                    <input type="text" name="class_type"><br>
+                            
+                                    <label for="status">Status:</label>
+                                    <input type="text" name="status" value="1"><br>
+                            
+                                    <input type="submit" value="Submit">
+                                    <!-- <input type="submit" value="Submit"> -->
+                                </form>                     
                               </div>
                            </div>
                         </div>
@@ -139,12 +157,38 @@
                            <div class="white_shd full margin_bottom_30">
                               <div class="full graph_head">
                                  <div class="heading1 margin_0">
-                                    <h2>Please check the selected Images</h2>
+                                    <h2>Select Multiple Images</h2>
+                                 </div>
+                              </div>
+                              <div class="map_section padding_infor_info">
+                                 <input type="file" id="imageInput" onchange="displayImage()" multiple>
+                                 <div id="imageContainer"></div>
+                                 <button onclick="submitImages()">Submit Images</button>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>Image</h2>
                                  </div>
                               </div>
                               <div class="map_section padding_infor_info">
                                  <div id="imageContainer"></div>
-                                 <!-- <button onclick="submitImages()">Submit Images</button> -->
+                                 <button onclick="submitImages()">Submit Images</button>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>Image</h2>
+                                 </div>
+                              </div>
+                              <div class="map_section padding_infor_info">
+                                 <canvas id="bar_chart"></canvas>
                               </div>
                            </div>
                         </div>

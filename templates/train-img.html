@@ -35,7 +35,64 @@
       <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
       <!-- Uncomment to enable the map -->
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script>
-  
+      <style>
+         body {
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+         }
+ 
+         .col-lg-6 {
+             width: 50%;
+             float: left;
+             padding: 15px;
+         }
+ 
+         .white_shd {
+             background-color: #fff;
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+             border-radius: 8px;
+             overflow: hidden;
+         }
+ 
+         .graph_head {
+             background-color: #f5f5f5;
+             padding: 15px;
+         }
+ 
+         .heading1 {
+             margin: 0;
+         }
+ 
+         .map_section {
+             padding: 15px;
+         }
+ 
+         .map_section h1 {
+             font-size: 20px;
+             margin-bottom: 15px;
+         }
+ 
+         ul {
+             list-style: none;
+             padding: 0;
+             margin: 0;
+             display: flex;
+             flex-wrap: wrap;
+         }
+ 
+         ul li {
+             width: 100%;
+             margin-bottom: 15px;
+         }
+ 
+         ul li img {
+             width: 100%;
+             height: auto;
+             border-radius: 8px;
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+         }
+     </style>
    </head>
    <body id="page-top" onload="setDefaultDateTime(); generateCoordinates();"></body>
    <!-- <body class="dashboard dashboard_1"> -->
@@ -114,7 +171,7 @@
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Chart</h2>
+                              <h2>Detector Dashboard</h2>
                            </div>
                         </div>
                      </div>
@@ -124,14 +181,11 @@
                            <div class="white_shd full margin_bottom_30">
                               <div class="full graph_head">
                                  <div class="heading1 margin_0">
-                                    <h2>Browse Image</h2>
+                                    <h2>Detection Process</h2>
                                  </div>
                               </div>
                               <div class="map_section padding_infor_info">
-                                 <input type="file" id="imageInput" onchange="displayImage()" multiple>
-                              </div>
-                              <div class="map_section padding_infor_info">
-                                 <button onclick="submitImages()">Submit and Detect</button>
+                                 <!-- <input type="file" id="imageInput" onchange="displayImage()" multiple> -->
                               </div>
                            </div>
                         </div>
@@ -139,12 +193,16 @@
                            <div class="white_shd full margin_bottom_30">
                               <div class="full graph_head">
                                  <div class="heading1 margin_0">
-                                    <h2>Please check the selected Images</h2>
+                                    <h2>Display the new detected image</h2>
                                  </div>
                               </div>
                               <div class="map_section padding_infor_info">
-                                 <div id="imageContainer"></div>
-                                 <!-- <button onclick="submitImages()">Submit Images</button> -->
+                                 <h1>Image Gallery</h1>
+                                 <ul>
+                                     {% for image in images %}
+                                         <li><img src="{{ url_for('get_image', filename=image) }}" alt="{{ image }}"></li>
+                                     {% endfor %}
+                                 </ul>  
                               </div>
                            </div>
                         </div>
