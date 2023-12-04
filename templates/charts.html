@@ -89,7 +89,7 @@
                      <div class="full">
                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
                         <div class="logo_section">
-                           <a href="index.html"><img class="img-responsive" src="images/logo/logo.png" alt="#" /></a>
+                           <!-- <a href="index.html"><img class="img-responsive" src="images/logo/logo.png" alt="#" /></a> -->
                         </div>
                         <div class="right_topbar">
                            <!-- <div class="icon_info">
@@ -118,43 +118,7 @@
                         </div>
                      </div>
                      <!-- row -->
-                     <div class="row column1">
-                        <div class="col-lg-6">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Line Chart</h2>
-                                 </div>
-                              </div>
-                              <div class="map_section padding_infor_info">
-                                 <canvas id="line_chart"></canvas>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Line Chart</h2>
-                                 </div>
-                              </div>
-                              <div class="map_section padding_infor_info">
-                                 <canvas id="bar_chart"></canvas>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Radar Chart</h2>
-                                 </div>
-                              </div>
-                              <div class="map_section padding_infor_info">
-                                 <canvas id="radar_chart"></canvas>
-                              </div>
-                           </div>
-                        </div>
+                     <div class="row column1">  
                         <div class="col-lg-6">
                            <div class="white_shd full margin_bottom_30">
                               <div class="full graph_head">
@@ -163,7 +127,7 @@
                                  </div>
                               </div>
                               <div class="map_section padding_infor_info">
-                                 <canvas id="pie_chart"></canvas>
+                                 <canvas id="classTypeChart" width="400" height="400"></canvas>
                               </div>
                            </div>
                         </div>
@@ -173,7 +137,7 @@
                   <!-- footer -->
                   <div class="container-fluid">
                      <div class="footer">
-                        <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
+                        <p>Copyright © 2023 Elmo Ranolo. All rights reserved.<br><br>
                      </div>
                   </div>
                </div>
@@ -181,28 +145,63 @@
             </div>
          </div>
       </div>
-      <!-- jQuery -->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <!-- chart js -->
-      <script src="js/Chart.min.js"></script>
-      <script src="js/Chart.bundle.min.js"></script>
-      <script src="js/utils.js"></script>
-      <script src="js/analyser.js"></script>
-      <!-- wow animation -->
-      <script src="js/animate.js"></script>
-      <!-- select country -->
-      <script src="js/bootstrap-select.js"></script>
-      <!-- owl carousel -->
-      <script src="js/owl.carousel.js"></script> 
-      <!-- nice scrollbar -->
-      <script src="js/perfect-scrollbar.min.js"></script>
-      <!-- sidebar -->
+      <!-- Chart container -->
+      <canvas id="classTypeChart" width="400" height="400"></canvas>
+
       <script>
-         var ps = new PerfectScrollbar('#sidebar');
+         console.log('Script executed');
+         
+         // Get data from Flask route
+         var labels = {{ labels|tojson|safe }};
+         var data = {{ data|tojson|safe }};
+         
+         // Debugging output
+         console.log(labels);
+         console.log(data);
+
+         // Get the chart container
+         var ctx = document.getElementById('classTypeChart').getContext('2d');
+
+         // Initialize and render the bar chart using Chart.js
+         var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+               labels: labels,
+               datasets: [{
+                     label: 'Class Type Counts',
+                     data: data,
+                     backgroundColor: 'rgba(75, 192, 192, 0.2)', // Adjust color as needed
+                     borderColor: 'rgba(75, 192, 192, 1)',
+                     borderWidth: 1
+               }]
+            }
+         });
       </script>
+
+
+      <!-- jQuery -->
+      <!-- <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.min.js"></script> -->
+      <!-- chart js -->
+      <!-- <script src="js/Chart.min.js"></script>
+      <script src="js/Chart.bundle.min.js"></script> -->
+      <!-- <script src="js/utils.js"></script>
+      <script src="js/analyser.js"></script> -->
+      <!-- wow animation -->
+      <!-- <script src="js/animate.js"></script> -->
+      <!-- select country -->
+      <!-- <script src="js/bootstrap-select.js"></script> -->
+      <!-- owl carousel -->
+      <!-- <script src="js/owl.carousel.js"></script>  -->
+      <!-- nice scrollbar -->
+      <!-- <script src="js/perfect-scrollbar.min.js"></script> -->
+      <!-- sidebar -->
+      <!-- <script>
+         var ps = new PerfectScrollbar('#sidebar');
+      </script> -->
       <!-- custom js -->
-      <script src="js/custom.js"></script>
+      <!-- <script src="js/custom.js"></script> -->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
    </body>
 </html>

@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-image_directory = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
+image_directory = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
 detector_script_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\3_Inference\Detector.py'
 
 
@@ -100,7 +100,15 @@ def media_gallery():
 
 @app.route('/charts')
 def charts():
-    return render_template('charts.html')
+    
+    data = db.session.query(ImageData.class_type).all()
+    # Process the data for the chart
+    class_types = [row[0] for row in data]
+    unique_class_types = list(set(class_types))
+    class_type_counts = [class_types.count(cls) for cls in unique_class_types]
+
+    return render_template('charts.html', labels=unique_class_types, data=class_type_counts)
+
 
 @app.route('/browse-display')
 def browsedisplay():

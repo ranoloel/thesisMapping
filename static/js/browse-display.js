@@ -16,8 +16,11 @@ function displayImage() {
             image.style.width = '100%'; // Set the width of the image
             image.style.height = 'auto'; // Set the height of the image for landscape display
 
-            removeButton.textContent = 'Remove';
+            removeButton.textContent = 'X';
+            // removeButton.innerHTML = '<i class="fas fa-times">x</i>'; // Using Font Awesome delete icon
             removeButton.className = 'btn btn-danger btn-sm'; // Bootstrap styling for the button
+            removeButton.style.marginTop = '-45px'; // Set margin top
+            removeButton.style.marginBottom = '5px'; // Set margin bottom
             removeButton.onclick = function() {
                 container.removeChild(imageContainer);
             };
