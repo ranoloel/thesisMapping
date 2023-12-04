@@ -108,32 +108,56 @@
                </div>
                <!-- end topbar -->
                <!-- dashboard inner -->
-               <div class="midde_cont">
-                  <div class="container-fluid">
-                     <div class="row column_title">
-                        <div class="col-md-12">
-                           <div class="page_title">
-                              <h2>Chart</h2>
-                           </div>
+               <!DOCTYPE html>
+               <html lang="en">
+               <head>
+                   <meta charset="UTF-8">
+                   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                   <title>Your Page Title</title>
+               </head>
+               <body>
+               
+               <!-- Success Modal -->
+               <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                              <h5 class="modal-title" id="successModalLabel">Success</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                              </button>
+                        </div>
+                        <div class="modal-body">
+                              <p id="modalMessage"></p>
+                        </div>
+                        <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                         </div>
                      </div>
-                     <!-- row -->
-                     <div class="row column1">  
-                        <div class="col-lg-6">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Pie Chart</h2>
-                                 </div>
-                              </div>
-                              <div class="map_section padding_infor_info">
-                                 <canvas id="classTypeChart" width="400" height="400"></canvas>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end row -->
                   </div>
+               </div>
+
+               <!-- Error Modal -->
+               <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                              <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                              </button>
+                        </div>
+                        <div class="modal-body">
+                              <p id="errorModalMessage"></p>
+                        </div>
+                        <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+
                   <!-- footer -->
                   <div class="container-fluid">
                      <div class="footer">
@@ -146,39 +170,48 @@
          </div>
       </div>
       <!-- Chart container -->
-      <canvas id="classTypeChart" width="400" height="400"></canvas>
-
       <script>
-         console.log('Script executed');
-         
-         // Get data from Flask route
-         var labels = {{ labels|tojson|safe }};
-         var data = {{ data|tojson|safe }};
-         
-         // Debugging output
-         console.log(labels);
-         console.log(data);
-
-         // Get the chart container
-         var ctx = document.getElementById('classTypeChart').getContext('2d');
-
-         // Initialize and render the bar chart using Chart.js
-         var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-               labels: labels,
-               datasets: [{
-                     label: 'Class Type Counts',
-                     data: data,
-                     backgroundColor: 'rgba(75, 192, 192, 0.2)', // Adjust color as needed
-                     borderColor: 'rgba(75, 192, 192, 1)',
-                     borderWidth: 1
-               }]
-            }
+         // Assuming you have a modal with ID "successModal" and "errorModal"
+         function showModal(message) {
+             $('#modalMessage').text(message);
+             $('#successModal').modal('show');
+         }
+     
+         function showErrorModal(message) {
+             $('#errorModalMessage').text(message);
+             $('#errorModal').modal('show');
+         }
+     
+         $(document).ready(function() {
+             $('form').submit(function(event) {
+                 event.preventDefault();
+     
+                 var form = $(this);
+                 var url = form.attr('action');
+                 var formData = new FormData(form[0]);
+     
+                 $.ajax({
+                     type: 'POST',
+                     url: url,
+                     data: formData,
+                     cache: false,
+                     contentType: false,
+                     processData: false,
+                     success: function(response) {
+                         if (response.status === 'success') {
+                             showModal(response.message);
+                         } else {
+                             showErrorModal(response.message);
+                         }
+                     },
+                     error: function(xhr, status, error) {
+                         showErrorModal('Error uploading images. Please try again.');
+                     }
+                 });
+             });
          });
-      </script>
-
-
+     </script>
+     
       <!-- jQuery -->
       <!-- <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
@@ -202,6 +235,11 @@
       </script> -->
       <!-- custom js -->
       <!-- <script src="js/custom.js"></script> -->
+                   <!-- Include jQuery and Bootstrap (if needed) -->
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
    </body>
 </html>

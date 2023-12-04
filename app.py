@@ -88,10 +88,10 @@ def get_image(filename):
 def camera():
     return render_template('camera.html')
 
-@app.route('/gallery')
-def gallery():
+@app.route('/gallery-results')
+def galleryResults():
     #all_image_data = ImageData.query.all()
-    return render_template('gallery.html', all_image_data=ImageData)
+    return render_template('gallery-results.html')
 
 @app.route('/media_gallery')
 def media_gallery():
@@ -141,10 +141,27 @@ def coral():
 UPLOAD_FOLDER = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# @app.route('/upload', methods=['POST'])
+# def upload():
+#     if 'images' not in request.files:
+#         return jsonify({'message': 'No images provided'}), 400
+
+#     images = request.files.getlist('images')
+#     upload_folder = app.config['UPLOAD_FOLDER']
+
+#     if not os.path.exists(upload_folder):
+#         os.makedirs(upload_folder)
+
+#     for image in images:
+#         image.save(os.path.join(upload_folder, image.filename))
+
+#     return jsonify({'message': 'Images uploaded successfully'}), 200
+
+
 @app.route('/upload', methods=['POST'])
 def upload():
     if 'images' not in request.files:
-        return jsonify({'message': 'No images provided'}), 400
+        return jsonify({'status': 'error', 'message': 'No images provided'}), 400
 
     images = request.files.getlist('images')
     upload_folder = app.config['UPLOAD_FOLDER']
@@ -155,7 +172,8 @@ def upload():
     for image in images:
         image.save(os.path.join(upload_folder, image.filename))
 
-    return jsonify({'message': 'Images uploaded successfully'}), 200
+    return jsonify({'status': 'success', 'message': 'Images uploaded successfully'}), 200
+
 
 
 @app.route('/submit', methods=['POST'])
