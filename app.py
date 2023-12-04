@@ -1,4 +1,4 @@
-from api_detector import data
+from api_detector import get_all_data
 from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -39,7 +39,7 @@ def after_request(response):
 @app.route('/')
 def index():
     # Get a list of all image filenames in the directory
-    images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+    images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif'))]
     return render_template('index.html', images=images)
 
 #Get all data in database
@@ -75,7 +75,7 @@ def run_detector():
 def trainImg():
     # I will start the Detector.py pointing to the new upload and delete once done.
     run_detector()
-    images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+    images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif'))]
     return render_template('train-img.html', images=images)
 
 @app.route('/images/<filename>')
