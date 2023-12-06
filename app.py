@@ -64,6 +64,11 @@ def get_all_data():
 def browse():
     return render_template('browse.html')
 
+# 1. Browse image
+@app.route('/waiting-page')
+def waitingPage():
+    return render_template('waiting-page.html')
+
 def run_detector():
     # Change to the directory where the detector script is located
     os.chdir(os.path.dirname(detector_script_path))
@@ -116,7 +121,7 @@ def charts():
 
     return render_template('charts.html', labels=unique_class_types, data=class_type_counts)
 
-
+#Display all detected images on this page
 @app.route('/browse-display')
 def browsedisplay():
     return render_template('browse-display.html')
@@ -163,6 +168,13 @@ def upload():
         image.save(os.path.join(upload_folder, image.filename))
 
     return jsonify({'message': 'Images uploaded successfully'}), 200
+    #1.Once done, browser will pop-up with the following js below.
+        # - Current date
+        # - Lat and lng
+
+    
+
+
 
 
 # @app.route('/upload', methods=['POST'])
@@ -241,7 +253,16 @@ def check_info(new_data):
     return render_template('check_info.html', new_image_data=new_image_data)
 
 
-#Fetching data and convert to dictionaries
+#Fetching data and convert to dictionaries working
+# @app.route('/fetch_markers')
+# def fetch_markers():
+#     #Query all data and asign to markers
+#     markers = ImageData.query.all()
+#     # Convert markers to a list of dictionaries
+#     markers_data = [{'latitude': marker.latitude, 'longitude': marker.longitude, 'class_type': marker.class_type} for marker in markers]
+#     return jsonify({'markers': markers_data})
+
+#Fetching data from json file
 @app.route('/fetch_markers')
 def fetch_markers():
     #Query all data and asign to markers

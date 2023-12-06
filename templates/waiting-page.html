@@ -110,71 +110,60 @@
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Detector Dashboard</h2>
+                              <h2>Patience is a Virtue. Processing the uploaded image.</h2>
                            </div>
                         </div>
                      </div>
                      <!-- row -->
-                     <div class="row column1">
-                        <div class="col-lg-6">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Detection Process</h2>
-                                 </div>
-                              </div>
-                              <div class="map_section padding_infor_info">
-                                 <!-- <input type="file" id="imageInput" onchange="displayImage()" multiple> -->
-                              </div>
-                           </div>
+                     <div class="row column4 graph">
+                        <!-- Gallery section -->
+                        <div class="col-md-12">
+                           <img id="imageButton" src="{{ url_for('static', filename='images/layout_img/loading-wait.gif') }}" alt="#" />
                         </div>
-                        <div class="col-lg-6">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Display the new detected image</h2>
-                                 </div>
-                              </div>
-                              <div class="map_section padding_infor_info">
-                                 <h1>Image Gallery</h1>
-                                 <ul>
-                                     {% for image in images %}
-                                         <li><img src="{{ url_for('get_image', filename=image) }}" alt="{{ image }}"></li>
-                                     {% endfor %}
-                                 </ul>  
-                              </div>
+                     </div>
+                     <!-- footer -->
+                     <div class="container-fluid">
+                        <div class="row">
+                           <div class="footer">
+                              <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
                            </div>
                         </div>
                      </div>
-                     <!-- end row -->
                   </div>
-                  <!-- footer -->
-                  <div class="container-fluid">
-                     <div class="footer">
-                        <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
+                  <!-- end dashboard inner -->
+               </div>
+            </div>
+            <!-- model popup -->
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal">
+               <div class="modal-dialog">
+                  <div class="modal-content">
+                     <!-- Modal Header -->
+                     <div class="modal-header">
+                        <h4 class="modal-title">Modal Heading</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     </div>
+                     <!-- Modal body -->
+                     <div class="modal-body">
+                        Modal body..
+                     </div>
+                     <!-- Modal footer -->
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                      </div>
                   </div>
                </div>
-               <!-- end dashboard inner -->
             </div>
+            <!-- end model popup -->
          </div>
       </div>
       <!-- jQuery -->
-      <!-- <script src="js/jquery.min.js"></script> -->
       <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+      <!-- <script src="js/jquery.min.js"></script> -->
       <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
       <!-- <script src="js/popper.min.js"></script> -->
       <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
       <!-- <script src="js/bootstrap.min.js"></script> -->
-      <!-- chart js -->
-      <script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
-      <!-- <script src="js/Chart.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/bundle.min.js') }}"></script>
-      <!-- <script src="js/Chart.bundle.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
-      <!-- <script src="js/utils.js"></script> -->
-      <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
-      <!-- <script src="js/analyser.js"></script> -->
       <!-- wow animation -->
       <script src="{{ url_for('static', filename='js/animate.js') }}"></script>
       <!-- <script src="js/animate.js"></script> -->
@@ -184,17 +173,32 @@
       <!-- owl carousel -->
       <script src="{{ url_for('static', filename='js/owl.carousel.js') }}"></script>
       <!-- <script src="js/owl.carousel.js"></script>  -->
+      <!-- chart js -->
+      <script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
+      <!-- <script src="js/Chart.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/Chart.bundle.min.js') }}"></script>
+      <!-- <script src="js/Chart.bundle.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+      <!-- <script src="js/utils.js"></script> -->
+      <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
+      <!-- <script src="js/analyser.js"></script> -->
       <!-- nice scrollbar -->
       <script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
       <!-- <script src="js/perfect-scrollbar.min.js"></script> -->
-      <!-- sidebar -->
+      <script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
       <script>
          var ps = new PerfectScrollbar('#sidebar');
       </script>
+      <!-- fancy box js -->
+      <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+      <!-- <script src="js/jquery-3.3.1.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/jquery.fancybox.min.js') }}"></script>
+      <!-- <script src="js/jquery.fancybox.min.js"></script> -->
       <!-- custom js -->
       <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
       <!-- <script src="js/custom.js"></script> -->
-      <!-- <script src="{{ url_for('static', filename='js/gallery.js') }}"></script> -->
-      <script src="{{ url_for('static', filename='js/browse-display.js') }}"></script>
+      <!-- calendar file css -->   
+      <script src="{{ url_for('static', filename='js/semantic.min.js') }}"></script> 
+      <!-- <script src="js/semantic.min.js"></script> -->
    </body>
 </html>
