@@ -1,4 +1,4 @@
-from api_detector import class_type
+from api_detector import get_all_data
 from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -17,8 +17,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-image_directory = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
-detector_script_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\3_Inference\Detector.py'
+image_directory = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
+detector_script_path = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\3_Inference\Detector.py'
 
 
 class ImageData(db.Model):
@@ -39,7 +39,7 @@ def after_request(response):
 @app.route('/')
 def index():
     # Get a list of all image filenames in the directory
-    images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+    images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif'))]
     return render_template('index.html', images=images)
 
 #Get all data in database
@@ -64,6 +64,13 @@ def get_all_data():
 def browse():
     return render_template('browse.html')
 
+# 1. Browse image
+@app.route('/waiting-page')
+def waitingPage():
+    #calling the 
+    run_detector()
+    return render_template('waiting-page.html')
+
 def run_detector():
     # Change to the directory where the detector script is located
     os.chdir(os.path.dirname(detector_script_path))
@@ -71,12 +78,12 @@ def run_detector():
     subprocess.run(['python', 'Detector.py'])
 
 # 2. Image uploaded and start training. Start Detector
-@app.route('/train-img')
-def trainImg():
-    # I will start the Detector.py pointing to the new upload and delete once done.
-    run_detector()
-    images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif'))]
-    return render_template('train-img.html', images=images)
+# @app.route('/train-img')
+# def trainImg():
+#     # I will start the Detector.py pointing to the new upload and delete once done.
+#     # run_detector()
+#     images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif'))]
+#     return render_template('train-img.html', images=images)
 
 @app.route('/images/<filename>')
 def get_image(filename):
@@ -88,10 +95,17 @@ def get_image(filename):
 def camera():
     return render_template('camera.html')
 
-@app.route('/gallery')
-def gallery():
-    #all_image_data = ImageData.query.all()
-    return render_template('gallery.html', all_image_data=ImageData)
+@app.route('/gallery-results')
+def galleryResults():
+    images_directory = 'C:/Users/Full Scale/Documents/TrainYourOwnYOLO/Data/Source_Images/Test_Image_Detection_Results'
+
+    # Get a list of filenames in the directory excluding JSON files
+    images = [f for f in os.listdir(images_directory) if os.path.isfile(os.path.join(images_directory, f)) and not f.endswith('.json')]
+
+    # Sort the images by modification time (newest first)
+    images.sort(key=lambda f: os.path.getmtime(os.path.join(images_directory, f)), reverse=True)
+
+    return render_template('gallery-results.html', images=images)
 
 @app.route('/media_gallery')
 def media_gallery():
@@ -100,8 +114,16 @@ def media_gallery():
 
 @app.route('/charts')
 def charts():
-    return render_template('charts.html')
+    
+    data = db.session.query(ImageData.class_type).all()
+    # Process the data for the chart
+    class_types = [row[0] for row in data]
+    unique_class_types = list(set(class_types))
+    class_type_counts = [class_types.count(cls) for cls in unique_class_types]
 
+    return render_template('charts.html', labels=unique_class_types, data=class_type_counts)
+
+#Display all detected images on this page
 @app.route('/browse-display')
 def browsedisplay():
     return render_template('browse-display.html')
@@ -129,7 +151,8 @@ def coral():
 #     return render_template('upload-img.html')
 
 
-UPLOAD_FOLDER = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
+
+UPLOAD_FOLDER = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/upload', methods=['POST'])
@@ -147,6 +170,31 @@ def upload():
         image.save(os.path.join(upload_folder, image.filename))
 
     return jsonify({'message': 'Images uploaded successfully'}), 200
+    #1.Once done, browser will pop-up with the following js below.
+        # - Current date
+        # - Lat and lng
+
+    
+
+
+
+
+# @app.route('/upload', methods=['POST'])
+# def upload():
+#     if 'images' not in request.files:
+#         return jsonify({'status': 'error', 'message': 'No images provided'}), 400
+
+#     images = request.files.getlist('images')
+#     upload_folder = app.config['UPLOAD_FOLDER']
+
+#     if not os.path.exists(upload_folder):
+#         os.makedirs(upload_folder)
+
+#     for image in images:
+#         image.save(os.path.join(upload_folder, image.filename))
+
+#     return jsonify({'status': 'success', 'message': 'Images uploaded successfully'}), 200
+
 
 
 @app.route('/submit', methods=['POST'])
@@ -181,7 +229,7 @@ def submit():
         # Instead of using the form data for class_type, use the one obtained from the API
         class_type = class_type_str
 
-        status = request.form['status']
+        status = request.form['status'] 
 
         # Save the image to the 'static' folder (create 'static' folder in the same directory as 'app.py')
         image.save(f'static/uploads/{image.filename}')
@@ -207,7 +255,16 @@ def check_info(new_data):
     return render_template('check_info.html', new_image_data=new_image_data)
 
 
-#Fetching data and convert to dictionaries
+#Fetching data and convert to dictionaries working
+# @app.route('/fetch_markers')
+# def fetch_markers():
+#     #Query all data and asign to markers
+#     markers = ImageData.query.all()
+#     # Convert markers to a list of dictionaries
+#     markers_data = [{'latitude': marker.latitude, 'longitude': marker.longitude, 'class_type': marker.class_type} for marker in markers]
+#     return jsonify({'markers': markers_data})
+
+#Fetching data from json file
 @app.route('/fetch_markers')
 def fetch_markers():
     #Query all data and asign to markers
@@ -215,7 +272,6 @@ def fetch_markers():
     # Convert markers to a list of dictionaries
     markers_data = [{'latitude': marker.latitude, 'longitude': marker.longitude, 'class_type': marker.class_type} for marker in markers]
     return jsonify({'markers': markers_data})
-
 
 
 # class CustomJSONEncoder(JSONEncoder):
