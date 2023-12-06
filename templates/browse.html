@@ -32,9 +32,9 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
+      <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-d/1ZhH3U9Lq8bu2UqD5ZJ2xUMDOmrulfblRr5ZzUmBhQIa9RgBqNHd4BMN5O3TEc" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-d/1ZhH3U9Lq8bu2UqD5ZJ2xUMDOmrulfblRr5ZzUmBhQIa9RgBqNHd4BMN5O3TEc" crossorigin="anonymous"> -->
 
 
       <!-- Uncomment to enable the map -->
@@ -70,14 +70,7 @@
                      <li><a href="{{ url_for('index') }}"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
                      <li><a href="{{ url_for('browse') }}"><i class="fa fa-camera purple_color2"></i> <span>Access Picture</span></a></li>
                      <!-- <li><a href="{{ url_for('camera') }}"><i class="fa fa-camera purple_color2"></i> <span>Access Camera</span></a></li> -->
-                     <li>
-                        <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond purple_color"></i> <span>Elements</span></a>
-                        <ul class="collapse list-unstyled" id="element">
-                           <li><a href="{{ url_for('media_gallery') }}"><span>Seaweeds Gallery</span></a></li>
-                           <li><a href="{{ url_for('media_gallery') }}"><span>Seagrasses Gallery</span></a></li>
-                           <li><a href="{{ url_for('media_gallery') }}"><span>Corals Gallery</span></a></li>
-                        </ul>
-                     </li>
+                     <li><a href="{{ url_for('galleryResults') }}"><i class="fa fa-image purple_color2"></i> <span>Gallery</span></a></li>
                      <li><a href="{{ url_for('tables') }}"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
                      <li>
                      </li>
@@ -133,7 +126,7 @@
                               </div>
                               <div class="map_section padding_infor_info">
                                  <label for="imageInput" style="cursor: pointer;">
-                                     <img id="imageButton" src="{{ url_for('static', filename='images/layout_img/camera.png') }}" alt="#" width="70" height="50">
+                                     <img id="imageButton" src="{{ url_for('static', filename='images/layout_img/camera.png') }}" alt="#" width="70" height="58">
                                  </label>
                                  <input type="file" id="imageInput" style="display: none;" onchange="displayImage()" multiple>
                              </div>
@@ -151,8 +144,9 @@
                               </div>
                               <div class="map_section padding_infor_info">
                                  <ul>
-                                    <li><a href="{{ url_for('media_gallery') }}"><i class="fa fa-map orange_color2"></i> <span>Image gallery</span></a></li>
+                                    <li><a href="{{ url_for('galleryResults') }}"><i class="fa fa-image orange_color2"></i> <span>Image gallery</span></a></li>
                                     <li><a href="{{ url_for('tables') }}"><i class="fa fa-table purple_color2"></i> <span>Data Table</span></a></li>
+                                    <li><a href="{{ url_for('index') }}"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
                                  </ul>
                                  <!-- <div id="imageContainer"></div> -->
                                  <!-- <button onclick="submitImages()">Submit Images</button> -->
@@ -172,9 +166,9 @@
                                  <div class="map m_style1">
                                     <div id="imageContainer"></div>
                                  </div>
-                                 
-                                    <button type="button" onclick="submitImages()"class="btn btn-info"><b>Detect & Submit</b></button>
-                                 
+                                 <button type="button" onclick="submitImages()" class="btn btn-info"><b>Detect & Submit</b></button>
+                                 <!-- Found here!! -->
+                                 <!-- <script src="{{ url_for('static', filename='js/browse-display.js') }}"></script> -->
                               </div>
                            </div>
                         </div>
@@ -301,4 +295,4 @@
       <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
    </body>
-</html>
+</html>  

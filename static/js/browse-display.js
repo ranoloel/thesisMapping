@@ -1,3 +1,4 @@
+
 function displayImage() {
     const input = document.getElementById('imageInput');
     const container = document.getElementById('imageContainer');

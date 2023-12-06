@@ -18,7 +18,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 image_directory = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
-detector_script_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\3_Inference\Detector.py'
+detector_script_path = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\3_Inference\Detector.py'
 
 
 class ImageData(db.Model):
@@ -74,7 +74,7 @@ def run_detector():
 @app.route('/train-img')
 def trainImg():
     # I will start the Detector.py pointing to the new upload and delete once done.
-    run_detector()
+    # run_detector()
     images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif'))]
     return render_template('train-img.html', images=images)
 
@@ -90,8 +90,15 @@ def camera():
 
 @app.route('/gallery-results')
 def galleryResults():
-    #all_image_data = ImageData.query.all()
-    return render_template('gallery-results.html')
+    images_directory = 'C:/Users/Full Scale/Documents/TrainYourOwnYOLO/Data/Source_Images/Test_Image_Detection_Results'
+
+    # Get a list of filenames in the directory excluding JSON files
+    images = [f for f in os.listdir(images_directory) if os.path.isfile(os.path.join(images_directory, f)) and not f.endswith('.json')]
+
+    # Sort the images by modification time (newest first)
+    images.sort(key=lambda f: os.path.getmtime(os.path.join(images_directory, f)), reverse=True)
+
+    return render_template('gallery-results.html', images=images)
 
 @app.route('/media_gallery')
 def media_gallery():
@@ -138,30 +145,13 @@ def coral():
 
 
 
-UPLOAD_FOLDER = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
+UPLOAD_FOLDER = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-# @app.route('/upload', methods=['POST'])
-# def upload():
-#     if 'images' not in request.files:
-#         return jsonify({'message': 'No images provided'}), 400
-
-#     images = request.files.getlist('images')
-#     upload_folder = app.config['UPLOAD_FOLDER']
-
-#     if not os.path.exists(upload_folder):
-#         os.makedirs(upload_folder)
-
-#     for image in images:
-#         image.save(os.path.join(upload_folder, image.filename))
-
-#     return jsonify({'message': 'Images uploaded successfully'}), 200
-
 
 @app.route('/upload', methods=['POST'])
 def upload():
     if 'images' not in request.files:
-        return jsonify({'status': 'error', 'message': 'No images provided'}), 400
+        return jsonify({'message': 'No images provided'}), 400
 
     images = request.files.getlist('images')
     upload_folder = app.config['UPLOAD_FOLDER']
@@ -172,7 +162,24 @@ def upload():
     for image in images:
         image.save(os.path.join(upload_folder, image.filename))
 
-    return jsonify({'status': 'success', 'message': 'Images uploaded successfully'}), 200
+    return jsonify({'message': 'Images uploaded successfully'}), 200
+
+
+# @app.route('/upload', methods=['POST'])
+# def upload():
+#     if 'images' not in request.files:
+#         return jsonify({'status': 'error', 'message': 'No images provided'}), 400
+
+#     images = request.files.getlist('images')
+#     upload_folder = app.config['UPLOAD_FOLDER']
+
+#     if not os.path.exists(upload_folder):
+#         os.makedirs(upload_folder)
+
+#     for image in images:
+#         image.save(os.path.join(upload_folder, image.filename))
+
+#     return jsonify({'status': 'success', 'message': 'Images uploaded successfully'}), 200
 
 
 
@@ -242,7 +249,6 @@ def fetch_markers():
     # Convert markers to a list of dictionaries
     markers_data = [{'latitude': marker.latitude, 'longitude': marker.longitude, 'class_type': marker.class_type} for marker in markers]
     return jsonify({'markers': markers_data})
-
 
 
 # class CustomJSONEncoder(JSONEncoder):

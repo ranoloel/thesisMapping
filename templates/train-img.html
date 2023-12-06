@@ -94,7 +94,8 @@
          }
      </style>
    </head>
-   <body id="page-top" onload="setDefaultDateTime(); generateCoordinates();"></body>
+   <body>
+   <!-- <body id="page-top" onload="setDefaultDateTime(); generateCoordinates();"></body> -->
    <!-- <body class="dashboard dashboard_1"> -->
       <div class="full_container">
          <div class="inner_container">
@@ -221,28 +222,40 @@
          </div>
       </div>
       <!-- jQuery -->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
+      <!-- <script src="js/jquery.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+      <!-- <script src="js/popper.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+      <!-- <script src="js/bootstrap.min.js"></script> -->
       <!-- chart js -->
-      <script src="js/Chart.min.js"></script>
-      <script src="js/Chart.bundle.min.js"></script>
-      <script src="js/utils.js"></script>
-      <script src="js/analyser.js"></script>
+      <script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
+      <!-- <script src="js/Chart.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/bundle.min.js') }}"></script>
+      <!-- <script src="js/Chart.bundle.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+      <!-- <script src="js/utils.js"></script> -->
+      <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
+      <!-- <script src="js/analyser.js"></script> -->
       <!-- wow animation -->
-      <script src="js/animate.js"></script>
+      <script src="{{ url_for('static', filename='js/animate.js') }}"></script>
+      <!-- <script src="js/animate.js"></script> -->
       <!-- select country -->
-      <script src="js/bootstrap-select.js"></script>
+      <script src="{{ url_for('static', filename='js/bootstrap-select.js') }}"></script>
+      <!-- <script src="js/bootstrap-select.js"></script> -->
       <!-- owl carousel -->
-      <script src="js/owl.carousel.js"></script> 
+      <script src="{{ url_for('static', filename='js/owl.carousel.js') }}"></script>
+      <!-- <script src="js/owl.carousel.js"></script>  -->
       <!-- nice scrollbar -->
-      <script src="js/perfect-scrollbar.min.js"></script>
+      <script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
+      <!-- <script src="js/perfect-scrollbar.min.js"></script> -->
       <!-- sidebar -->
       <script>
          var ps = new PerfectScrollbar('#sidebar');
       </script>
       <!-- custom js -->
-      <script src="js/custom.js"></script>
+      <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+      <!-- <script src="js/custom.js"></script> -->
       <!-- <script src="{{ url_for('static', filename='js/gallery.js') }}"></script> -->
       <script src="{{ url_for('static', filename='js/browse-display.js') }}"></script>
    </body>
