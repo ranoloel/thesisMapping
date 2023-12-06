@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import json
 
 app = Flask(__name__)
 
@@ -6,18 +7,21 @@ app = Flask(__name__)
 
 #After process
 # Sample jason data
-class_type = {
-    "contents": [
-        "Seagrass",
-        "Coral",
-        "Seaweeds"
-    ]
-}
+# class_type = {
+#     "contents": [
+#         "Seagrass",
+#         "Coral",
+#         "Seaweeds"
+#     ]
+# }
 
-# Route to get all data
+# Route to get all data old setup
 @app.route('/api/contents', methods=['GET'])    
 def get_all_data():
-    return jsonify({"contents": class_type})
+    json_file_path = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
+    with open(json_file_path, 'r') as json_file:
+        data = json.load(json_file)
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5002)

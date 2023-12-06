@@ -8,95 +8,39 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>ElmoThesis</title>
+      <title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
+
       <!-- site icon -->
-      <link rel="stylesheet" href="{{url_for('static', filename='images/fevicon.png" type="image/png') }}" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='images/fevicon.png') }}" />
       <!-- bootstrap css -->
-      <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css') }}" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
       <!-- site css -->
-      <link rel="stylesheet" href="{{url_for('static', filename='style.css') }}" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
       <!-- responsive css -->
-      <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css') }}" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}" />
       <!-- color css -->
-      <link rel="stylesheet" href="{{url_for('static', filename='css/colors.css') }}" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/colors.css') }}" />
       <!-- select bootstrap -->
-      <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap-select.css') }}" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-select.css') }}" />
       <!-- scrollbar css -->
-      <link rel="stylesheet" href="{{url_for('static', filename='css/perfect-scrollbar.css') }}" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/perfect-scrollbar.css') }}" />
       <!-- custom css -->
       <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}" />
-      <!--[if lt IE 9]>
+      <!-- calendar file css -->
+      <!-- <link rel="stylesheet" href="js/semantic.min.css" /> -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='js/semantic.min.css') }}" />
+      <!-- fancy box js -->
+      <link rel="stylesheet" href="{{ url_for('static', filename='js/jquery.fancybox.css') }}" />
+      <link rel="stylesheet" href="css/jquery.fancybox.css" />
+      <!-- [if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
-      <!-- Uncomment to enable the map -->
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script>
-      <style>
-         body {
-             margin: 0;
-             padding: 0;
-             box-sizing: border-box;
-         }
- 
-         .col-lg-6 {
-             width: 50%;
-             float: left;
-             padding: 15px;
-         }
- 
-         .white_shd {
-             background-color: #fff;
-             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-             border-radius: 8px;
-             overflow: hidden;
-         }
- 
-         .graph_head {
-             background-color: #f5f5f5;
-             padding: 15px;
-         }
- 
-         .heading1 {
-             margin: 0;
-         }
- 
-         .map_section {
-             padding: 15px;
-         }
- 
-         .map_section h1 {
-             font-size: 20px;
-             margin-bottom: 15px;
-         }
- 
-         ul {
-             list-style: none;
-             padding: 0;
-             margin: 0;
-             display: flex;
-             flex-wrap: wrap;
-         }
- 
-         ul li {
-             width: 100%;
-             margin-bottom: 15px;
-         }
- 
-         ul li img {
-             width: 100%;
-             height: auto;
-             border-radius: 8px;
-             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-         }
-     </style>
+      <![endif] -->
    </head>
-   <body>
-   <!-- <body id="page-top" onload="setDefaultDateTime(); generateCoordinates();"></body> -->
-   <!-- <body class="dashboard dashboard_1"> -->
+   <body class="dashboard dashboard_1">
       <div class="full_container">
          <div class="inner_container">
             <!-- Sidebar  -->
@@ -122,17 +66,10 @@
                <div class="sidebar_blog_2">
                   <h4>General</h4>
                   <ul class="list-unstyled components">
-                     <li><a href="{{ url_for('browse') }}"><i class="fa fa-folder purple_color2"></i> <span>Access Picture</span></a></li>
-                     <li><a href="{{ url_for('camera') }}"><i class="fa fa-camera purple_color2"></i> <span>Access Camera</span></a></li>
                      <li><a href="{{ url_for('index') }}"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
-                     <li>
-                        <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond purple_color"></i> <span>Elements</span></a>
-                        <ul class="collapse list-unstyled" id="element">
-                           <li><a href="{{ url_for('media_gallery') }}"><span>Seaweeds Gallery</span></a></li>
-                           <li><a href="{{ url_for('media_gallery') }}"><span>Seagrasses Gallery</span></a></li>
-                           <li><a href="{{ url_for('media_gallery') }}"><span>Corals Gallery</span></a></li>
-                        </ul>
-                     </li>
+                     <li><a href="{{ url_for('browse') }}"><i class="fa fa-folder purple_color2"></i> <span>Access Picture</span></a></li>
+                     <!-- <li><a href="{{ url_for('camera') }}"><i class="fa fa-camera purple_color2"></i> <span>Access Camera</span></a></li> -->
+                     <li><a href="{{ url_for('galleryResults') }}"><i class="fa fa-image purple_color2"></i> <span>Gallery</span></a></li>
                      <li><a href="{{ url_for('tables') }}"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
                      <li>
                      </li>
@@ -147,19 +84,20 @@
                   <nav class="navbar navbar-expand-lg navbar-light">
                      <div class="full">
                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
-                        <div class="logo_section">
+                        
+                        <!-- <div class="logo_section">
                            <a href="index.html"><img class="img-responsive" src="images/logo/logo.png" alt="#" /></a>
-                        </div>
+                        </div> -->
                         <div class="right_topbar">
                            <div class="icon_info">
-                              <ul>
+                              <!-- <ul>
                                  <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
                                  <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
                                  <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
                                  <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
                               </ul>
                               <ul class="user_profile_dd">
-                              </ul>
+                              </ul> -->
                            </div>
                         </div>
                      </div>
@@ -172,71 +110,83 @@
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Detector Dashboard</h2>
+                              <h2>Media Gallery</h2>
                            </div>
                         </div>
                      </div>
                      <!-- row -->
-                     <div class="row column1">
-                        <div class="col-lg-6">
+                     <div class="row column4 graph">
+                        <!-- Gallery section -->
+                        <div class="col-md-12">
                            <div class="white_shd full margin_bottom_30">
                               <div class="full graph_head">
                                  <div class="heading1 margin_0">
-                                    <h2>Detection Process</h2>
+                                    <h2>Media Gallery Design Elements</h2>
                                  </div>
                               </div>
-                              <div class="map_section padding_infor_info">
-                                 <!-- <input type="file" id="imageInput" onchange="displayImage()" multiple> -->
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Display the new detected image</h2>
-                                 </div>
-                              </div>
-                              <div class="map_section padding_infor_info">
-                                 <h1>Image Gallery</h1>
-                                 <ul>
+                              <div class="full gallery_section_inner padding_infor_info">
+                                 <div class="row">
                                      {% for image in images %}
-                                         <li><img src="{{ url_for('get_image', filename=image) }}" alt="{{ image }}"></li>
+                                         <div class="col-sm-6 col-md-6 margin_bottom_30">
+                                             <div class="column">
+                                                 <a data-fancybox="gallery" href="{{ url_for('static', filename='path/to/your/images/' + image) }}">
+                                                     <img class="img-responsive" src="{{ url_for('get_image', filename=image) }}" alt="{{ image }}">
+                                                 </a>
+                                             </div>
+                                             <div class="heading_section">
+                                                 <h4>More details will be found here!</h4>
+                                             </div>
+                                         </div>
                                      {% endfor %}
-                                 </ul>  
-                              </div>
+                                 </div>
+                             </div>
+                             
                            </div>
                         </div>
                      </div>
-                     <!-- end row -->
+                     <!-- footer -->
+                     <div class="container-fluid">
+                        <div class="row">
+                           <div class="footer">
+                              <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
+                           </div>
+                        </div>
+                     </div>
                   </div>
-                  <!-- footer -->
-                  <div class="container-fluid">
-                     <div class="footer">
-                        <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
+                  <!-- end dashboard inner -->
+               </div>
+            </div>
+            <!-- model popup -->
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal">
+               <div class="modal-dialog">
+                  <div class="modal-content">
+                     <!-- Modal Header -->
+                     <div class="modal-header">
+                        <h4 class="modal-title">Modal Heading</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     </div>
+                     <!-- Modal body -->
+                     <div class="modal-body">
+                        Modal body..
+                     </div>
+                     <!-- Modal footer -->
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                      </div>
                   </div>
                </div>
-               <!-- end dashboard inner -->
             </div>
+            <!-- end model popup -->
          </div>
       </div>
       <!-- jQuery -->
-      <!-- <script src="js/jquery.min.js"></script> -->
       <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+      <!-- <script src="js/jquery.min.js"></script> -->
       <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
       <!-- <script src="js/popper.min.js"></script> -->
       <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
       <!-- <script src="js/bootstrap.min.js"></script> -->
-      <!-- chart js -->
-      <script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
-      <!-- <script src="js/Chart.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/bundle.min.js') }}"></script>
-      <!-- <script src="js/Chart.bundle.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
-      <!-- <script src="js/utils.js"></script> -->
-      <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
-      <!-- <script src="js/analyser.js"></script> -->
       <!-- wow animation -->
       <script src="{{ url_for('static', filename='js/animate.js') }}"></script>
       <!-- <script src="js/animate.js"></script> -->
@@ -246,17 +196,32 @@
       <!-- owl carousel -->
       <script src="{{ url_for('static', filename='js/owl.carousel.js') }}"></script>
       <!-- <script src="js/owl.carousel.js"></script>  -->
+      <!-- chart js -->
+      <script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
+      <!-- <script src="js/Chart.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/Chart.bundle.min.js') }}"></script>
+      <!-- <script src="js/Chart.bundle.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+      <!-- <script src="js/utils.js"></script> -->
+      <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
+      <!-- <script src="js/analyser.js"></script> -->
       <!-- nice scrollbar -->
       <script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
       <!-- <script src="js/perfect-scrollbar.min.js"></script> -->
-      <!-- sidebar -->
+      <script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
       <script>
          var ps = new PerfectScrollbar('#sidebar');
       </script>
+      <!-- fancy box js -->
+      <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+      <!-- <script src="js/jquery-3.3.1.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/jquery.fancybox.min.js') }}"></script>
+      <!-- <script src="js/jquery.fancybox.min.js"></script> -->
       <!-- custom js -->
       <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
       <!-- <script src="js/custom.js"></script> -->
-      <!-- <script src="{{ url_for('static', filename='js/gallery.js') }}"></script> -->
-      <script src="{{ url_for('static', filename='js/browse-display.js') }}"></script>
+      <!-- calendar file css -->   
+      <script src="{{ url_for('static', filename='js/semantic.min.js') }}"></script> 
+      <!-- <script src="js/semantic.min.js"></script> -->
    </body>
 </html>

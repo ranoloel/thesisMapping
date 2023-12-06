@@ -44,10 +44,10 @@
             <nav id="sidebar">
                <div class="sidebar_blog_1">
                   <div class="sidebar-header">
-                     <div class="logo_section">
+                     <!-- <div class="logo_section">
                         <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
                         <a href="{{ url_for('index') }}"><img class="logo_icon img-responsive" src="{{ url_for('static', filename='images/logo/logo_icon.png') }}" alt="#" /></a>
-                     </div>
+                     </div> -->
                   </div>
                   <div class="sidebar_user_info">
                      <div class="icon_setting"></div>
@@ -63,21 +63,15 @@
                <div class="sidebar_blog_2">
                   <h4>General</h4>
                   <ul class="list-unstyled components">
-                     <li><a href="{{ url_for('browse') }}"><i class="fa fa-folder purple_color2"></i> <span>Access Picture</span></a></li>
-                     <li><a href="{{ url_for('camera') }}"><i class="fa fa-camera purple_color2"></i> <span>Access Camera</span></a></li>
                      <li><a href="{{ url_for('index') }}"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
-                     <li>
-                        <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond purple_color"></i> <span>Elements</span></a>
-                        <ul class="collapse list-unstyled" id="element">
-                           <li><a href="{{ url_for('media_gallery') }}"><span>Seaweeds Gallery</span></a></li>
-                           <li><a href="{{ url_for('media_gallery') }}"><span>Seagrasses Gallery</span></a></li>
-                           <li><a href="{{ url_for('media_gallery') }}"><span>Corals Gallery</span></a></li>
-                        </ul>
-                     </li>
+                     <li><a href="{{ url_for('browse') }}"><i class="fa fa-camera purple_color2"></i> <span>Access Picture</span></a></li>
+                     <!-- <li><a href="{{ url_for('camera') }}"><i class="fa fa-camera purple_color2"></i> <span>Access Camera</span></a></li> -->
+                     <li><a href="{{ url_for('galleryResults') }}"><i class="fa fa-image purple_color2"></i> <span>Gallery</span></a></li>
                      <li><a href="{{ url_for('tables') }}"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
                      <li>
                      </li>
-                     <li><a href="{{ url_for('charts') }}"><i class="fa fa-bar-chart-o green_color"></i> <span>Charts</span></a></li>                  </ul>
+                     <li><a href="{{ url_for('charts') }}"><i class="fa fa-bar-chart-o green_color"></i> <span>Charts</span></a></li>
+                  </ul>
                </div>
             </nav>
             <!-- end sidebar -->
@@ -88,19 +82,20 @@
                   <nav class="navbar navbar-expand-lg navbar-light">
                      <div class="full">
                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
-                        <div class="logo_section">
+                        
+                        <!-- <div class="logo_section">
                            <a href="index.html"><img class="img-responsive" src="images/logo/logo.png" alt="#" /></a>
-                        </div>
+                        </div> -->
                         <div class="right_topbar">
                            <div class="icon_info">
-                              <ul>
+                              <!-- <ul>
                                  <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
                                  <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
                                  <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
                                  <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
                               </ul>
                               <ul class="user_profile_dd">
-                              </ul>
+                              </ul> -->
                            </div>
                         </div>
                      </div>
@@ -193,7 +188,7 @@
                            <div class="white_shd full margin_bottom_30">
                               <div class="full graph_head">
                                  <div class="heading1 margin_0">
-                                    <h2>Map <small>(Default)</small></h2>
+                                    <h2>Map of the Philippines</h2>
                                  </div>
                               </div>
                               <div class="map_section padding_infor_info">

@@ -1,0 +1,9 @@
+Reminders when errors:
+Working on laptop
+1. Commented this out: 
+def run_detector():
+    # Change to the directory where the detector script is located
+    os.chdir(os.path.dirname(detector_script_path))
+    # Run the detector script
+    subprocess.run(['python', 'Detector.py'])
+

@@ -35,68 +35,9 @@
       <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
       <!-- Uncomment to enable the map -->
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script>
-      <style>
-         body {
-             margin: 0;
-             padding: 0;
-             box-sizing: border-box;
-         }
- 
-         .col-lg-6 {
-             width: 50%;
-             float: left;
-             padding: 15px;
-         }
- 
-         .white_shd {
-             background-color: #fff;
-             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-             border-radius: 8px;
-             overflow: hidden;
-         }
- 
-         .graph_head {
-             background-color: #f5f5f5;
-             padding: 15px;
-         }
- 
-         .heading1 {
-             margin: 0;
-         }
- 
-         .map_section {
-             padding: 15px;
-         }
- 
-         .map_section h1 {
-             font-size: 20px;
-             margin-bottom: 15px;
-         }
- 
-         ul {
-             list-style: none;
-             padding: 0;
-             margin: 0;
-             display: flex;
-             flex-wrap: wrap;
-         }
- 
-         ul li {
-             width: 100%;
-             margin-bottom: 15px;
-         }
- 
-         ul li img {
-             width: 100%;
-             height: auto;
-             border-radius: 8px;
-             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-         }
-     </style>
+  
    </head>
-   <body>
-   <!-- <body id="page-top" onload="setDefaultDateTime(); generateCoordinates();"></body> -->
-   <!-- <body class="dashboard dashboard_1"> -->
+   <body class="dashboard dashboard_1">
       <div class="full_container">
          <div class="inner_container">
             <!-- Sidebar  -->
@@ -122,9 +63,9 @@
                <div class="sidebar_blog_2">
                   <h4>General</h4>
                   <ul class="list-unstyled components">
-                     <li><a href="{{ url_for('browse') }}"><i class="fa fa-folder purple_color2"></i> <span>Access Picture</span></a></li>
-                     <li><a href="{{ url_for('camera') }}"><i class="fa fa-camera purple_color2"></i> <span>Access Camera</span></a></li>
                      <li><a href="{{ url_for('index') }}"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
+                     <li><a href="{{ url_for('browse') }}"><i class="fa fa-camera purple_color2"></i> <span>Access Picture</span></a></li>
+                     <!-- <li><a href="{{ url_for('camera') }}"><i class="fa fa-camera purple_color2"></i> <span>Access Camera</span></a></li> -->
                      <li>
                         <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond purple_color"></i> <span>Elements</span></a>
                         <ul class="collapse list-unstyled" id="element">
@@ -148,10 +89,10 @@
                      <div class="full">
                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
                         <div class="logo_section">
-                           <a href="index.html"><img class="img-responsive" src="images/logo/logo.png" alt="#" /></a>
+                           <!-- <a href="index.html"><img class="img-responsive" src="images/logo/logo.png" alt="#" /></a> -->
                         </div>
                         <div class="right_topbar">
-                           <div class="icon_info">
+                           <!-- <div class="icon_info">
                               <ul>
                                  <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
                                  <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
@@ -160,60 +101,67 @@
                               </ul>
                               <ul class="user_profile_dd">
                               </ul>
-                           </div>
+                           </div> -->
                         </div>
                      </div>
                   </nav>
                </div>
                <!-- end topbar -->
                <!-- dashboard inner -->
-               <div class="midde_cont">
-                  <div class="container-fluid">
-                     <div class="row column_title">
-                        <div class="col-md-12">
-                           <div class="page_title">
-                              <h2>Detector Dashboard</h2>
-                           </div>
+               <!DOCTYPE html>
+               <html lang="en">
+               <head>
+                   <meta charset="UTF-8">
+                   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                   <title>Your Page Title</title>
+               </head>
+               <body>
+               
+               <!-- Success Modal -->
+               <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                              <h5 class="modal-title" id="successModalLabel">Success</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                              </button>
+                        </div>
+                        <div class="modal-body">
+                              <p id="modalMessage"></p>
+                        </div>
+                        <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                         </div>
                      </div>
-                     <!-- row -->
-                     <div class="row column1">
-                        <div class="col-lg-6">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Detection Process</h2>
-                                 </div>
-                              </div>
-                              <div class="map_section padding_infor_info">
-                                 <!-- <input type="file" id="imageInput" onchange="displayImage()" multiple> -->
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Display the new detected image</h2>
-                                 </div>
-                              </div>
-                              <div class="map_section padding_infor_info">
-                                 <h1>Image Gallery</h1>
-                                 <ul>
-                                     {% for image in images %}
-                                         <li><img src="{{ url_for('get_image', filename=image) }}" alt="{{ image }}"></li>
-                                     {% endfor %}
-                                 </ul>  
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end row -->
                   </div>
+               </div>
+
+               <!-- Error Modal -->
+               <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                              <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                              </button>
+                        </div>
+                        <div class="modal-body">
+                              <p id="errorModalMessage"></p>
+                        </div>
+                        <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+
                   <!-- footer -->
                   <div class="container-fluid">
                      <div class="footer">
-                        <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
+                        <p>Copyright © 2023 Elmo Ranolo. All rights reserved.<br><br>
                      </div>
                   </div>
                </div>
@@ -221,42 +169,77 @@
             </div>
          </div>
       </div>
+      <!-- Chart container -->
+      <script>
+         // Assuming you have a modal with ID "successModal" and "errorModal"
+         function showModal(message) {
+             $('#modalMessage').text(message);
+             $('#successModal').modal('show');
+         }
+     
+         function showErrorModal(message) {
+             $('#errorModalMessage').text(message);
+             $('#errorModal').modal('show');
+         }
+     
+         $(document).ready(function() {
+             $('form').submit(function(event) {
+                 event.preventDefault();
+     
+                 var form = $(this);
+                 var url = form.attr('action');
+                 var formData = new FormData(form[0]);
+     
+                 $.ajax({
+                     type: 'POST',
+                     url: url,
+                     data: formData,
+                     cache: false,
+                     contentType: false,
+                     processData: false,
+                     success: function(response) {
+                         if (response.status === 'success') {
+                             showModal(response.message);
+                         } else {
+                             showErrorModal(response.message);
+                         }
+                     },
+                     error: function(xhr, status, error) {
+                         showErrorModal('Error uploading images. Please try again.');
+                     }
+                 });
+             });
+         });
+     </script>
+     
       <!-- jQuery -->
-      <!-- <script src="js/jquery.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-      <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-      <!-- <script src="js/popper.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-      <!-- <script src="js/bootstrap.min.js"></script> -->
+      <!-- <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.min.js"></script> -->
       <!-- chart js -->
-      <script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
-      <!-- <script src="js/Chart.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/bundle.min.js') }}"></script>
-      <!-- <script src="js/Chart.bundle.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
-      <!-- <script src="js/utils.js"></script> -->
-      <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
-      <!-- <script src="js/analyser.js"></script> -->
+      <!-- <script src="js/Chart.min.js"></script>
+      <script src="js/Chart.bundle.min.js"></script> -->
+      <!-- <script src="js/utils.js"></script>
+      <script src="js/analyser.js"></script> -->
       <!-- wow animation -->
-      <script src="{{ url_for('static', filename='js/animate.js') }}"></script>
       <!-- <script src="js/animate.js"></script> -->
       <!-- select country -->
-      <script src="{{ url_for('static', filename='js/bootstrap-select.js') }}"></script>
       <!-- <script src="js/bootstrap-select.js"></script> -->
       <!-- owl carousel -->
-      <script src="{{ url_for('static', filename='js/owl.carousel.js') }}"></script>
       <!-- <script src="js/owl.carousel.js"></script>  -->
       <!-- nice scrollbar -->
-      <script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
       <!-- <script src="js/perfect-scrollbar.min.js"></script> -->
       <!-- sidebar -->
-      <script>
+      <!-- <script>
          var ps = new PerfectScrollbar('#sidebar');
-      </script>
+      </script> -->
       <!-- custom js -->
-      <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
       <!-- <script src="js/custom.js"></script> -->
-      <!-- <script src="{{ url_for('static', filename='js/gallery.js') }}"></script> -->
-      <script src="{{ url_for('static', filename='js/browse-display.js') }}"></script>
+                   <!-- Include jQuery and Bootstrap (if needed) -->
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
    </body>
 </html>

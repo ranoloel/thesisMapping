@@ -1,3 +1,4 @@
+
 function displayImage() {
     const input = document.getElementById('imageInput');
     const container = document.getElementById('imageContainer');
@@ -13,11 +14,14 @@ function displayImage() {
             const removeButton = document.createElement('button');
 
             image.src = e.target.result;
-            image.style.maxWidth = '100%'; // Set the maximum width of the image
-            image.style.maxHeight = 'auto'; // Set the maximum height of the image for landscape display
-            image.style.margin = '0 10px 10px 0'; // Adjust spacing as needed (top-right-bottom-left)
+            image.style.width = '100%'; // Set the width of the image
+            image.style.height = 'auto'; // Set the height of the image for landscape display
 
-            removeButton.textContent = 'Remove';
+            removeButton.textContent = 'X';
+            // removeButton.innerHTML = '<i class="fas fa-times">x</i>'; // Using Font Awesome delete icon
+            removeButton.className = 'btn btn-danger btn-sm'; // Bootstrap styling for the button
+            removeButton.style.marginTop = '-45px'; // Set margin top
+            removeButton.style.marginBottom = '5px'; // Set margin bottom
             removeButton.onclick = function() {
                 container.removeChild(imageContainer);
             };
@@ -29,7 +33,14 @@ function displayImage() {
 
         reader.readAsDataURL(file);
     }
+
+    // Set container style for flex display
+    container.style.display = 'flex';
+    container.style.flexWrap = 'wrap';
+    container.style.justifyContent = 'space-between'; // Adjust as needed for spacing
 }
+
+
 
 function submitImages() {
     const input = document.getElementById('imageInput');
