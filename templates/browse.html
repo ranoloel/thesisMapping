@@ -42,7 +42,7 @@
       <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script> -->
   
    </head>
-   <body class="dashboard dashboard_1">
+   <body class="dashboard dashboard_1" onload="generateCoordinates()">
       <div class="full_container">
          <div class="inner_container">
             <!-- Sidebar  -->
@@ -150,6 +150,13 @@
                                     <li><a href="{{ url_for('galleryResults') }}"><i class="fa fa-image orange_color2"></i> <span>Image gallery</span></a></li>
                                     <li><a href="{{ url_for('tables') }}"><i class="fa fa-table purple_color2"></i> <span>Data Table</span></a></li>
                                     <li><a href="{{ url_for('index') }}"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
+                                    <li>
+                                       <label for="latitude">Latitude:</label>
+                                       <input type="text" name="latitude" id="latitude" required><br>
+
+                                       <label for="longitude">Longitude:</label>
+                                       <input type="text" name="longitude" id="longitude" required><br>
+                                    </li>
                                  </ul>
                                  <!-- <div id="imageContainer"></div> -->
                                  <!-- <button onclick="submitImages()">Submit Images</button> -->

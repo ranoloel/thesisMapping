@@ -72,3 +72,18 @@ function submitImages() {
         alert('An error occurred while uploading images.');
     });
 }
+
+function generateCoordinates() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+document.getElementById("coordinates").addEventListener("click", generateCoordinates);
+
+function showPosition(position) {
+    document.getElementById("latitude").value = position.coords.latitude.toFixed(6);
+    document.getElementById("longitude").value = position.coords.longitude.toFixed(6);
+}

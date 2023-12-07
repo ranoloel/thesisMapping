@@ -24,29 +24,31 @@ class DetectionResult(db.Model):
 with app.app_context():
     db.create_all()
 
-    # Populate the database with JSON data
-    json_file_path = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
-    with open(json_file_path, 'r') as json_file:
-        json_data = json.load(json_file)
+    # Check if data already exists in the database
+    if DetectionResult.query.count() == 0:
+        # Populate the database with JSON data
+        json_file_path = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
+        with open(json_file_path, 'r') as json_file:
+            json_data = json.load(json_file)
 
-    for entry in json_data:
-        detection_result = DetectionResult(
-            confidence=entry['confidence'],
-            file_path=entry['file_path'],
-            label=entry['label'],
-            x_size=entry['x_size'],
-            xmax=entry['xmax'],
-            xmin=entry['xmin'],
-            y_size=entry['y_size'],
-            ymax=entry['ymax'],
-            ymin=entry['ymin'],
-            # latitude=entry.get('latitude', None),  # Replace 'latitude' with the actual key in your JSON data
-            # longitude=entry.get('longitude', None)  # Replace 'longitude' with the actual key in your JSON data
-        )
-        db.session.add(detection_result)
+        for entry in json_data:
+            detection_result = DetectionResult(
+                confidence=entry['confidence'],
+                file_path=entry['file_path'],
+                label=entry['label'],
+                x_size=entry['x_size'],
+                xmax=entry['xmax'],
+                xmin=entry['xmin'],
+                y_size=entry['y_size'],
+                ymax=entry['ymax'],
+                ymin=entry['ymin'],
+                latitude=entry.get('latitude', None),
+                longitude=entry.get('longitude', None)
+            )
+            db.session.add(detection_result)
 
-    # Commit the changes to the database
-    db.session.commit()
+        # Commit the changes to the database
+        db.session.commit()
 
 # Route to get all data
 @app.route('/api/contents', methods=['GET'])
@@ -64,8 +66,8 @@ def get_all_data():
             'y_size': row.y_size,
             'ymax': row.ymax,
             'ymin': row.ymin,
-            # 'latitude': row.latitude,
-            # 'longitude': row.longitude
+            'latitude': row.latitude,
+            'longitude': row.longitude
         })
     return jsonify(result)
 

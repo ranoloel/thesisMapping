@@ -1,4 +1,4 @@
-from api_detector import get_all_data
+# from api_detector import get_all_data
 from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -37,43 +37,42 @@ class DetectionResult(db.Model):
     longitude = db.Column(db.Float)  # Add longitude column
 
 # Create database tables
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
 
-# Function to insert data into the database
-def insert_data_from_json(json_file_path):
-    # Populate the database with JSON data
-    with open(json_file_path, 'r') as json_file:
-        json_data = json.load(json_file)
+    # Check if data already exists in the database
+    if DetectionResult.query.count() == 0:
+        # Populate the database with JSON data
+        json_file_path = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
+        with open(json_file_path, 'r') as json_file:
+            json_data = json.load(json_file)
+        try:
+            for entry in json_data:
+                # Assuming form_latitude and form_longitude are obtained from your form
+                form_latitude = request.form.get('latitude')  # Replace 'latitude' with the actual name of your form field
+                form_longitude = request.form.get('longitude')  # Replace 'longitude' with the actual name of your form field
+                detection_result = DetectionResult(
+                    confidence=entry['confidence'],
+                    file_path=entry['file_path'],
+                    label=entry['label'],
+                    x_size=entry['x_size'],
+                    xmax=entry['xmax'],
+                    xmin=entry['xmin'],
+                    y_size=entry['y_size'],
+                    ymax=entry['ymax'],
+                    ymin=entry['ymin'],
+                    # latitude=entry.get('latitude', None),
+                    # longitude=entry.get('longitude', None)
+                    latitude=form_latitude,  # Use the value from your form
+                    longitude=form_longitude  # Use the value from your form
 
-    for entry in json_data:
-        detection_result = DetectionResult(
-            confidence=entry['confidence'],
-            file_path=entry['file_path'],
-            label=entry['label'],
-            x_size=entry['x_size'],
-            xmax=entry['xmax'],
-            xmin=entry['xmin'],
-            y_size=entry['y_size'],
-            ymax=entry['ymax'],
-            ymin=entry['ymin'],
-            latitude=entry.get('latitude', None),
-            longitude=entry.get('longitude', None)
-        )
-        db.session.add(detection_result)
-
-    # Commit the changes to the database
-    db.session.commit()
-
-# Route to insert data
-@app.route('/api/insert_data', methods=['POST'])
-def insert_data():
-    json_file_path = 'your_json_file_path.json'  # Replace with the actual path to your JSON file
-
-    # Call the function to insert data
-    insert_data_from_json(json_file_path)
-
-    return jsonify({'message': 'Data inserted successfully'})
+                )
+                db.session.add(detection_result)
+            
+            # Commit the changes to the database
+            db.session.commit()
+        except Exception as e:
+            print(f"Error: {e}")
 
 # Route to get all data
 @app.route('/api/contents', methods=['GET'])
@@ -115,7 +114,8 @@ def run_detector():
 
 @app.route('/waiting-page')
 def waitingPage():
-    #calling the 
+
+    #Calling the detector function that calls the Detector.py
     run_detector()
     return render_template('waiting-page.html')
 
@@ -127,6 +127,12 @@ def galleryResults():
     # Sort the images by modification time (newest first)
     images.sort(key=lambda f: os.path.getmtime(os.path.join(images_directory, f)), reverse=True)
     return render_template('gallery-results.html', images=images)
+
+def userCoordinates():
+    #get the lat lng
+    #access db and if new data
+    #insert lat lang to db
+    return 0
 
 @app.route('/images/<filename>')
 def get_image(filename):
