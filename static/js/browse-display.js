@@ -64,7 +64,7 @@ function submitImages() {
         // Optionally, clear the displayed images
         const container = document.getElementById('imageContainer');
         container.innerHTML = '';
-        window.location.href = '/train-img';
+        window.location.href = '/gallery-results';
     })
     .catch(error => {
         console.error('Error:', error);

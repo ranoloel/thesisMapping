@@ -1,4 +1,4 @@
-from api_detector import get_all_data
+# from api_detector import get_all_data
 from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -12,23 +12,108 @@ import json
 import requests
 
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+# app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///thesis.db'
+# db = SQLAlchemy(app)
+# migrate = Migrate(app, db)
 
-image_directory = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
+#CONSTANTS
+image_directory = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
 detector_script_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\3_Inference\Detector.py'
+json_file_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
+Test_Images_PATH = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
 
+
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///thesis.db'  # Replace with your actual database URI
+db = SQLAlchemy(app)
 
 class ImageData(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    image = db.Column(db.String(100), nullable=False)
-    date_imported = db.Column(db.Date, nullable=False)
-    latitude = db.Column(db.String(20), nullable=False)
-    longitude = db.Column(db.String(20), nullable=False)
-    class_type = db.Column(db.String(255), nullable=False)
-    status = db.Column(db.String(50), nullable=False)
+    # Your model fields go here
+    id = db.Column(db.Integer, primary_key=True)
+    latitude = db.Column(db.String(255), nullable=False)
+    longitude = db.Column(db.String(255), nullable=False)
+    file_path = db.Column(db.String(255), nullable=False)
+    label = db.Column(db.String(255), nullable=False)
+    confidence = db.Column(db.Float, nullable=False)
+
+# Create the database tables
+with app.app_context():
+    db.create_all()
+
+# @app.route('/')
+# def index():
+#     return render_template('testonly.html')
+
+@app.route('/fetch_and_process_data', methods=['POST'])
+def fetch_and_process_data():
+
+    # Access form data
+    # date_imported = datetime.strptime(request.form['date_imported'], '%Y-%m-%dT%H:%M')
+    latitude = request.form['latitude']
+    longitude = request.form['longitude']
+
+    # Fetch JSON data from the API
+    response = requests.get('http://127.0.0.1:5001/api/jsonContents')
+    data = response.json()
+
+    for detection_result in data:
+        confidence = detection_result["confidence"]
+        file_path = detection_result["file_path"]
+        label = detection_result["label"]
+
+
+        # Create a new ImageData instance
+        new_image_data = ImageData(
+            # date_imported=date_imported,
+            latitude=latitude,
+            longitude=longitude,
+            file_path=file_path,
+            label=label,
+            confidence=confidence,
+        )
+
+        # Add the instance to the database
+        with app.app_context():
+            db.session.add(new_image_data)
+            db.session.commit()
+    # Redirect to a success page or render a template
+    return render_template('img-selected.html')
+
+# Assuming you have the ImageData model defined
+@app.route('/upload', methods=['POST'])
+def upload():
+    if 'images' not in request.files:
+        return jsonify({'status': 'error', 'message': 'No images provided'}), 400
+
+    images = request.files.getlist('images')
+    upload_folder = app.config['UPLOAD_FOLDER']
+
+    if not os.path.exists(upload_folder):
+        os.makedirs(upload_folder)
+
+    for image in images:
+        image.save(os.path.join(upload_folder, image.filename))
+
+    return render_template('img-    .html')
+
+# @app.route('/upload', methods=['POST'])
+# def upload():
+#     if 'images' not in request.files:
+#         return jsonify({'status': 'error', 'message': 'No images provided'}), 400
+
+#     images = request.files.getlist('images')
+#     upload_folder = app.config['UPLOAD_FOLDER']
+
+#     if not os.path.exists(upload_folder):
+#         os.makedirs(upload_folder)
+
+#     for image in images:
+#         image.save(os.path.join(upload_folder, image.filename))
+        
+#     return jsonify({'status': 'success', 'message': 'Images uploaded successfully'}), 200
+
 
 # Allow all origins (CORS)
 @app.after_request
@@ -64,19 +149,39 @@ def get_all_data():
 def browse():
     return render_template('browse.html')
 
+@app.route('/img-selected')
+def img_selected():
+    return render_template('img-selected.html')
+
 def run_detector():
     # Change to the directory where the detector script is located
     os.chdir(os.path.dirname(detector_script_path))
     # Run the detector script
     subprocess.run(['python', 'Detector.py'])
 
+# def run_detector():
+#     os.chdir(os.path.dirname(detector_script_path))
+#     result = subprocess.run(['python', 'Detector.py'], stdout=subprocess.PIPE, text=True)
+#     return result.stdout, result.returncode
+
 # 2. Image uploaded and start training. Start Detector
-@app.route('/train-img')
-def trainImg():
-    # I will start the Detector.py pointing to the new upload and delete once done.
-    run_detector()
-    images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif'))]
-    return render_template('train-img.html', images=images)
+# @app.route('/train-img')
+# def trainImg():
+#     # I will start the Detector.py pointing to the new upload and delete once done.
+#     run_detector()
+#     images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif'))]
+#     return render_template('train-img.html', images=images)
+
+@app.route('/api/jsonContents', methods=['GET'])    
+def jsonContents():
+    try:
+        with open(json_file_path, 'r') as json_file:
+            data = json.load(json_file)
+            print("inside with ===", data)
+        return jsonify(data)
+    except FileNotFoundError:
+        return jsonify({"error": "Directory or file not found."}), 404
+
 
 @app.route('/images/<filename>')
 def get_image(filename):
@@ -84,14 +189,43 @@ def get_image(filename):
     return send_from_directory(image_directory, filename)
 
 
-@app.route('/camera')
-def camera():
-    return render_template('camera.html')
-
 @app.route('/gallery-results')
 def galleryResults():
-    #all_image_data = ImageData.query.all()
-    return render_template('gallery-results.html')
+    #run Detector.py -  it will accept webp and afig giuess
+    run_detector()
+    images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif'))]
+
+    #To directory image results!
+    images_directory = image_directory
+    # Get a list of filenames in the directory excluding JSON files
+    images = [f for f in os.listdir(images_directory) if os.path.isfile(os.path.join(images_directory, f)) and not f.endswith('.json')]
+    # Sort the images by modification time (newest first)
+    images.sort(key=lambda f: os.path.getmtime(os.path.join(images_directory, f)), reverse=True)
+
+    #Delete all files in testing folder
+    delete_test_images()
+    print("======== done delete")
+
+    # Call fetch_and_process_data to process data when user accesses the page
+    fetch_and_process_data()
+    print("======== done db")
+    return render_template('gallery-results.html', images=images)
+
+@app.route('/delete_test_images')
+def delete_test_images():
+    try:
+        # Get a list of all files in the folder
+        files = os.listdir(Test_Images_PATH)
+
+        # Loop through the files and delete them
+        for file in files:
+            file_path = os.path.join(Test_Images_PATH, file)
+            os.remove(file_path)
+
+        return 'All files deleted successfully.'
+
+    except Exception as e:
+        return f'Error deleting files: {str(e)}'
 
 @app.route('/media_gallery')
 def media_gallery():
@@ -100,13 +234,11 @@ def media_gallery():
 
 @app.route('/charts')
 def charts():
-    
     data = db.session.query(ImageData.class_type).all()
     # Process the data for the chart
     class_types = [row[0] for row in data]
     unique_class_types = list(set(class_types))
     class_type_counts = [class_types.count(cls) for cls in unique_class_types]
-
     return render_template('charts.html', labels=unique_class_types, data=class_type_counts)
 
 
@@ -118,6 +250,10 @@ def browsedisplay():
 def tables():
     all_image_data = ImageData.query.all()
     return render_template('tables.html', all_image_data=all_image_data)
+
+@app.route('/camera')
+def camera():
+    return render_template('camera.html')
 
 
 @app.route('/seaweed')
@@ -135,7 +271,6 @@ def coral():
 # @app.route('/upload')
 # def upload():
 #     return render_template('upload-img.html')
-
 
 
 UPLOAD_FOLDER = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
@@ -157,73 +292,21 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 #     return jsonify({'message': 'Images uploaded successfully'}), 200
 
+# @app.route('/upload', methods=['POST'])
+# def upload():
+#     if 'images' not in request.files:
+#         return jsonify({'status': 'error', 'message': 'No images provided'}), 400
 
-@app.route('/upload', methods=['POST'])
-def upload():
-    if 'images' not in request.files:
-        return jsonify({'status': 'error', 'message': 'No images provided'}), 400
+#     images = request.files.getlist('images')
+#     upload_folder = app.config['UPLOAD_FOLDER']
 
-    images = request.files.getlist('images')
-    upload_folder = app.config['UPLOAD_FOLDER']
+#     if not os.path.exists(upload_folder):
+#         os.makedirs(upload_folder)
 
-    if not os.path.exists(upload_folder):
-        os.makedirs(upload_folder)
-
-    for image in images:
-        image.save(os.path.join(upload_folder, image.filename))
-
-    return jsonify({'status': 'success', 'message': 'Images uploaded successfully'}), 200
-
-
-
-@app.route('/submit', methods=['POST'])
-def submit():
-    if request.method == 'POST':
-        # Fetch JSON data from the API
-        api_url = 'http://127.0.0.1:5002/api/contents'
-        response = requests.get(api_url)
-
-        if response.status_code == 200:
-            api_data = response.json()
-            # Assuming the JSON structure is as you provided
-            class_type_list = api_data.get("contents", {}).get("contents", [])
-        else:
-            # Handle the case where the API request fails
-            class_type_list = []
-
-        # Access form data
-        image = request.files['image']
-        date_imported = datetime.strptime(request.form['date_imported'], '%Y-%m-%dT%H:%M')
-        #date_imported = datetime.strptime(request.form['date_imported'], '%Y-%m-%d %H:%M:%S.%f')
-
-
-        latitude = request.form['latitude']
-        longitude = request.form['longitude']
-
-        # Convert the list to a JSON string
-        class_type_str = ', '.join(class_type_list)
-
-        # Will try to access results from subprocess
-        # class_type = request.form['class_type']
-        # Instead of using the form data for class_type, use the one obtained from the API
-        class_type = class_type_str
-
-        status = request.form['status'] 
-
-        # Save the image to the 'static' folder (create 'static' folder in the same directory as 'app.py')
-        image.save(f'static/uploads/{image.filename}')
-
-        # Create a new ImageData instance
-        new_image_data = ImageData(image=image.filename, date_imported=date_imported,
-                                   latitude=latitude, longitude=longitude,
-                                   class_type=class_type, status=status)
-
-        # Add the instance to the database
-        db.session.add(new_image_data)
-        db.session.commit()
-
-        # Pass the new data to the template for rendering
-        return redirect(url_for('check_info', new_data=new_image_data.id))
+#     for image in images:
+#         image.save(os.path.join(upload_folder, image.filename))
+        
+#     return jsonify({'status': 'success', 'message': 'Images uploaded successfully'}), 200
 
 
 @app.route('/check-info/<int:new_data>')
