@@ -103,78 +103,112 @@
                      </div>
                   </nav>
                </div>
+               <div class="row column1">
+                  <div class="col-lg-6">
+                     <div class="white_shd full margin_bottom_30">
+                        <div class="full graph_head">
+                           <div class="heading1 margin_0">
+                              <h2>Sample image/s successfully detected!</h2>
+                           </div>
+                        </div>
+                        <div class="full gallery_section_inner padding_infor_info">
+                           <div class="row">
+                               {% if images %}
+                                   <div class="col-sm-6 col-md-6 margin_bottom_30">
+                                       <div class="column">
+                                           <!-- <p>Debug: {{ url_for('static', filename='C:/Users/Admin/Documents/TrainYourOwnYOLO/Data/Source_Images/Test_Image_Detection_Results/' + images[0]) }}</p>
+                                           <a data-fancybox="gallery" href="{{ url_for('static', filename='C:/Users/Admin/Documents/TrainYourOwnYOLO/Data/Source_Images/Test_Image_Detection_Results/' + images[0]) }}">
+                                               <img class="img-responsive" src="{{ url_for('get_image', filename=images[0]) }}" alt="{{ images[0] }}"> -->
+                                               <a data-fancybox="gallery" href="{{ url_for('static', filename='path/to/your/images/' + image[0]) }}">
+                                                <img class="img-responsive" src="{{ url_for('get_image', filename=image[0]) }}" alt="{{ image[0] }}">
+                                                <h2>Conrats! Yay!Successfully detected! Inside loop</h2>
+                                           </a>
+                                       </div>
+                                       <div class="heading_section">
+                                           <h4>More details will be found here!</h4>
+                                       </div>
+                                   </div>
+                               {% else %}
+                                   <p>No images available.</p>
+                               {% endif %}
+                               <h2>Conrats! Yay!Successfully detected!Outside loop</h2>
+                           </div>
+                       </div>
+                       
+                       
+                       
+                       
+                        <!-- <div class="map_section padding_infor_info">              
+                           <input type="file" id="imageInput" onchange="displayImage()" multiple>
+                        </div> -->
+                     </div>
+                  </div>
+                  <div class="col-lg-6">
+                     <div class="white_shd full margin_bottom_30">
+                        <div class="full graph_head">
+                           <div class="heading1 margin_0">
+                              <h1>Check the results here!</h1>
+                           </div>
+                        </div>
+                        <div class="map_section padding_infor_info">
+                           <h1>
+                              <ul>
+                                 <li><a href="{{ url_for('galleryResults') }}"><i class="fa fa-image orange_color2"></i> <span>Image gallery</span></a></li>
+                                 <li><a href="{{ url_for('index') }}"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
+                                 <li><a href="{{ url_for('tables') }}"><i class="fa fa-table purple_color2"></i> <span>Data Table</span></a></li>
+                              </ul>
+                        </h1>
+                        </div>
+                     </div>
+                  </div>
+               </div>
                <!-- end topbar -->
                <!-- dashboard inner -->
                <div class="midde_cont">
                   <div class="container-fluid">
-                     <div class="row column_title">
-                        <div class="col-md-12">
-                           <div class="page_title">
-                              <h2>Detector Dashboard</h2>
+                     <!-- footer -->
+                     <div class="container-fluid">
+                        <div class="row">
+                           <div class="footer">
+                              <p>Copyright © 2023 Elmo Ranolo</p>
                            </div>
                         </div>
                      </div>
-                     <!-- row -->
-                     <div class="row column1">
-                        <div class="col-lg-6">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Detection Process</h2>
-                                 </div>
-                              </div>
-                              <div class="map_section padding_infor_info">
-                                 <!-- <input type="file" id="imageInput" onchange="displayImage()" multiple> -->
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Display the new detected image</h2>
-                                 </div>
-                              </div>
-                              <div class="map_section padding_infor_info">
-                                 <h1>Image Gallery</h1>
-                                 <ul>
-                                     {% for image in images %}
-                                         <li><img src="{{ url_for('get_image', filename=image) }}" alt="{{ image }}"></li>
-                                     {% endfor %}
-                                 </ul>  
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end row -->
                   </div>
-                  <!-- footer -->
-                  <div class="container-fluid">
-                     <div class="footer">
-                        <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
+                  <!-- end dashboard inner -->
+               </div>
+            </div>
+            <!-- model popup -->
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal">
+               <div class="modal-dialog">
+                  <div class="modal-content">
+                     <!-- Modal Header -->
+                     <div class="modal-header">
+                        <h4 class="modal-title">Modal Heading</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     </div>
+                     <!-- Modal body -->
+                     <div class="modal-body">
+                        Modal body..
+                     </div>
+                     <!-- Modal footer -->
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                      </div>
                   </div>
                </div>
-               <!-- end dashboard inner -->
             </div>
+            <!-- end model popup -->
          </div>
       </div>
       <!-- jQuery -->
-      <!-- <script src="js/jquery.min.js"></script> -->
       <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+      <!-- <script src="js/jquery.min.js"></script> -->
       <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
       <!-- <script src="js/popper.min.js"></script> -->
       <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
       <!-- <script src="js/bootstrap.min.js"></script> -->
-      <!-- chart js -->
-      <script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
-      <!-- <script src="js/Chart.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/bundle.min.js') }}"></script>
-      <!-- <script src="js/Chart.bundle.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
-      <!-- <script src="js/utils.js"></script> -->
-      <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
-      <!-- <script src="js/analyser.js"></script> -->
       <!-- wow animation -->
       <script src="{{ url_for('static', filename='js/animate.js') }}"></script>
       <!-- <script src="js/animate.js"></script> -->
@@ -184,17 +218,32 @@
       <!-- owl carousel -->
       <script src="{{ url_for('static', filename='js/owl.carousel.js') }}"></script>
       <!-- <script src="js/owl.carousel.js"></script>  -->
+      <!-- chart js -->
+      <script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
+      <!-- <script src="js/Chart.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/Chart.bundle.min.js') }}"></script>
+      <!-- <script src="js/Chart.bundle.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+      <!-- <script src="js/utils.js"></script> -->
+      <script src="{{ url_for('static', filename='js/analyser.js') }}"></script>
+      <!-- <script src="js/analyser.js"></script> -->
       <!-- nice scrollbar -->
       <script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
       <!-- <script src="js/perfect-scrollbar.min.js"></script> -->
-      <!-- sidebar -->
+      <script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
       <script>
          var ps = new PerfectScrollbar('#sidebar');
       </script>
+      <!-- fancy box js -->
+      <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+      <!-- <script src="js/jquery-3.3.1.min.js"></script> -->
+      <script src="{{ url_for('static', filename='js/jquery.fancybox.min.js') }}"></script>
+      <!-- <script src="js/jquery.fancybox.min.js"></script> -->
       <!-- custom js -->
       <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
       <!-- <script src="js/custom.js"></script> -->
-      <!-- <script src="{{ url_for('static', filename='js/gallery.js') }}"></script> -->
-      <script src="{{ url_for('static', filename='js/browse-display.js') }}"></script>
+      <!-- calendar file css -->   
+      <script src="{{ url_for('static', filename='js/semantic.min.js') }}"></script> 
+      <!-- <script src="js/semantic.min.js"></script> -->
    </body>
 </html>

@@ -13,10 +13,17 @@ import requests
 
 
 #CONSTANTS
-UPLOAD_FOLDER = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
-image_directory = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
-detector_script_path = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\3_Inference\Detector.py'
-json_file_path = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
+#laptop
+# UPLOAD_FOLDER = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
+# image_directory = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
+# detector_script_path = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\3_Inference\Detector.py'
+# json_file_path = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
+
+#PC
+UPLOAD_FOLDER = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
+image_directory = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
+detector_script_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\3_Inference\Detector.py'
+json_file_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'  # SQLite database file
@@ -43,7 +50,7 @@ with app.app_context():
     # Check if data already exists in the database
     if DetectionResult.query.count() == 0:
         # Populate the database with JSON data
-        json_file_path = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
+        json_file_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
         with open(json_file_path, 'r') as json_file:
             json_data = json.load(json_file)
         try:
@@ -99,6 +106,9 @@ def get_all_data():
 def index():
     # Get a list of all image filenames in the directory
     images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif'))]
+    #Clearing all samples once index has been loaded
+    delete_test_images()
+    print("index: Deleted all sample images")
     return render_template('index.html', images=images)
 
 # 1. Browse image
@@ -116,17 +126,53 @@ def run_detector():
 def waitingPage():
 
     #Calling the detector function that calls the Detector.py
-    run_detector()
+    # run_detector()
     return render_template('waiting-page.html')
+
+@app.route('/detected-page-message')
+def detected_page_message():
+    #for single image display after running Detector.py
+    images_directory = image_directory  # Assuming image_directory is defined
+    images = get_sorted_images(images_directory)
+    #run Detector.py
+    run_detector()
+    #When Clicked will proceed to gallery or map options
+    return render_template('detected-page-message.html')
 
 @app.route('/gallery-results')
 def galleryResults():
-    images_directory = image_directory
-    # Get a list of filenames in the directory excluding JSON files
-    images = [f for f in os.listdir(images_directory) if os.path.isfile(os.path.join(images_directory, f)) and not f.endswith('.json')]
-    # Sort the images by modification time (newest first)
-    images.sort(key=lambda f: os.path.getmtime(os.path.join(images_directory, f)), reverse=True)
+    images_directory = image_directory  # Assuming image_directory is defined
+    images = get_sorted_images(images_directory)
+
+    # Delete all files in the testing folder
+    delete_test_images()
+    print("Gallery: Deleted all sample images")
+
     return render_template('gallery-results.html', images=images)
+
+def get_sorted_images(directory):
+    # Get a list of filenames in the directory excluding JSON files
+    images = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f)) and not f.endswith('.json')]
+    # Sort the images by modification time (newest first)
+    images.sort(key=lambda f: os.path.getmtime(os.path.join(directory, f)), reverse=True)
+    return images
+
+@app.route('/delete_test_images')
+def delete_test_images():
+    try:
+        # Get a list of all files in the folder
+        files = os.listdir(UPLOAD_FOLDER)
+
+        # Loop through the files and delete them
+        for file in files:
+            file_path = os.path.join(UPLOAD_FOLDER, file)
+            os.remove(file_path)
+
+        return 'All files deleted successfully.'
+
+    except Exception as e:
+        return f'Error deleting files: {str(e)}'
+
 
 def userCoordinates():
     #get the lat lng
