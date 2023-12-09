@@ -192,7 +192,7 @@ def get_image(filename):
 @app.route('/gallery-results')
 def galleryResults():
     #run Detector.py -  it will accept webp and afig giuess
-    run_detector()
+    # run_detector()
     images = [f for f in os.listdir(image_directory) if f.endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif'))]
 
     #To directory image results!
