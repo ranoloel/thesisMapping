@@ -38,7 +38,8 @@ function initializeMap() {
 
         google.maps.event.addListener(marker, "click", (function (marker) {
           return function () {
-            popupContent.setContent(m.class_type);
+            // Include latitude, longitude, and confidence in the InfoWindow content
+            popupContent.setContent(`Type: ${m.class_type}<br>Latitude: ${m.latitude}<br>Longitude: ${m.longitude}<br>Confidence: ${m.confidence}`);
             popupContent.open(map, marker);
           };
         })(marker));

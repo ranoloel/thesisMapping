@@ -11,6 +11,9 @@ import os
 import json
 import requests
 
+from sqlalchemy import func
+import json
+
 
 #CONSTANTS
 #laptop
@@ -156,6 +159,23 @@ def detected_page_message():
     #When Clicked will proceed to gallery or map options
     return render_template('detected-page-message.html')
 
+# @app.route('/detected-page-message')
+# def detected_page_message():
+#     image_folder = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
+#     # Get a list of all image files in the folder
+#     image_files = [f for f in os.listdir(image_folder) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))]
+#     # Sort the image files by modification time (latest first)
+#     latest_image = sorted(image_files, key=lambda x: os.path.getmtime(os.path.join(image_folder, x)), reverse=True)
+
+#     if latest_image:
+#         # Get the path of the latest image
+#         latest_image_path = os.path.join(image_folder, latest_image[0])
+#     else:
+#         latest_image_path = None
+
+#     return render_template('detected-page-message.html', latest_image_path=latest_image_path)
+
+
 @app.route('/gallery-results')
 def galleryResults():
     images_directory = image_directory  # Assuming image_directory is defined
@@ -223,14 +243,35 @@ def get_image(filename):
 def camera():
     return render_template('camera.html')
 
+# @app.route('/charts')
+# def charts():
+#     data = db.session.query(DetectionResult.label).all()
+#     # Process the data for the chart
+#     labels = [row[0] for row in data]
+#     unique_class_types = list(set(labels))
+#     class_type_counts = [labels.count(cls) for cls in unique_class_types]
+#     return render_template('charts.html', labels=unique_class_types, data=class_type_counts)
+
+
 @app.route('/charts')
 def charts():
-    data = db.session.query(ImageData.class_type).all()
-    # Process the data for the chart
-    class_types = [row[0] for row in data]
-    unique_class_types = list(set(class_types))
-    class_type_counts = [class_types.count(cls) for cls in unique_class_types]
-    return render_template('charts.html', labels=unique_class_types, data=class_type_counts)
+    # Query to get label counts
+    label_counts = db.session.query(DetectionResult.label, func.count()).group_by(DetectionResult.label).all()
+
+    # Convert label counts to a dictionary
+    labels_data = dict(label_counts)
+
+    return render_template('charts.html', labels_data=labels_data)
+
+@app.route('/label_counts')
+def label_counts():
+    # Query to get label counts
+    label_counts = db.session.query(DetectionResult.label, func.count()).group_by(DetectionResult.label).all()
+
+    # Convert label counts to a dictionary
+    labels_data = dict(label_counts)
+
+    return jsonify({'labels': labels_data})
 
 #Display all detected images on this page
 @app.route('/browse-display')
@@ -242,6 +283,15 @@ def tables():
     all_image_data = DetectionResult.query.all()
     return render_template('tables.html', all_image_data=all_image_data)
 
+    # # Query data sorted by the 'label' column
+    # all_image_data = DetectionResult.query.order_by(DetectionResult.label).all()
+
+    # return render_template('tables.html', all_image_data=all_image_data)
+
+        # Query data sorted by the 'label' column
+    # results = DetectionResult.query.order_by(DetectionResult.label).all()
+
+    # return render_template('tables.html', results=results)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 #Form browsing image and send to upload_folder
@@ -276,7 +326,7 @@ def fetch_markers():
     #Query all data and asign to markers
     markers = DetectionResult.query.all()
     # Convert markers to a list of dictionaries
-    markers_data = [{'latitude': marker.latitude, 'longitude': marker.longitude, 'class_type': marker.label} for marker in markers]
+    markers_data = [{'latitude': marker.latitude, 'longitude': marker.longitude, 'class_type': marker.label, 'confidence':marker.confidence} for marker in markers]
     return jsonify({'markers': markers_data})
 
 if __name__ == '__main__':

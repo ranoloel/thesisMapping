@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Label Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='images/fevicon.png" type="image/png') }}" />
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css') }}" />
+    <!-- site css -->
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css') }}" />
+    <!-- responsive css -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css') }}" />
+    <!-- color css -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/colors.css') }}" />
+    <!-- select bootstrap -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap-select.css') }}" />
+    <!-- scrollbar css -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/perfect-scrollbar.css') }}" />
+    <!-- custom css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}" />
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
+</head>
+<body>
+    <h1>Label Chart</h1>
+    <canvas id="labelChart" width="400" height="400"></canvas>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Assuming you have a variable 'labelsData' with the label counts
+            var labelsData = {{ labels_data|tojson | safe }};
+
+            var ctx = document.getElementById('labelChart').getContext('2d');
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(labelsData),
+                    datasets: [{
+                        data: Object.values(labelsData),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            // Add more colors if needed
+                        ],
+                    }],
+                },
+            });
+        });
+    </script>
+</body>
+</html>

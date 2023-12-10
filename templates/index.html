@@ -115,37 +115,53 @@
                         </div>
                      </div>
                      <div class="row column1">
-                        <div class="col-md-6 col-lg-4">
+                        <div class="col-md-6 col-lg-3">
                            <div class="full counter_section margin_bottom_30">
                               <div class="couter_icon">
                                  <div> 
                                     <i>
                                       <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/coral.png') }}" alt="#" alt="#" width="100" height="100"/>
                                       <h1 ><b>Coral</b></h1>
+                                      <h1 id="seagrassCount"><b>Loading...</b></h1>
                                     </i>
                                  </div>
                               </div>
                            </div>
                         </div>
-                        <div class="col-md-6 col-lg-4">
+                        <div class="col-md-6 col-lg-3">
                            <div class="full counter_section margin_bottom_30">
                               <div class="couter_icon">
                                  <div> 
                                     <i>
                                        <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/seaweed.png') }}" alt="#" alt="#" width="100" height="100" />
                                        <h1 ><b>Seaweed</b></h1>
+                                       <h1 id="seaweedCount"><b>Loading...</b></h1>
                                     </i>
                                  </div>
                               </div>
                            </div>
                         </div>
-                        <div class="col-md-6 col-lg-4">
+                        <div class="col-md-6 col-lg-3">
                            <div class="full counter_section margin_bottom_30">
                               <div class="couter_icon">
                                  <div> 
                                     <i>
                                        <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/seagrass.png') }}" alt="#" width="100" height="100"/>
-                                       <h1 ><b>Seagrass</b></h1>
+                                       <h1 ><b>Coral</b></h1>
+                                       <h1 id="coralCount"><b>Loading...</b></h1>
+                                    </i>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                           <div class="full counter_section margin_bottom_30">
+                              <div class="couter_icon">
+                                 <div> 
+                                    <i>
+                                       <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/group.png') }}" alt="#" width="100" height="100"/>
+                                       <h1 ><b>Other</b></h1>
+                                       <h1 id="otherCount"><b>Loading...</b></h1>
                                     </i>
                                  </div>
                               </div>
@@ -183,6 +199,21 @@
             </div>
          </div>
       </div>
+      <script>
+         document.addEventListener('DOMContentLoaded', function () {
+             // Fetch label counts from Flask route
+             fetch('/label_counts')
+                 .then(response => response.json())
+                 .then(data => {
+                     // Update the HTML with the label counts
+                     document.getElementById('seagrassCount').innerText = `Seagrass: ${data.seagrass || 0}`;
+                     document.getElementById('coralCount').innerText = `Coral: ${data.coral || 0}`;
+                     document.getElementById('seaweedCount').innerText = `Seaweed: ${data.seaweed || 0}`;
+                     document.getElementById('otherCount').innerText = `Other: ${data.other || 0}`;
+                 })
+                 .catch(error => console.error("Error fetching label counts:", error));
+         });
+     </script>
       <!-- jQuery -->
       <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
       <!-- <script src="js/jquery.min.js"></script> -->
