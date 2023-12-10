@@ -43,47 +43,9 @@ class DetectionResult(db.Model):
     latitude = db.Column(db.Float)  # Add latitude column
     longitude = db.Column(db.Float)  # Add longitude column
 
-    
-
-# Create database tables
+#Create database tables
 with app.app_context():
     db.create_all()
-
-    # Check if data already exists in the database
-    if DetectionResult.query.count() == 0:
-        # Populate the database with JSON data
-        json_file_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
-        with open(json_file_path, 'r') as json_file:
-            json_data = json.load(json_file)
-        try:
-            for entry in json_data:
-                # Assuming form_latitude and form_longitude are obtained from your form
-                form_latitude = request.form.get('latitude')  # Replace 'latitude' with the actual name of your form field
-                form_longitude = request.form.get('longitude')  # Replace 'longitude' with the actual name of your form field
-                detection_result = DetectionResult(
-                    confidence=entry['confidence'],
-                    file_path=entry['file_path'],
-                    label=entry['label'],
-                    x_size=entry['x_size'],
-                    xmax=entry['xmax'],
-                    xmin=entry['xmin'],
-                    y_size=entry['y_size'],
-                    ymax=entry['ymax'],
-                    ymin=entry['ymin'],
-                    # latitude=entry.get('latitude', None),
-                    # longitude=entry.get('longitude', None)
-                    latitude=form_latitude,  # Use the value from your form
-                    longitude=form_longitude  # Use the value from your form
-
-                )
-                db.session.add(detection_result)
-            
-            # Commit the changes to the database
-            db.session.commit()
-        except Exception as e:
-            print(f"Error: {e}")
-            
-#================================================
 
 @app.route('/fetch_and_process_data', methods=['POST'])
 def fetch_and_process_data():
@@ -94,23 +56,39 @@ def fetch_and_process_data():
     longitude = request.form['longitude']
 
     # Fetch JSON data from the API
-    response = requests.get('http://127.0.0.1:5001/api/jsonContents')
-    data = response.json()
+    # response = requests.get('http://127.0.0.1:5001/api/jsonContents')
+    # data = response.json()
 
-    for detection_result in data:
+    json_file_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
+    with open(json_file_path, 'r') as json_file:
+        json_data = json.load(json_file)
+    print(json_data)
+    
+    for detection_result in json_data:
         confidence = detection_result["confidence"]
         file_path = detection_result["file_path"]
         label = detection_result["label"]
-
+        x_size = detection_result["x_size"]
+        xmax = detection_result["xmax"]
+        xmin = detection_result["xmin"]
+        y_size = detection_result["x_size"]
+        ymax = detection_result["xmax"]
+        ymin = detection_result["xmin"]
 
         # Create a new ImageData instance
-        new_image_data = ImageData(
+        new_image_data = DetectionResult(
             # date_imported=date_imported,
             latitude=latitude,
             longitude=longitude,
             file_path=file_path,
             label=label,
             confidence=confidence,
+            x_size=x_size,
+            xmax=xmax,
+            xmin=xmin,
+            y_size=y_size,
+            ymax=ymax,
+            ymin=ymin,
         )
 
         # Add the instance to the database
@@ -118,7 +96,7 @@ def fetch_and_process_data():
             db.session.add(new_image_data)
             db.session.commit()
     # Redirect to a success page or render a template
-    return render_template('img-selected.html')
+    return render_template('index.html')
 
 # Route to get all data
 @app.route('/api/contents', methods=['GET'])
@@ -212,6 +190,23 @@ def delete_test_images():
     except Exception as e:
         return f'Error deleting files: {str(e)}'
 
+@app.route('/api/delete_all_data')
+def delete_all_data():
+    try:
+        # Delete all data from the table
+        DetectionResult.query.delete()
+
+        # Commit the changes to the database
+        db.session.commit()
+
+        response = {'message': 'All data deleted successfully.'}
+        return jsonify(response), 200
+
+    except Exception as e:
+        # Handle exceptions appropriately based on your needs
+        db.session.rollback()
+        response = {'error': str(e)}
+        return jsonify(response), 500
 
 def userCoordinates():
     #get the lat lng
@@ -244,7 +239,7 @@ def browsedisplay():
 
 @app.route('/tables')
 def tables():
-    all_image_data = ImageData.query.all()
+    all_image_data = DetectionResult.query.all()
     return render_template('tables.html', all_image_data=all_image_data)
 
 
@@ -272,17 +267,19 @@ def upload():
 @app.route('/check-info/<int:new_data>')
 def check_info(new_data):
     # Retrieve the newly added data from the database using the provided ID
-    new_image_data = db.session.get(ImageData, new_data)
+    new_image_data = db.session.get(DetectionResult, new_data)
     # Pass the data to the template
     return render_template('check_info.html', new_image_data=new_image_data)
 
 @app.route('/fetch_markers')
 def fetch_markers():
     #Query all data and asign to markers
-    markers = ImageData.query.all()
+    markers = DetectionResult.query.all()
     # Convert markers to a list of dictionaries
-    markers_data = [{'latitude': marker.latitude, 'longitude': marker.longitude, 'class_type': marker.class_type} for marker in markers]
+    markers_data = [{'latitude': marker.latitude, 'longitude': marker.longitude, 'class_type': marker.label} for marker in markers]
     return jsonify({'markers': markers_data})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5001)
+    # context = ('cert.pem', 'key.pem')  # Use the names of your certificate and key files
+    # app.run(host='0.0.0.0', port=5001, ssl_context=context, debug=True)

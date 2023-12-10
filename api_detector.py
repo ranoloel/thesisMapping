@@ -27,7 +27,7 @@ with app.app_context():
     # Check if data already exists in the database
     if DetectionResult.query.count() == 0:
         # Populate the database with JSON data
-        json_file_path = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
+        json_file_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
         with open(json_file_path, 'r') as json_file:
             json_data = json.load(json_file)
 

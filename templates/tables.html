@@ -126,23 +126,33 @@
                                           <tr class="table-secondary">
                                              <th>ID</th>
                                              <th>Image</th>
-                                             <th>Data Imported</th>
+                                             <th>label</th>
+                                             <th>Confidence</th>
                                              <th>Latitude</th>
                                              <th>Longitude</th>
-                                             <th>Class Type</th>
-                                             <th>Status</th>
+                                             <th>x_size</th>
+                                             <th>xmax</th>
+                                             <th>xmin</th>
+                                             <th>y_size</th>
+                                             <th>ymax</th>
+                                             <th>ymin</th>
                                           </tr>
                                        </thead>
                                        <tbody>
                                           {% for data in all_image_data %}
                                              <tr>
                                              <td>{{ data.id }}</td>
-                                                <td><a href="{{ url_for('galleryResults')}}">{{ data.image }}</a></td>
-                                                <td>{{ data.date_imported }}</td>
+                                                <td><a href="{{ url_for('galleryResults')}}">{{ data.file_path }}</a></td>
+                                                <td>{{ data.label }}</td>
+                                                <td>{{ data.confidence }}</td>
                                                 <td>{{ data.latitude }}</td>
                                                 <td>{{ data.longitude }}</td>
-                                                <td>{{ data.class_type }}</td>
-                                                <td>{{ data.status }}</td>
+                                                <td>{{ data.x_size }}</td>
+                                                <td>{{ data.xmax }}</td>
+                                                <td>{{ data.xmin }}</td>
+                                                <td>{{ data.y_size }}</td>
+                                                <td>{{ data.ymax }}</td>
+                                                <td>{{ data.ymin }}</td>
                                              </tr>
                                           {% endfor %}
                                        </tbody>

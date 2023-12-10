@@ -34,7 +34,9 @@
       <![endif]-->
       <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
       <!-- Uncomment to enable the map -->
-      <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script> -->
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script>
+      <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjFa8rKYzlqlq_5IxLr6YEraHRglcQKdI&callback=initializeMap" async defer></script> -->
+
   
    </head>
    <body class="dashboard dashboard_1">
@@ -113,70 +115,38 @@
                         </div>
                      </div>
                      <div class="row column1">
-                        <div class="col-md-6 col-lg-3">
+                        <div class="col-md-6 col-lg-4">
                            <div class="full counter_section margin_bottom_30">
                               <div class="couter_icon">
                                  <div> 
                                     <i>
-                                      <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/coral.png') }}" alt="#" />
+                                      <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/coral.png') }}" alt="#" alt="#" width="100" height="100"/>
+                                      <h1 ><b>Coral</b></h1>
                                     </i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <p class="total_no">Coral</p>
-                                    <!-- <p class="head_couter">Welcome</p> -->
                                  </div>
                               </div>
                            </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
+                        <div class="col-md-6 col-lg-4">
                            <div class="full counter_section margin_bottom_30">
                               <div class="couter_icon">
                                  <div> 
                                     <i>
-                                       <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/seaweed.png') }}" alt="#" />
+                                       <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/seaweed.png') }}" alt="#" alt="#" width="100" height="100" />
+                                       <h1 ><b>Seaweed</b></h1>
                                     </i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <p class="total_no">Seaweed</p>
-                                    <!-- <p class="head_couter">Average Time</p> -->
                                  </div>
                               </div>
                            </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
+                        <div class="col-md-6 col-lg-4">
                            <div class="full counter_section margin_bottom_30">
                               <div class="couter_icon">
                                  <div> 
                                     <i>
-                                       <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/seagrass.png') }}" alt="#" />
+                                       <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/seagrass.png') }}" alt="#" width="100" height="100"/>
+                                       <h1 ><b>Seagrass</b></h1>
                                     </i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <p class="total_no">Seagrass</p>
-                                    <!-- <p class="head_couter">Collections</p> dd-->
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i>
-                                       <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/group.png') }}" alt="#" />
-                                    </i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <p class="total_no">Group</p>
-                                    <!-- <p class="head_couter">Comments</p> -->
                                  </div>
                               </div>
                            </div>
