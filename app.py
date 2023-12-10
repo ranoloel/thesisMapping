@@ -43,6 +43,8 @@ class DetectionResult(db.Model):
     latitude = db.Column(db.Float)  # Add latitude column
     longitude = db.Column(db.Float)  # Add longitude column
 
+    
+
 # Create database tables
 with app.app_context():
     db.create_all()
@@ -80,6 +82,43 @@ with app.app_context():
             db.session.commit()
         except Exception as e:
             print(f"Error: {e}")
+            
+#================================================
+
+@app.route('/fetch_and_process_data', methods=['POST'])
+def fetch_and_process_data():
+
+    # Access form data
+    # date_imported = datetime.strptime(request.form['date_imported'], '%Y-%m-%dT%H:%M')
+    latitude = request.form['latitude']
+    longitude = request.form['longitude']
+
+    # Fetch JSON data from the API
+    response = requests.get('http://127.0.0.1:5001/api/jsonContents')
+    data = response.json()
+
+    for detection_result in data:
+        confidence = detection_result["confidence"]
+        file_path = detection_result["file_path"]
+        label = detection_result["label"]
+
+
+        # Create a new ImageData instance
+        new_image_data = ImageData(
+            # date_imported=date_imported,
+            latitude=latitude,
+            longitude=longitude,
+            file_path=file_path,
+            label=label,
+            confidence=confidence,
+        )
+
+        # Add the instance to the database
+        with app.app_context():
+            db.session.add(new_image_data)
+            db.session.commit()
+    # Redirect to a success page or render a template
+    return render_template('img-selected.html')
 
 # Route to get all data
 @app.route('/api/contents', methods=['GET'])
