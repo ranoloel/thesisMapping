@@ -40,16 +40,26 @@ function displayImage() {
     container.style.justifyContent = 'space-between'; // Adjust as needed for spacing
 }
 
+let isLoading=false;
 
+function openModal() {
+    document.getElementById('myModal').style.display = 'block';
+    // document.getElementById('hideEnd').style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('myModal').style.display = 'none';
+    // document.getElementById('hideEnd').style.display = 'none';
+}
 
 function submitImages() {
     const input = document.getElementById('imageInput');
-
+    openModal();
     if (input.files.length === 0) {
+        closeModal();
         alert('Please select at least one image before submitting.');
         return;
     }
-
     const formData = new FormData();
     for (const file of input.files) {
         formData.append('images', file);
@@ -61,17 +71,20 @@ function submitImages() {
     })
     .then(response => response.json())
     .then(data => {
-        alert(data.message);
+        // alert(data.message);
         // Optionally, clear the displayed images
         const container = document.getElementById('imageContainer');
         container.innerHTML = '';
         window.location.href = '/detected-page-message';
     })
     .catch(error => {
+        closeModal();
         console.error('Error:', error);
         alert('An error occurred while uploading images.');
+
     });
 }
+
 
 // function generateCoordinates() {
 //     if (navigator.geolocation) {
@@ -104,3 +117,4 @@ function showPosition(position) {
     document.getElementById("latitude").value = position.coords.latitude.toFixed(6);
     document.getElementById("longitude").value = position.coords.longitude.toFixed(6);
 }
+

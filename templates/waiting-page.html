@@ -12,35 +12,50 @@
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
-
       <!-- site icon -->
-      <link rel="stylesheet" href="{{ url_for('static', filename='images/fevicon.png') }}" />
+      <!-- <link rel="stylesheet" href="{{url_for('static', filename='images/fevicon.png" type="image/png') }}" /> -->
       <!-- bootstrap css -->
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+      <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css') }}" />
       <!-- site css -->
-      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+      <link rel="stylesheet" href="{{url_for('static', filename='style.css') }}" />
       <!-- responsive css -->
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}" />
+      <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css') }}" />
       <!-- color css -->
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/colors.css') }}" />
+      <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/colors.css') }}" /> -->
       <!-- select bootstrap -->
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-select.css') }}" />
+      <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap-select.css') }}" />
       <!-- scrollbar css -->
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/perfect-scrollbar.css') }}" />
+      <link rel="stylesheet" href="{{url_for('static', filename='css/perfect-scrollbar.css') }}" />
       <!-- custom css -->
       <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}" />
-      <!-- calendar file css -->
-      <!-- <link rel="stylesheet" href="js/semantic.min.css" /> -->
-      <link rel="stylesheet" href="{{ url_for('static', filename='js/semantic.min.css') }}" />
-      <!-- fancy box js -->
-      <link rel="stylesheet" href="{{ url_for('static', filename='js/jquery.fancybox.css') }}" />
-      <link rel="stylesheet" href="css/jquery.fancybox.css" />
-      <!-- [if lt IE 9]>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
+      <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif] -->
+      <![endif]-->
+      <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-d/1ZhH3U9Lq8bu2UqD5ZJ2xUMDOmrulfblRr5ZzUmBhQIa9RgBqNHd4BMN5O3TEc" crossorigin="anonymous"> -->
+
+
+      <!-- Uncomment to enable the map -->
+      <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script> -->
+      <style>
+         body {
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             height: 100vh;
+             margin: 0;
+         }
+ 
+         .container {
+             width: 800px; /* Adjust the width as needed */
+         }
+     </style>
+  
    </head>
-   <body class="dashboard dashboard_1">
+   <body class="d-flex align-items-center justify-content-center vh-100" onload="generateCoordinates()">
       <div class="full_container">
          <div class="inner_container">
             <!-- Sidebar  -->
@@ -65,15 +80,18 @@
                </div>
                <div class="sidebar_blog_2">
                   <h4>General</h4>
-                  <ul class="list-unstyled components">
-                     <li><a href="{{ url_for('index') }}"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
-                     <li><a href="{{ url_for('browse') }}"><i class="fa fa-folder purple_color2"></i> <span>Access Picture</span></a></li>
-                     <!-- <li><a href="{{ url_for('camera') }}"><i class="fa fa-camera purple_color2"></i> <span>Access Camera</span></a></li> -->
-                     <li><a href="{{ url_for('galleryResults') }}"><i class="fa fa-image purple_color2"></i> <span>Gallery</span></a></li>
-                     <li><a href="{{ url_for('tables') }}"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
+                  <!-- <ul class="list-unstyled components">
+                     <h4>
                      <li>
+                        <label for="latitude">Latitude:</label>
+                        <input type="text" name="latitude" id="latitude" required><br>
                      </li>
-                     <li><a href="{{ url_for('charts') }}"><i class="fa fa-bar-chart-o green_color"></i> <span>Charts</span></a></li>                  </ul>
+                     <li>
+                        <label for="longitude">Longitude:</label>
+                        <input type="text" name="longitude" id="longitude" required><br>
+                     </li>
+                     </h4>
+                  </ul> -->
                </div>
             </nav>
             <!-- end sidebar -->
@@ -110,53 +128,51 @@
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Patience is a Virtue. Processing the uploaded image.</h2>
+                              <!-- <h2>Dashboard</h2> -->
                            </div>
                         </div>
                      </div>
                      <!-- row -->
-                     <div class="row column4 graph">
-                        <!-- Gallery section -->
+                     <div class="row column2 graph margin_bottom_30">
                         <div class="col-md-12">
-                           <img id="imageButton" src="{{ url_for('static', filename='images/layout_img/loading-wait.gif') }}" alt="#" />
-                        </div>
-                     </div>
-                     <!-- footer -->
-                     <div class="container-fluid">
-                        <div class="row">
-                           <div class="footer">
-                              <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <!-- <h2>Successfully</h2> -->
+                                 </div>
+                              </div>
+                              <div class="map_section padding_infor_info">
+                                 <div class="map2 m_style1">
+                                    <h1>"Processing the image(s)...."</h1><br>
+                                    <img id="imageButton" src="{{ url_for('static', filename='images/layout_img/loading-wait.gif') }}" alt="#" />
+                                 </div>
                            </div>
                         </div>
                      </div>
+                     <!-- end row -->
                   </div>
-                  <!-- end dashboard inner -->
-               </div>
-            </div>
-            <!-- model popup -->
-            <!-- The Modal -->
-            <div class="modal fade" id="myModal">
-               <div class="modal-dialog">
-                  <div class="modal-content">
-                     <!-- Modal Header -->
-                     <div class="modal-header">
-                        <h4 class="modal-title">Modal Heading</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                     </div>
-                     <!-- Modal body -->
-                     <div class="modal-body">
-                        Modal body..
-                     </div>
-                     <!-- Modal footer -->
-                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  <!-- footer -->
+                  <div class="container-fluid">
+                     <div class="footer">
+                        <p>Copyright © 2023 Elmo Ranolo. All rights reserved.<br><br>
                      </div>
                   </div>
                </div>
+               <!-- end dashboard inner -->
             </div>
-            <!-- end model popup -->
          </div>
       </div>
+      <style>
+         .map2 {
+             text-align: center;
+             margin: 0 auto;
+             max-width: 600px; /* Adjust the max-width as needed */
+         }
+     
+         .form-group {
+             margin-bottom: 15px;
+         }
+     </style>
       <!-- jQuery -->
       <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
       <!-- <script src="js/jquery.min.js"></script> -->
@@ -185,20 +201,14 @@
       <!-- nice scrollbar -->
       <script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
       <!-- <script src="js/perfect-scrollbar.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
       <script>
          var ps = new PerfectScrollbar('#sidebar');
       </script>
-      <!-- fancy box js -->
-      <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
-      <!-- <script src="js/jquery-3.3.1.min.js"></script> -->
-      <script src="{{ url_for('static', filename='js/jquery.fancybox.min.js') }}"></script>
-      <!-- <script src="js/jquery.fancybox.min.js"></script> -->
       <!-- custom js -->
       <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
-      <!-- <script src="js/custom.js"></script> -->
-      <!-- calendar file css -->   
-      <script src="{{ url_for('static', filename='js/semantic.min.js') }}"></script> 
-      <!-- <script src="js/semantic.min.js"></script> -->
+      <!-- <script src="{{ url_for('static', filename='js/gallery.js') }}"></script> -->
+      <script src="{{ url_for('static', filename='js/browse-display.js') }}"></script>
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
    </body>
-</html>
+</html>  

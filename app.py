@@ -14,6 +14,9 @@ import requests
 from sqlalchemy import func
 import json
 
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+
 
 #CONSTANTS
 #laptop
@@ -31,6 +34,8 @@ json_file_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'  # SQLite database file
 db = SQLAlchemy(app)
+#debug
+CORS(app)
 
 class DetectionResult(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -45,6 +50,12 @@ class DetectionResult(db.Model):
     ymin = db.Column(db.Integer)
     latitude = db.Column(db.Float)  # Add latitude column
     longitude = db.Column(db.Float)  # Add longitude column
+
+# Allow all origins (CORS)
+# @app.after_request
+# def after_request(response):
+#     response.headers.add('Access-Control-Allow-Origin', '*')
+#     return response
 
 #Create database tables
 with app.app_context():
@@ -242,6 +253,7 @@ def get_image(filename):
 @app.route('/camera')
 def camera():
     return render_template('camera.html')
+
 
 # @app.route('/charts')
 # def charts():

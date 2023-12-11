@@ -13,7 +13,7 @@
       <meta name="description" content="">
       <meta name="author" content="">
       <!-- site icon -->
-      <link rel="stylesheet" href="{{url_for('static', filename='images/fevicon.png" type="image/png') }}" />
+      <!-- <link rel="stylesheet" href="{{url_for('static', filename='images/fevicon.png" type="image/png') }}" /> -->
       <!-- bootstrap css -->
       <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css') }}" />
       <!-- site css -->
@@ -21,7 +21,7 @@
       <!-- responsive css -->
       <link rel="stylesheet" href="{{url_for('static', filename='css/responsive.css') }}" />
       <!-- color css -->
-      <link rel="stylesheet" href="{{url_for('static', filename='css/colors.css') }}" />
+      <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/colors.css') }}" /> -->
       <!-- select bootstrap -->
       <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap-select.css') }}" />
       <!-- scrollbar css -->
@@ -145,22 +145,22 @@
                                  <div class="map2 m_style1">
                                     <h1>"Image(s) have been successfully processed!"</h1><br>
                                     <form method="POST" action="{{ url_for('fetch_and_process_data') }}">
-                                       <div class="form-group" style="display: none;">
+                                       <!-- <div class="form-group" style="display: none;">
                                           <label for="latitude">Latitude:</label>
                                           <input type="text" name="latitude" id="latitude" required><br>
                                        </div>
                                        <div class="form-group" style="display: none;">
                                           <label for="longitude">Longitude:</label>
                                           <input type="text" name="longitude" id="longitude" required><br>
-                                       </div>
-                                       <!-- <div class="form-group">
+                                       </div> -->
+                                       <div class="form-group">
                                           <label for="latitude">Latitude:</label>
                                           <input type="text" name="latitude" id="latitude" required><br>
                                        </div>
                                        <div class="form-group">
                                           <label for="longitude">Longitude:</label>
                                           <input type="text" name="longitude" id="longitude" required><br>
-                                       </div> -->
+                                       </div>
                                        <button type="submit" class="btn btn-primary">Proceed</button>
                                     </form>
                                     <!-- <h1>Latest Uploaded Image</h1>

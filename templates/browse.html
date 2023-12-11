@@ -40,7 +40,53 @@
 
       <!-- Uncomment to enable the map -->
       <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script> -->
-  
+      <style>
+         body {
+             font-family: Arial, sans-serif;
+             margin: 20px;
+             padding: 20px;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             height: 100vh;
+         }
+ 
+         #myModal {
+             display: none;
+             position: fixed;
+             z-index: 1;
+             left: 0;
+             top: 0;
+             width: 100%;
+             height: 100%;
+             overflow: auto;
+             background-color: rgba(0, 0, 0, 0.5);
+         }
+ 
+         #modalContent {
+             background-color: #fefefe;
+             margin: 15% auto;
+             padding: 20px;
+             border: 1px solid #888;
+             width: 60%;
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+         }
+ 
+         #closeModal {
+             color: #aaa;
+             float: right;
+             font-size: 28px;
+             font-weight: bold;
+             cursor: pointer;
+         }
+ 
+         #closeModal:hover,
+         #closeModal:focus {
+             color: black;
+             text-decoration: none;
+             cursor: pointer;
+         }
+     </style>
    </head>
    <body class="dashboard dashboard_1" onload="generateCoordinates()">
       <div class="full_container">
@@ -186,6 +232,17 @@
                            </div>
                         </div>
                      </div>
+                     <!-- Sample modal -->
+                     <!-- <button onclick="openModal()">Open Modal</button> -->
+                     <!-- Sample modal -->
+                     <div id="myModal">
+                         <div id="modalContent">
+                           <div class="map2 m_style1" id="hideEnd">
+                              <h1>"Processing the image(s)...."</h1><br>
+                              <img id="imageButton" src="{{ url_for('static', filename='images/layout_img/loading-wait.gif') }}" alt="#" />
+                           </div>
+                         </div>
+                     </div>
                      <!-- end row -->
                   </div>
                   <!-- footer -->
@@ -199,47 +256,6 @@
             </div>
          </div>
       </div>
-      <!-- <script>
-         // Assuming you have a modal with ID "successModal" and "errorModal"
-         function showModal(message) {
-             $('#modalMessage').text(message);
-             $('#successModal').modal('show');
-         }
-     
-         function showErrorModal(message) {
-             $('#errorModalMessage').text(message);
-             $('#errorModal').modal('show');
-         }
-     
-         $(document).ready(function() {
-             $('form').submit(function(event) {
-                 event.preventDefault();
-     
-                 var form = $(this);
-                 var url = form.attr('action');
-                 var formData = new FormData(form[0]);
-     
-                 $.ajax({
-                     type: 'POST',
-                     url: url,
-                     data: formData,
-                     cache: false,
-                     contentType: false,
-                     processData: false,
-                     success: function(response) {
-                         if (response.status === 'success') {
-                             showModal(response.message);
-                         } else {
-                             showErrorModal(response.message);
-                         }
-                     },
-                     error: function(xhr, status, error) {
-                         showErrorModal('Error uploading images. Please try again.');
-                     }
-                 });
-             });
-         });
-     </script> -->
       <!-- jQuery -->
       <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
       <!-- <script src="js/jquery.min.js"></script> -->
