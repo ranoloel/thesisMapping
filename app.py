@@ -252,7 +252,6 @@ def camera():
 #     class_type_counts = [labels.count(cls) for cls in unique_class_types]
 #     return render_template('charts.html', labels=unique_class_types, data=class_type_counts)
 
-
 @app.route('/charts')
 def charts():
     # Query to get label counts

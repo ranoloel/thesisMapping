@@ -142,17 +142,25 @@
                                  </div>
                               </div>
                               <div class="map_section padding_infor_info">
-                                 <div class="map m_style1">
-                                    <h2>"Image(s) have been successfully processed!"</h2><br>
+                                 <div class="map2 m_style1">
+                                    <h1>"Image(s) have been successfully processed!"</h1><br>
                                     <form method="POST" action="{{ url_for('fetch_and_process_data') }}">
-                                       <div class="form-group">
+                                       <div class="form-group" style="display: none;">
+                                          <label for="latitude">Latitude:</label>
+                                          <input type="text" name="latitude" id="latitude" required><br>
+                                       </div>
+                                       <div class="form-group" style="display: none;">
+                                          <label for="longitude">Longitude:</label>
+                                          <input type="text" name="longitude" id="longitude" required><br>
+                                       </div>
+                                       <!-- <div class="form-group">
                                           <label for="latitude">Latitude:</label>
                                           <input type="text" name="latitude" id="latitude" required><br>
                                        </div>
                                        <div class="form-group">
                                           <label for="longitude">Longitude:</label>
                                           <input type="text" name="longitude" id="longitude" required><br>
-                                       </div>
+                                       </div> -->
                                        <button type="submit" class="btn btn-primary">Proceed</button>
                                     </form>
                                     <!-- <h1>Latest Uploaded Image</h1>
@@ -178,6 +186,17 @@
             </div>
          </div>
       </div>
+      <style>
+         .map2 {
+             text-align: center;
+             margin: 0 auto;
+             max-width: 600px; /* Adjust the max-width as needed */
+         }
+     
+         .form-group {
+             margin-bottom: 15px;
+         }
+     </style>
       <!-- jQuery -->
       <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
       <!-- <script src="js/jquery.min.js"></script> -->
