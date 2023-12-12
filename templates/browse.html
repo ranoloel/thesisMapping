@@ -43,8 +43,8 @@
       <style>
          body {
              font-family: Arial, sans-serif;
-             margin: 20px;
-             padding: 20px;
+             /* margin: 20px;
+             padding: 20px; */
              display: flex;
              align-items: center;
              justify-content: center;
@@ -61,6 +61,16 @@
              height: 100%;
              overflow: auto;
              background-color: rgba(0, 0, 0, 0.5);
+
+             /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            /* position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; */
+            background-color: rgba(0, 0, 0, 0.5);
          }
  
          #modalContent {
@@ -70,6 +80,7 @@
              border: 1px solid #888;
              width: 60%;
              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+             text-align: center;
          }
  
          #closeModal {
@@ -86,6 +97,32 @@
              text-decoration: none;
              cursor: pointer;
          }
+
+               /* #myModal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+         }
+
+         #modalContent {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+         } */
+
+         .responsive-container {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+         }
+
      </style>
    </head>
    <body class="dashboard dashboard_1" onload="generateCoordinates()">
@@ -175,7 +212,7 @@
                               </div>
                               <div class="map_section padding_infor_info">
                                  <label for="imageInput" style="cursor: pointer;">
-                                     <img id="imageButton" src="{{ url_for('static', filename='images/layout_img/upload.gif') }}" alt="#" width="200" height="130">
+                                     <img id="imageButton" src="{{ url_for('static', filename='images/layout_img/upload.gif') }}" alt="#" width="280" height="110">
                                  </label>
                                  <input type="file" id="imageInput" style="display: none;" onchange="displayImage()" multiple>
                              </div>
@@ -236,12 +273,12 @@
                      <!-- <button onclick="openModal()">Open Modal</button> -->
                      <!-- Sample modal -->
                      <div id="myModal">
-                         <div id="modalContent">
-                           <div class="map2 m_style1" id="hideEnd">
-                              <h1>"Processing the image(s)...."</h1><br>
-                              <img id="imageButton" src="{{ url_for('static', filename='images/layout_img/loading-wait.gif') }}" alt="#" />
+                        <div id="modalContent">
+                           <h1>"Processing the image(s)...."</h1><br>
+                           <div class="responsive-container">
+                              <img id="imageButton" src="{{ url_for('static', filename='images/layout_img/loading-wait.gif') }}" alt="#" class="img-fluid">
                            </div>
-                         </div>
+                        </div>
                      </div>
                      <!-- end row -->
                   </div>

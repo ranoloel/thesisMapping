@@ -35,9 +35,9 @@
       <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
       <!-- Uncomment to enable the map -->
       <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHFnnVZMQxKd8aEISu_hbsgpEDMU2uK2o"></script> -->
+      <!-- Working API -->
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjFa8rKYzlqlq_5IxLr6YEraHRglcQKdI&callback=initializeMap" async defer></script>
 
-  
    </head>
    <body class="dashboard dashboard_1">
       <div class="full_container">
@@ -159,8 +159,8 @@
                               <div class="couter_icon">
                                  <div> 
                                     <i>
-                                       <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/group.png') }}" alt="#" width="100" height="100"/>
-                                       <h1 ><b>Other</b></h1>
+                                       <img class="img-responsive" src="{{ url_for('static', filename='images/layout_img/map_icon.png') }}" alt="#" width="100" height="100"/>
+                                       <h1 ><b>Others-NPS</b></h1>
                                        <h1 id="otherCount"><b>Loading...</b></h1>
                                     </i>
                                  </div>
@@ -212,7 +212,7 @@
                      document.getElementById('seagrassCount').innerText = `Seagrass: ${data.labels.Seagrass || 0}`;
                      document.getElementById('coralCount').innerText = `Coral: ${data.labels.Coral || 0}`;
                      document.getElementById('seaweedCount').innerText = `Seaweed: ${data.labels.Seaweed || 0}`;
-                     document.getElementById('otherCount').innerText = `Other: ${data.labels.Other || 0}`;
+                     document.getElementById('otherCount').innerText = `Others-NPS: ${data.labels["Others-NPS"] || 0}`;
                  })
                  .catch(error => console.error("Error fetching label counts:", error));
          });

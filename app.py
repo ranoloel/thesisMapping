@@ -97,8 +97,8 @@ def fetch_and_process_data():
             file_path=file_path,
             label=label,
             confidence=confidence,
-            x_size=x_size,
-            xmax=xmax,
+                x_size=x_size,
+                xmax=xmax,
             xmin=xmin,
             y_size=y_size,
             ymax=ymax,
@@ -205,7 +205,7 @@ def get_sorted_images(directory):
     images.sort(key=lambda f: os.path.getmtime(os.path.join(directory, f)), reverse=True)
     return images
 
-@app.route('/delete_test_images')
+@app.route('/api/delete_test_images')
 def delete_test_images():
     try:
         # Get a list of all files in the folder
@@ -216,10 +216,27 @@ def delete_test_images():
             file_path = os.path.join(UPLOAD_FOLDER, file)
             os.remove(file_path)
 
-        return 'All files deleted successfully.'
+        return 'Input Images: All files deleted successfully.'
 
     except Exception as e:
         return f'Error deleting files: {str(e)}'
+    
+@app.route('/api/delete_output_images')
+def delete_output_images():
+    try:
+        # Get a list of all files in the folder
+        files = os.listdir(image_directory)
+
+        # Loop through the files and delete them
+        for file in files:
+            file_path = os.path.join(image_directory, file)
+            os.remove(file_path)
+
+        return 'Output Images: All files deleted successfully.'
+
+    except Exception as e:
+        return f'Error deleting files: {str(e)}'
+    
 
 @app.route('/api/delete_all_data')
 def delete_all_data():

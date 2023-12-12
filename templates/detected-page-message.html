@@ -145,6 +145,8 @@
                                  <div class="map2 m_style1">
                                     <h1>"Image(s) have been successfully processed!"</h1><br>
                                     <form method="POST" action="{{ url_for('fetch_and_process_data') }}">
+                                       
+                                       <!-- Coordiinates autodetect - Hide -->
                                        <!-- <div class="form-group" style="display: none;">
                                           <label for="latitude">Latitude:</label>
                                           <input type="text" name="latitude" id="latitude" required><br>
@@ -153,6 +155,8 @@
                                           <label for="longitude">Longitude:</label>
                                           <input type="text" name="longitude" id="longitude" required><br>
                                        </div> -->
+                                       
+                                       <!-- Manual input user coordinates -->
                                        <div class="form-group">
                                           <label for="latitude">Latitude:</label>
                                           <input type="text" name="latitude" id="latitude" required><br>
@@ -161,6 +165,7 @@
                                           <label for="longitude">Longitude:</label>
                                           <input type="text" name="longitude" id="longitude" required><br>
                                        </div>
+
                                        <button type="submit" class="btn btn-primary">Proceed</button>
                                     </form>
                                     <!-- <h1>Latest Uploaded Image</h1>

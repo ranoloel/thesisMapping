@@ -17,6 +17,7 @@ function initializeMap() {
         "Seaweed": 'static/images/layout_img/seaweed.png',
         "Seagrass": 'static/images/layout_img/seagrass.png',
         "Coral": 'static/images/layout_img/coral.png',
+        "Others-NPS": 'static/images/layout_img/map_icon.png',
         // Note: Data are case sensitive
       };
 
