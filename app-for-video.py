@@ -26,16 +26,9 @@ from flask_cors import CORS
 # json_file_path = r'C:\Users\Full Scale\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
 
 #PC
-# UPLOAD_FOLDER = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
-# image_directory = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
-# detector_script_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\3_Inference\Detector.py'
-# json_file_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
-
-# Colab
-#PC
-UPLOAD_FOLDER = r'D:\ForElmo\thesisMapping\FromColabElmoThesis\yolov7\inference\images'
-image_directory = r'D:\ForElmo\thesisMapping\FromColabElmoThesis\yolov7\runs\detect' #increment folder
-detector_script_path = r'D:\ForElmo\thesisMapping\FromColabElmoThesis\yolov7\detect.py'
+UPLOAD_FOLDER = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Images'
+image_directory = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results'
+detector_script_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\3_Inference\Detector.py'
 json_file_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
 
 app = Flask(__name__)
@@ -80,7 +73,7 @@ def fetch_and_process_data():
     # response = requests.get('http://127.0.0.1:5001/api/jsonContents')
     # data = response.json()
 
-    json_file_path = r'D:\ForElmo\thesisMapping\FromColabElmoThesis\yolov7\detections.json'
+    json_file_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
     with open(json_file_path, 'r') as json_file:
         json_data = json.load(json_file)
     print(json_data)
@@ -147,7 +140,7 @@ def index():
     #Clearing all samples once index has been loaded
     delete_test_images()
     print("index: Deleted all sample images")
-    return render_template('index.html', images=images)
+    return render_template('browse-for-video.html', images=images)
 
 # 1. Browse image
 @app.route('/browse')
@@ -158,7 +151,7 @@ def run_detector():
     # Change to the directory where the detector script is located
     os.chdir(os.path.dirname(detector_script_path))
     # Run the detector script
-    subprocess.run(['python', 'detect.py'])
+    subprocess.run(['python', 'Detector.py'])
 
 @app.route('/waiting-page')
 def waitingPage():
@@ -204,6 +197,18 @@ def galleryResults():
     print("Gallery: Deleted all sample images")
 
     return render_template('gallery-results.html', images=images)
+
+@app.route('/gallery-results-video')
+def galleryResultsVideo():
+    video_directory = image_directory  # Assuming image_directory is defined
+    videos = get_sorted_images(video_directory)
+
+        # Delete all files in the testing folder
+    # delete_test_images()
+    print("Gallery: Deleted all sample images")
+
+    return render_template('gallery-results-video.html', images=videos)
+
 
 def get_sorted_images(directory):
     # Get a list of filenames in the directory excluding JSON files
@@ -365,6 +370,6 @@ def fetch_markers():
     return jsonify({'markers': markers_data})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=5001)
+    app.run(host='0.0.0.0', debug=True, port=5002)
     # context = ('cert.pem', 'key.pem')  # Use the names of your certificate and key files
     # app.run(host='0.0.0.0', port=5001, ssl_context=context, debug=True)
