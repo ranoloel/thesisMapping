@@ -1,5 +1,5 @@
 # from api_detector import get_all_data
-from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory, render_template_string
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy import text
@@ -8,6 +8,8 @@ from datetime import datetime
 from datetime import timezone
 import subprocess
 import os
+import shutil
+
 import json
 import requests
 
@@ -35,6 +37,7 @@ from flask_cors import CORS
 #PC
 UPLOAD_FOLDER = r'D:\ForElmo\thesisMapping\FromColabElmoThesis\yolov7\inference\images'
 image_directory = r'D:\ForElmo\thesisMapping\FromColabElmoThesis\yolov7\runs\detect' #increment folder
+BASE_DIR = r'D:\ForElmo\thesisMapping\FromColabElmoThesis\yolov7\runs\detect'
 detector_script_path = r'D:\ForElmo\thesisMapping\FromColabElmoThesis\yolov7\detect.py'
 json_file_path = r'C:\Users\Admin\Documents\TrainYourOwnYOLO\Data\Source_Images\Test_Image_Detection_Results/grouped_detection_results_by_image.json'
 
@@ -49,12 +52,12 @@ class DetectionResult(db.Model):
     confidence = db.Column(db.Float)
     file_path = db.Column(db.String(255))
     label = db.Column(db.String(50))
-    x_size = db.Column(db.Integer)
-    xmax = db.Column(db.Integer)
-    xmin = db.Column(db.Integer)
-    y_size = db.Column(db.Integer)
-    ymax = db.Column(db.Integer)
-    ymin = db.Column(db.Integer)
+    # x_size = db.Column(db.Integer)
+    # xmax = db.Column(db.Integer)
+    # xmin = db.Column(db.Integer)
+    # y_size = db.Column(db.Integer)
+    # ymax = db.Column(db.Integer)
+    # ymin = db.Column(db.Integer)
     latitude = db.Column(db.Float)  # Add latitude column
     longitude = db.Column(db.Float)  # Add longitude column
 
@@ -84,38 +87,32 @@ def fetch_and_process_data():
     with open(json_file_path, 'r') as json_file:
         json_data = json.load(json_file)
     print(json_data)
-    
+
     for detection_result in json_data:
-        confidence = detection_result["confidence"]
-        file_path = detection_result["file_path"]
-        label = detection_result["label"]
-        x_size = detection_result["x_size"]
-        xmax = detection_result["xmax"]
-        xmin = detection_result["xmin"]
-        y_size = detection_result["x_size"]
-        ymax = detection_result["xmax"]
-        ymin = detection_result["xmin"]
-
-        # Create a new ImageData instance
-        new_image_data = DetectionResult(
-            # date_imported=date_imported,
-            latitude=latitude,
-            longitude=longitude,
-            file_path=file_path,
-            label=label,
-            confidence=confidence,
-                x_size=x_size,
-                xmax=xmax,
-            xmin=xmin,
-            y_size=y_size,
-            ymax=ymax,
-            ymin=ymin,
-        )
-
-        # Add the instance to the database
-        with app.app_context():
-            db.session.add(new_image_data)
-            db.session.commit()
+        # file_path = detection_result["file_path"]
+        for detection in detection_result["detections"]:
+            file_path = detection["file_path"]
+            label = detection["label"]
+            confidence = detection["confidence"]
+            
+            new_image_data = DetectionResult(
+                # date_imported=date_imported,
+                file_path=file_path,
+                latitude=latitude,
+                longitude=longitude,
+                label=label,
+                confidence=confidence,
+                # x_size=x_size,
+                # xmax=xmax,
+                # xmin=xmin,
+                # y_size=y_size,
+                # ymax=ymax,
+                # ymin=ymin,
+            )
+            # Add the instance to the database
+            with app.app_context():
+                db.session.add(new_image_data)
+                db.session.commit()
     # Redirect to a success page or render a template
     return render_template('index.html')
 
@@ -129,12 +126,12 @@ def get_all_data():
             'confidence': row.confidence,
             'file_path': row.file_path,
             'label': row.label,
-            'x_size': row.x_size,
-            'xmax': row.xmax,
-            'xmin': row.xmin,
-            'y_size': row.y_size,
-            'ymax': row.ymax,
-            'ymin': row.ymin,
+            # 'x_size': row.x_size,
+            # 'xmax': row.xmax,
+            # 'xmin': row.xmin,
+            # 'y_size': row.y_size,
+            # 'ymax': row.ymax,
+            # 'ymin': row.ymin,
             'latitude': row.latitude,
             'longitude': row.longitude
         })
@@ -152,6 +149,8 @@ def index():
 # 1. Browse image
 @app.route('/browse')
 def browse():
+    #delete all the image in gallery
+    # delete_output_images()
     return render_template('browse.html')
 
 def run_detector():
@@ -193,17 +192,55 @@ def detected_page_message():
 
 #     return render_template('detected-page-message.html', latest_image_path=latest_image_path)
 
+#new added code
+
+# Function to recursively get all image files
+def get_all_images(directory, subfolder=""):
+    images = []
+    for entry in os.scandir(directory):
+        if entry.is_dir():
+            images += get_all_images(entry.path, os.path.join(subfolder, entry.name))
+        elif entry.is_file() and (entry.name.endswith('.jpg') or entry.name.endswith('.png') or entry.name.endswith('.jpeg') or entry.name.endswith('.JPEG') or entry.name.endswith('.PNG') or entry.name.endswith('.JPG') or entry.name.endswith('.webp') or entry.name.endswith('.WEBP')):
+            images.append(os.path.join(subfolder, entry.name))
+    return images
 
 @app.route('/gallery-results')
 def galleryResults():
-    images_directory = image_directory  # Assuming image_directory is defined
+    images_directory = BASE_DIR  # Assuming image_directory is defined
     images = get_sorted_images(images_directory)
 
-    # Delete all files in the testing folder
+    #Delete all files in the testing folder
     delete_test_images()
     print("Gallery: Deleted all sample images")
 
     return render_template('gallery-results.html', images=images)
+    # return render_template('gallery-results.html')
+
+@app.route('/images')
+def images():
+    # Get all images in the directory and subdirectories
+    all_images = get_all_images(BASE_DIR)
+    return jsonify(all_images)
+
+@app.route('/image/<path:image_path>')
+def serve_image(image_path):
+    # Safely join the base directory and the image path
+    safe_path = os.path.normpath(os.path.join(BASE_DIR, image_path))
+    if os.path.exists(safe_path):
+        return send_from_directory(os.path.dirname(safe_path), os.path.basename(safe_path))
+    else:
+        return 'Image does not exist', 404
+
+# @app.route('/gallery-results')
+# def galleryResults():
+#     images_directory = image_directory  # Assuming image_directory is defined
+#     images = get_sorted_images(images_directory)
+
+#     # Delete all files in the testing folder
+#     delete_test_images()
+#     print("Gallery: Deleted all sample images")
+
+#     return render_template('gallery-results.html', images=images)
 
 def get_sorted_images(directory):
     # Get a list of filenames in the directory excluding JSON files
@@ -231,18 +268,21 @@ def delete_test_images():
 @app.route('/api/delete_output_images')
 def delete_output_images():
     try:
-        # Get a list of all files in the folder
-        files = os.listdir(image_directory)
+        # Check if the directory exists
+        if os.path.exists(image_directory):
+            # Recursively delete all subdirectories and files
+            shutil.rmtree(image_directory)
 
-        # Loop through the files and delete them
-        for file in files:
-            file_path = os.path.join(image_directory, file)
-            os.remove(file_path)
+            # Recreate the main directory after deleting its contents
+            os.makedirs(image_directory)
 
-        return 'Output Images: All files deleted successfully.'
+            return 'Output Images: All files and folders deleted successfully.'
+
+        else:
+            return 'The specified directory does not exist.'
 
     except Exception as e:
-        return f'Error deleting files: {str(e)}'
+        return f'Error deleting files and folders: {str(e)}'
     
 
 @app.route('/api/delete_all_data')

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Folder Contents</title>
+    <style>
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .image-container img {
+            max-width: 50%;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Images in yolov7/detect and Subfolders</h1>
+    <div class="image-container" id="imageContainer">
+        <!-- Images will be displayed here -->
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.getJSON('/images', function(images) {
+                images.forEach(function(image) {
+                    let img = $('<img>').attr('src', '/image/' + image);
+                    $('#imageContainer').append(img);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

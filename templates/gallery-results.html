@@ -39,6 +39,23 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif] -->
+      <style>
+         .image-container {
+             display: flex;
+             flex-wrap: wrap;
+             justify-content: center; /* Center images horizontally */
+             align-items: center; /* Center images vertically */
+         }
+         .image-container img {
+             max-width: 100%;
+             margin: 5px;
+             border: 3px solid #4d4c4c; /* solid border, 3px width, color of your choice */
+             border-radius: 10px; /* rounded corners */
+             box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* subtle shadow for depth */
+         }
+     </style>
+     
+     
    </head>
    <body class="dashboard dashboard_1">
       <div class="full_container">
@@ -68,8 +85,8 @@
                   <ul class="list-unstyled components">
                      <li><a href="{{ url_for('index') }}"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
                      <!-- <li><a href="{{ url_for('browse') }}"><i class="fa fa-folder purple_color2"></i> <span>Access Picture</span></a></li> -->
-                     <li><a href="{{ url_for('browse') }}"><i class="fa fa-camera purple_color2"></i> <span>Browse Files/Camera</span></a></li>
-                     <li><a href="{{ url_for('galleryResults') }}"><i class="fa fa-image purple_color2"></i> <span>Gallery</span></a></li>
+                     <li><a href="{{ url_for('browse') }}"><i class="fa fa-camera purple_color2"></i> <span>Access Picture</span></a></li>
+                     <li><a href="{{ url_for('galleryResults') }}"><i class="fa fa-image purple_color2"></i> <span>Results</span></a></li>
                      <li><a href="{{ url_for('tables') }}"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
                      <li>
                      </li>
@@ -110,7 +127,7 @@
                      <div class="row column_title">
                         <div class="col-md-12">
                            <div class="page_title">
-                              <h2>Media Gallery</h2>
+                              <h2>Please check the output</h2>
                            </div>
                         </div>
                      </div>
@@ -121,24 +138,16 @@
                            <div class="white_shd full margin_bottom_30">
                               <div class="full graph_head">
                                  <div class="heading1 margin_0">
-                                    <h2>Detected Objects</h2>
+                                    <h2>Detected Objects(Note: All images will be deleted when importing new image/s)</h2>
                                  </div>
                               </div>
                               <div class="full gallery_section_inner padding_infor_info">
-                                 <div class="row">
-                                     {% for image in images %}
-                                         <div class="col-sm-6 col-md-6 margin_bottom_30">
-                                             <div class="column">
-                                                 <a data-fancybox="gallery" href="{{ url_for('static', filename='path/to/your/images/' + image) }}">
-                                                     <img class="img-responsive" src="{{ url_for('get_image', filename=image) }}" alt="{{ image }}">
-                                                 </a>
-                                             </div>
-                                             <div class="heading_section">
-                                                <a href="{{ url_for('charts') }}"><h4>More details will be found here!</h4></a>
-                                             </div>
-                                         </div>
-                                     {% endfor %}
-                                 </div>
+                                 <!-- <div class="row"> -->
+                                    <div class="image-container" id="imageContainer">
+                                        <!-- Images will be displayed here -->
+                                    </div>
+                              
+                                 <!-- </div> -->
                              </div>
                              
                            </div>
@@ -180,6 +189,75 @@
             <!-- end model popup -->
          </div>
       </div>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $.getJSON('/images', function(images) {
+            images.sort().reverse(); // Sorts alphabetically and reverses the order
+            images.forEach(function(image) {
+                let img = $('<img>').attr('src', '/image/' + image);
+                $('#imageContainer').append(img);
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        $.getJSON('/folders', function(folders) {
+            folders.forEach(function(folder) {
+                let listItem = $('<li>').text(folder).click(function() {
+                    viewFolder(folder);
+                });
+                $('#folderList').append(listItem);
+            });
+        });
+    });
+
+    function viewFolder(folder) {
+        $('#imageContainer').empty(); // Clear current images
+        $.getJSON('/folders/' + folder, function(images) {
+            images.sort().reverse(); // Sorts alphabetically and reverses the order
+            images.forEach(function(image) {
+                let img = $('<img>').attr('src', '/image/' + folder + '/' + image);
+                $('#imageContainer').append(img);
+            });
+        });
+    }
+</script>
+
+      <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+          $(document).ready(function() {
+              $.getJSON('/images', function(images) {
+                  images.forEach(function(image) {
+                      let img = $('<img>').attr('src', '/image/' + image);
+                      $('#imageContainer').append(img);
+                  });
+              });
+          });
+      </script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+         $(document).ready(function() {
+               $.getJSON('/folders', function(folders) {
+                  folders.forEach(function(folder) {
+                     let listItem = $('<li>').text(folder).click(function() {
+                           viewFolder(folder);
+                     });
+                     $('#folderList').append(listItem);
+                  });
+               });
+         });
+
+         function viewFolder(folder) {
+               $('#imageContainer').empty(); // Clear current images
+               $.getJSON('/folders/' + folder, function(images) {
+                  images.forEach(function(image) {
+                     let img = $('<img>').attr('src', '/image/' + folder + '/' + image);
+                     $('#imageContainer').append(img);
+                  });
+               });
+         }
+      </script> -->
       <!-- jQuery -->
       <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
       <!-- <script src="js/jquery.min.js"></script> -->

@@ -91,7 +91,7 @@
                   <ul class="list-unstyled components">
                      <li><a href="{{ url_for('index') }}"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
                      <li><a href="{{ url_for('browse') }}"><i class="fa fa-camera purple_color2"></i> <span>Access Picture</span></a></li>
-                     <li><a href="{{ url_for('galleryResults') }}"><i class="fa fa-image purple_color2"></i> <span>Gallery</span></a></li>
+                     <li><a href="{{ url_for('galleryResults') }}"><i class="fa fa-image purple_color2"></i> <span>Results</span></a></li>
                      <li><a href="{{ url_for('tables') }}"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
                      <li>
                      </li>
@@ -156,12 +156,12 @@
                                              <th>Confidence</th>
                                              <th>Latitude</th>
                                              <th>Longitude</th>
-                                             <th>x_size</th>
+                                             <!-- <th>x_size</th>
                                              <th>xmax</th>
                                              <th>xmin</th>
                                              <th>y_size</th>
                                              <th>ymax</th>
-                                             <th>ymin</th>
+                                             <th>ymin</th> -->
                                           </tr>
                                        </thead>
                                        <tbody>
@@ -169,16 +169,17 @@
                                              <tr>
                                              <td>{{ data.id }}</td>
                                                 <td><a href="{{ url_for('galleryResults')}}">{{ data.file_path }}</a></td>
+                                                <!-- <td>{{ data.file_path }}</td> -->
                                                 <td>{{ data.label }}</td>
                                                 <td>{{ data.confidence }}</td>
                                                 <td>{{ data.latitude }}</td>
                                                 <td>{{ data.longitude }}</td>
-                                                <td>{{ data.x_size }}</td>
+                                                <!-- <td>{{ data.x_size }}</td>
                                                 <td>{{ data.xmax }}</td>
                                                 <td>{{ data.xmin }}</td>
                                                 <td>{{ data.y_size }}</td>
                                                 <td>{{ data.ymax }}</td>
-                                                <td>{{ data.ymin }}</td>
+                                                <td>{{ data.ymin }}</td> -->
                                              </tr>
                                           {% endfor %}
                                        </tbody>

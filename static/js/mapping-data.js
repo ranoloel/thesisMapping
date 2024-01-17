@@ -11,13 +11,14 @@ function initializeMap() {
     .then(response => response.json())
     .then(data => {
       const markers = data.markers;
+      // debugger
 
       // Define custom icons for different marker types
       const iconMapping = {
-        "Seaweed": 'static/images/layout_img/seaweed.png',
-        "Seagrass": 'static/images/layout_img/seagrass.png',
-        "Coral": 'static/images/layout_img/coral.png',
-        "Others-NPS": 'static/images/layout_img/map_icon.png',
+        "seaweed": 'static/images/layout_img/seaweed.png',
+        "seagrass": 'static/images/layout_img/seagrass.png',
+        "coral": 'static/images/layout_img/coral.png',
+        // "Others-NPS": 'static/images/layout_img/map_icon.png',
         // Note: Data are case sensitive
       };
 
